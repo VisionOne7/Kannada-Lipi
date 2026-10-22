@@ -8,14 +8,14 @@
  *  - Other files:  stale-while-revalidate
  *  - Live APIs (transliteration, visitor count) are never cached.
  */
-const CACHE = 'kannadalipi-v3';
+const CACHE = 'kannadalipi-v4';
 const FONT_CACHE = 'kannadalipi-fonts-v1';
 const KEEP = [CACHE, FONT_CACHE];
 const SHELL = [
     '/',
     '/index.html',
     '/manifest.json',
-    '/images/favicon.svg',
+    '/images/favicon-32.png',
     '/images/logo.png',
     '/images/icon-192.png',
     '/images/icon-512.png',

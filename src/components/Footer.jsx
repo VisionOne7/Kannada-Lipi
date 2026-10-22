@@ -40,7 +40,8 @@ const Footer = () => {
                     <div className="footer-column">
                         <h4>ಸಂಪರ್ಕಿಸಿ</h4>
                         <a href="mailto:support@visionone7.in" className="footer-link">support@visionone7.in</a>
-                        <p className="footer-link" style={{ fontSize: '0.75rem', opacity: 0.8 }}>Part of VisionOne7</p>
+                        <a href="https://www.visionone7.in" className="footer-link" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.75rem', opacity: 0.8 }}>A VisionOne7 project</a>
+                        <a href="https://github.com/VisionOne7/Kannada-Lipi" className="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                     </div>
                 </div>
             </div>

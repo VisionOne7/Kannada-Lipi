@@ -1,209 +1,119 @@
-# ಕನ್ನಡ ಲಿಪಿ (Kannada Lipi)
+# ಕನ್ನಡ ಲಿಪಿ (K-Lipi)
 
 <div align="center">
 
-![Kannada Lipi Logo](public/images/favicon.svg)
+<img src="public/images/logo-mark.png" alt="K-Lipi logo" width="120">
 
-### Karnataka's First Programming Language in Kannada
+### Karnataka's first programming language in Kannada
 
 **ಕಲಿಯೋಕೆ ಕೋಟಿ ಭಾಷೆ, ಆಡೋಕೆ ಒಂದೇ ಭಾಷೆ**
 
-*"Learn a million languages, but code in one - your mother tongue"*
+[**Try it at k-lipi.in**](https://www.k-lipi.in) · [Kids' zone](https://www.k-lipi.in/kids) · [Teachers' guide](https://www.k-lipi.in/teachers) · [Docs](https://www.k-lipi.in/help)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-3.1.0-D71920.svg)](https://www.k-lipi.in/about)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+Free and open source, built by [VisionOne7](https://www.visionone7.in) for Karnataka's schools.
 
 </div>
 
 ---
 
-## 🎯 About
+## About
 
-**Kannada Lipi** is an innovative programming language designed specifically for Kannada speakers. It allows users to write code entirely in Kannada script, making programming accessible to native Kannada speakers who may find English-based programming languages challenging.
+K-Lipi lets you write real programs entirely in Kannada script, with Kannada numerals, keywords and error messages. Children can learn logic in their mother tongue instead of learning English and programming at the same time.
 
-### What is Kannada Lipi?
+Everything runs in the browser. There are no accounts, no ads and no tracking, and children's progress stays on their own device.
 
-Kannada Lipi is an **Interpreter** - it reads your Kannada code, understands it, and executes it line by line directly in your browser. Unlike a compiler (which converts code to machine language first), an interpreter runs the code immediately, making it perfect for learning and experimentation.
+## Features
 
-### Why Kannada Lipi?
+**For children (Classes 3–8)**
+- 🐢 **Turtle drawing:** `ಮುಂದೆ(೧೦೦)`, `ಬಲಕ್ಕೆ(೯೦)`, `ಬಣ್ಣ("ಕೆಂಪು")` and 12 more commands
+- 🎯 **ಆಮೆ ಸಾಹಸ:** 12 game levels, from reaching a mango to drawing stars and the Kannada flag
+- 🧩 **Block coding:** drag Kannada blocks and see the matching K-Lipi code appear live
+- 🎨 **Drawing playground** with ready-made pictures to remix and save as PNG
 
-- 🇮🇳 **Native Language Support**: Write code in Kannada, your mother tongue
-- 📚 **Educational**: Perfect for introducing programming concepts to Kannada-medium students
-- 🎓 **Beginner Friendly**: Simple syntax inspired by natural Kannada language
-- 🌐 **Web-Based**: No installation required, runs entirely in the browser
-- 📱 **PWA Support**: Install as an app on your phone or desktop
-- 🔒 **Privacy First**: All code runs locally, nothing sent to servers
+**For learners**
+- 📚 21 interactive lessons with a completion certificate
+- 🔥 A daily challenge with streaks, plus coding games
+- 💡 Friendly errors in simple Kannada, with line numbers, hints and "did you mean…?"
+- ⌨️ On-screen Kannada keyboard and English-to-Kannada typing
+- 💾 Save and open programs as `.kl` files, or share them as links
 
----
+**For schools**
+- 👩‍🏫 Teachers' guide with grade-wise tracks, a 40-minute lesson plan and a printable worksheet
+- 📴 Installable app that works offline in computer labs
+- 🔒 No login and no personal data collected
 
-## ✨ Features
+**Language**
+- Variables, arithmetic, conditions, loops, functions and recursion
+- Lists, dictionaries (`ನಿಘಂಟು`) and 70+ built-in functions
+- `{ }` blocks for multi-line loops, conditions and functions
 
-### Language Features
-- **Variables**: `ಅ = ೧೦` (Assign values to Kannada named variables)
-- **Arithmetic**: `+`, `-`, `*`, `/` (All basic math operations)
-- **Conditionals**: `ಆದರೆ...ಇಲ್ಲವಾದರೆ` (if...else statements)
-- **Built-in Functions**: 15+ functions for common operations
-- **Kannada Numbers**: Full support for ೦-೯ numerals
-- **Comments**: `# ಟಿಪ್ಪಣಿ` (Add notes to your code)
+## Quick start
 
-### IDE Features
-- 🎨 **Syntax Highlighting**: Color-coded keywords and values
-- 📝 **Line Numbers**: Easy code navigation
-- ⌨️ **Virtual Keyboard**: On-screen Kannada keyboard
-- 🌙 **Dark/Light Theme**: Choose your preferred theme
-- 💾 **Auto-Save**: Code saved automatically
-- 📥 **Export**: Download your code as a file
-
----
-
-## 🚀 Quick Start
-
-### Hello World
 ```
 ಮುದ್ರಿಸು("ನಮಸ್ಕಾರ, ಕರ್ನಾಟಕ!")
-```
 
-### Variables and Math
-```
 ಅ = ೧೦
 ಆ = ೨೦
-ಮೊತ್ತ = ಅ + ಆ
-ಮುದ್ರಿಸು("ಮೊತ್ತ: " ಮೊತ್ತ)
+ಮುದ್ರಿಸು("ಮೊತ್ತ: " ಅ + ಆ)
+
+# Draw a star
+ಬಣ್ಣ("ಹಳದಿ")
+ಪುನರಾವರ್ತನೆ ನ ೧ ರಿಂದ ೫ ವರೆಗೆ: ಮುಂದೆ(೧೫೦) ಬಲಕ್ಕೆ(೧೪೪)
+
+# A function with a multi-line block
+ಕಾರ್ಯ ಚೌಕ(ಉದ್ದ): {
+    ಪುನರಾವರ್ತನೆ ನ ೧ ರಿಂದ ೪ ವರೆಗೆ: ಮುಂದೆ(ಉದ್ದ) ಬಲಕ್ಕೆ(೯೦)
+}
+ಚೌಕ(೮೦)
 ```
 
-### Conditionals
-```
-ವಯಸ್ಸು = ೧೮
-ಆದರೆ ವಯಸ್ಸು > ೧೭ : ಮುದ್ರಿಸು("ವಯಸ್ಕ")
-```
+The full function reference is on the [Help page](https://www.k-lipi.in/help).
 
-### Built-in Functions
-```
-# Maximum value
-ಗರಿಷ್ಠ(೫, ೯, ೩, ೭)  # Output: ೯
+## Development
 
-# Sort ascending
-ಏರಿಕೆ(೮, ೨, ೫, ೧)  # Output: [೧, ೨, ೫, ೮]
-
-# String length
-ಒಟ್ಟು("ಕರ್ನಾಟಕ")  # Output: ೮
-```
-
----
-
-## 📖 Language Reference
-
-### Keywords
-
-| Kannada | English | Description |
-|---------|---------|-------------|
-| ಮುದ್ರಿಸು | print | Output to console |
-| ಆದರೆ | if | Conditional statement |
-| ಇಲ್ಲವಾದರೆ | else | Else branch |
-| ಪೂರ್ಣಾಂಕ | round | Round to integer |
-| ಒಟ್ಟು | length | String length |
-| ಗರಿಷ್ಠ | max | Maximum value |
-| ಕನಿಷ್ಠ | min | Minimum value |
-| ಏರಿಕೆ | sort_asc | Sort ascending |
-| ಇಳಿಕೆ | sort_desc | Sort descending |
-| ಹುಡುಕು | search | Linear search |
-| ಸಂಗ್ರಹಿಸು | collect | Create list |
-| ಎಣಿಕೆ | count | Word count |
-| ವರ್ಣಮಾಲೆ | alphabet | Kannada alphabet |
-
-### Kannada Numbers
-
-| Kannada | Arabic | Kannada | Arabic |
-|---------|--------|---------|--------|
-| ೦ | 0 | ೫ | 5 |
-| ೧ | 1 | ೬ | 6 |
-| ೨ | 2 | ೭ | 7 |
-| ೩ | 3 | ೮ | 8 |
-| ೪ | 4 | ೯ | 9 |
-
----
-
-## 🛠️ Development
-
-### Project Structure
-
-```
-KannadaLipi/
-├── public/
-│   ├── index.html          # Main IDE
-│   ├── learn.html          # Tutorials
-│   ├── examples.html       # Code examples
-│   ├── help.html           # Documentation
-│   ├── about.html          # About page
-│   ├── css/
-│   │   ├── main.css        # Global styles
-│   │   └── editor.css      # Editor styles
-│   ├── js/
-│   │   ├── interpreter/
-│   │   │   ├── lexer.js    # Tokenizer
-│   │   │   ├── parser.js   # AST builder
-│   │   │   ├── runtime.js  # Executor
-│   │   │   └── index.js    # Entry point
-│   │   └── editor/
-│   │       ├── editor.js   # Code editor
-│   │       ├── highlighter.js
-│   │       └── keyboard.js # Virtual keyboard
-│   ├── images/
-│   ├── manifest.json       # PWA manifest
-│   ├── sw.js              # Service worker
-│   └── sitemap.xml
-├── vercel.json             # Vercel config
-├── package.json
-└── README.md
-```
-
-### Local Development
+Requires Node.js 18 or newer.
 
 ```bash
-# Serve locally (any static server works)
-npx serve public
-
-# Or use Python
-cd public
-python -m http.server 8000
+git clone https://github.com/VisionOne7/Kannada-Lipi.git
+cd Kannada-Lipi
+npm install
+npm run dev       # start the dev server
+npm run build     # production build in dist/
+npm run preview   # serve the production build
 ```
 
-### Deploy to Vercel
+Offline support (the service worker) only runs in production builds.
 
-```bash
-# Install Vercel CLI
-npm i -g vercel
+### Project structure
 
-# Deploy
-vercel
+```
+src/
+├── lib/js/interpreter/   # lexer, parser, runtime, turtle, friendly errors
+├── lib/js/turtleCheck.js # checks kids' level drawings
+├── components/           # editor, turtle canvas, Blockly editor, header, footer
+├── pages/                # one file per route (Learn, Kids, Teachers, Privacy…)
+└── data/                 # lessons, examples, challenges, turtle levels, Karnataka data
+public/                   # icons, manifest, service worker, sitemap
 ```
 
----
+The site is deployed on Vercel. Security headers and the content security policy live in `vercel.json`.
 
-## 📜 License
+## Contributing
 
-This project is licensed under the MIT License.
+Developers, teachers and Kannada enthusiasts are all welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Lessons, examples and better Kannada wording are as valuable as code.
 
----
+To report a security issue, see [SECURITY.md](SECURITY.md).
 
-## 🤝 Contributing
+## Support
 
-Kannada Lipi is open source and welcomes contributions! See
-[CONTRIBUTING.md](CONTRIBUTING.md) to get started.
+If K-Lipi helps you or your school, you can support its development with the **Sponsor** button at the top of this repository, or by starring it and sharing it with a teacher.
 
----
+## License
 
-## 🙏 Acknowledgements
+[MIT](LICENSE) © 2026 Amoghavarsh Patil. Maintained by [VisionOne7](https://www.visionone7.in).
 
-- Karnataka Government for promoting Kannada
-- All contributors and supporters
-- The open-source community
-
----
-
-<div align="center">
-
-**ಜೈ ಕರ್ನಾಟಕ 🇮🇳**
-
-Made with ❤️ for Karnataka
-
-</div>
+The Karnataka information on the site is for learning only and is not an official government source.
