@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Play, RotateCcw, Lightbulb } from 'lucide-react';
+import HighlightedTextarea from './HighlightedTextarea';
 
 /**
  * A big-text code box for children, with tap-to-insert command chips so a
@@ -38,8 +39,10 @@ const KidsCodePad = ({ code, setCode, palette = [], onRun, onReset, onHint, runL
                     ))}
                 </div>
             )}
-            <textarea
+            <HighlightedTextarea
                 ref={ref}
+                theme="dark"
+                wrapperClassName="kids-code-hl"
                 className="kids-code"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}

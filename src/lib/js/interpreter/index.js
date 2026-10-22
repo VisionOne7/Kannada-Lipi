@@ -54,7 +54,7 @@ class KannadaLipi {
             const friendly = friendlyError(raw, { line: this.runtime.currentLine, names });
             // Keep whatever the program printed before failing, then the error.
             const printed = (this.runtime.output || []).join('\n');
-            const errText = `ದೋಷ: ${friendly.message}` + (friendly.hint ? `\n💡 ಸಲಹೆ: ${friendly.hint}` : '');
+            const errText = `ದೋಷ: ${friendly.message}` + (friendly.hint ? `\nಸಲಹೆ: ${friendly.hint}` : '');
             return {
                 success: false,
                 error: raw,

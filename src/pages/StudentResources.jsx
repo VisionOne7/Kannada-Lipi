@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
-    GraduationCap, ExternalLink, UserCheck, LayoutGrid, Award, FileText, Globe, Search
-} from 'lucide-react';
+    GraduationCap, ExternalLink, UserCheck, LayoutGrid, Award, FileText, Globe, Search, TriangleAlert } from 'lucide-react';
 import { STUDENT_RESOURCES, RESOURCE_CATEGORIES } from '../data/studentResources';
 import './ResourceCards.css';
 
@@ -57,7 +56,7 @@ const StudentResources = () => {
                     <div className="no-results"><div className="no-results-icon"><Search size={48} /></div><h3>ಯಾವುದೂ ಸಿಗಲಿಲ್ಲ</h3></div>
                 )}
 
-                <p className="rescards-foot">⚠️ ಸಾಮಾನ್ಯ ಉಲ್ಲೇಖಕ್ಕಾಗಿ ಮಾತ್ರ. ಅರ್ಹತೆ ಮತ್ತು ದಿನಾಂಕಗಳಿಗೆ ಅಧಿಕೃತ ಜಾಲತಾಣ ನೋಡಿ.</p>
+                <p className="rescards-foot"><TriangleAlert size={14} style={{ verticalAlign: "-2px" }} /> ಸಾಮಾನ್ಯ ಉಲ್ಲೇಖಕ್ಕಾಗಿ ಮಾತ್ರ. ಅರ್ಹತೆ ಮತ್ತು ದಿನಾಂಕಗಳಿಗೆ ಅಧಿಕೃತ ಜಾಲತಾಣ ನೋಡಿ.</p>
             </div>
         </div>
     );

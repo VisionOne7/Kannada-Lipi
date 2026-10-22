@@ -17,7 +17,7 @@ const Embed = () => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                ⚡ ಕನ್ನಡ ಲಿಪಿ — KannadaLipi
+                ಕನ್ನಡ ಲಿಪಿ — K-Lipi
             </a>
         </div>
     );

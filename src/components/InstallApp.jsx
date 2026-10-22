@@ -36,7 +36,7 @@ const InstallApp = ({ variant = 'icon' }) => {
     return (
         <button
             type="button"
-            className={`install-btn ${variant}`}
+            className={variant === 'icon' ? 'install-btn header-icon-btn' : 'install-btn full'}
             onClick={install}
             title="ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಬಳಸಲು ಆ್ಯಪ್ ಸ್ಥಾಪಿಸಿ"
             aria-label="ಆ್ಯಪ್ ಸ್ಥಾಪಿಸಿ"

@@ -6,6 +6,7 @@ import {
 } from 'recharts';
 import data from '../data/karnataka.json';
 import './Economy.css';
+import DataIcon from '../components/DataIcon';
 
 const ECONOMY = data.economy;
 
@@ -89,7 +90,7 @@ const Economy = () => {
                     {ECONOMY.map((s, i) => (
                         <article key={i} className="econ-card">
                             <div className="econ-card-head">
-                                <span className="econ-card-icon">{s.icon}</span>
+                                <span className="econ-card-icon"><DataIcon value={s.icon} size={24} /></span>
                                 <h3 className="econ-card-name">{s.name}</h3>
                             </div>
 

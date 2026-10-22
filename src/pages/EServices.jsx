@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {
-    Building2, ExternalLink, LayoutGrid, Landmark, Receipt, Car, Map, Search
-} from 'lucide-react';
+    Building2, ExternalLink, LayoutGrid, Landmark, Receipt, Car, Map, Search, TriangleAlert } from 'lucide-react';
 import { ESERVICES, ESERVICE_CATEGORIES } from '../data/eServices';
 import './ResourceCards.css';
+import DataIcon from '../components/DataIcon';
 
 const ICONS = { LayoutGrid, Landmark, Receipt, Car, Map };
 const CatIcon = ({ iconKey, size = 14 }) => {
@@ -38,7 +38,7 @@ const EServices = () => {
                     {items.map((r) => (
                         <article key={r.id} className="rescard">
                             <div className="rescard-head rescard-head-emoji">
-                                <span className="rescard-emoji">{r.emoji}</span>
+                                <span className="rescard-emoji"><DataIcon value={r.emoji} size={26} /></span>
                                 <div>
                                     <h3 className="rescard-title">{r.title}</h3>
                                     <span className="rescard-title-en">{r.titleEn}</span>
@@ -56,7 +56,7 @@ const EServices = () => {
                     <div className="no-results"><div className="no-results-icon"><Search size={48} /></div><h3>ಯಾವುದೂ ಸಿಗಲಿಲ್ಲ</h3></div>
                 )}
 
-                <p className="rescards-foot">⚠️ ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಜಾಲತಾಣಗಳ ಲಿಂಕ್. ಪಾವತಿ ಮಾಡುವ ಮುನ್ನ URL ಪರಿಶೀಲಿಸಿ.</p>
+                <p className="rescards-foot"><TriangleAlert size={14} style={{ verticalAlign: "-2px" }} /> ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಜಾಲತಾಣಗಳ ಲಿಂಕ್. ಪಾವತಿ ಮಾಡುವ ಮುನ್ನ URL ಪರಿಶೀಲಿಸಿ.</p>
             </div>
         </div>
     );

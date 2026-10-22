@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, Trophy, Landmark, Mountain, MapPin, Star, Search } from 'lucide-react';
 import { WONDERS, WONDER_CATEGORIES } from '../data/wonders';
 import './Wonders.css';
+import DataIcon from '../components/DataIcon';
 
 const ICON_MAP = { Sparkles, Trophy, Landmark, Mountain };
 
@@ -52,7 +53,7 @@ const Wonders = () => {
                         const tag = CATEGORY_LABEL[w.category];
                         return (
                             <article key={w.id} className="wonder-card">
-                                <div className="wonder-emoji">{w.emoji}</div>
+                                <div className="wonder-emoji"><DataIcon value={w.emoji} size={40} /></div>
                                 <div className="wonder-body">
                                     <div className="wonder-head">
                                         <h3 className="wonder-title">{w.title}</h3>
@@ -62,7 +63,7 @@ const Wonders = () => {
                                     <div className="wonder-location"><MapPin size={13} /> {w.location}</div>
                                     <div className="wonder-wow"><Star size={14} /> {w.wow}</div>
                                     <p className="wonder-desc">{w.desc}</p>
-                                    <div className="wonder-highlight">✨ {w.highlight}</div>
+                                    <div className="wonder-highlight"><Sparkles size={14} style={{ verticalAlign: "-2px" }} /> {w.highlight}</div>
                                 </div>
                             </article>
                         );

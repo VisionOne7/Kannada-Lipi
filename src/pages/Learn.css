@@ -134,7 +134,7 @@
 
 .learn-nav-item.active {
     background: rgba(var(--accent-rgb), 0.12);
-    color: var(--accent);
+    color: var(--accent-text);
 }
 
 .learn-nav-status {
@@ -249,7 +249,7 @@
 .lesson-number {
     font-size: 3rem;
     font-weight: 800;
-    color: var(--accent);
+    color: var(--accent-text);
     opacity: 0.15;
     position: absolute;
     right: var(--gap-md);
@@ -319,7 +319,7 @@
 .lesson-instructions h4 {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--k-yellow);
+    color: var(--accent-text);
     margin: 0 0 var(--gap-sm) 0;
 }
 
@@ -341,7 +341,7 @@
 .lesson-objectives h4 {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--accent-text);
     margin: 0 0 var(--gap-sm) 0;
 }
 
@@ -379,7 +379,7 @@
 }
 
 .lesson-editor-header::before {
-    content: '📝';
+    content: none;
 }
 
 .editor-with-numbers {

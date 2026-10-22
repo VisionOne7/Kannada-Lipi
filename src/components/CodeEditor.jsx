@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Keyboard, Copy, Trash2, X, Share2, Languages, Download, Upload } from 'lucide-react';
+import { Play, Keyboard, Copy, Trash2, Share2, Languages, Download, Upload, Lightbulb } from 'lucide-react';
 import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import TurtleCanvas from './TurtleCanvas';
 import OutputText from './OutputText';
+import VirtualKeyboard from './VirtualKeyboard';
 import './CodeEditor.css';
+import HighlightedTextarea from './HighlightedTextarea';
 
 // Transliterate a plain English word → Kannada via Google Input Tools (free,
 // no key). Returns the original word on any failure so typing never breaks.
@@ -41,62 +43,6 @@ const decodeCode = (encoded) => {
     }
 };
 
-// Keyboard layouts migrated from legacy keyboard.js - tabbed, comprehensive
-const KEYBOARD_LAYOUTS = {
-    letters: {
-        title: 'ಅಕ್ಷರಗಳು',
-        rows: [
-            { label: 'ಸ್ವರಗಳು', chars: ['ಅ', 'ಆ', 'ಇ', 'ಈ', 'ಉ', 'ಊ', 'ಋ', 'ಎ', 'ಏ', 'ಐ', 'ಒ', 'ಓ', 'ಔ'] },
-            { label: 'ವ್ಯಂಜನ ೧', chars: ['ಕ', 'ಖ', 'ಗ', 'ಘ', 'ಙ', 'ಚ', 'ಛ', 'ಜ', 'ಝ', 'ಞ', 'ಟ', 'ಠ', 'ಡ'] },
-            { label: 'ವ್ಯಂಜನ ೨', chars: ['ಢ', 'ಣ', 'ತ', 'ಥ', 'ದ', 'ಧ', 'ನ', 'ಪ', 'ಫ', 'ಬ', 'ಭ', 'ಮ', 'ಯ'] },
-            { label: 'ವ್ಯಂಜನ ೩', chars: ['ರ', 'ಲ', 'ವ', 'ಶ', 'ಷ', 'ಸ', 'ಹ', 'ಳ'] },
-            { label: 'ಒತ್ತಕ್ಷರ / ಮಾತ್ರೆ', chars: ['ಾ', 'ಿ', 'ೀ', 'ು', 'ೂ', 'ೃ', 'ೆ', 'ೇ', 'ೈ', 'ೊ', 'ೋ', 'ೌ', 'ಂ', 'ಃ', '್'] }
-        ]
-    },
-    numbers: {
-        title: 'ಸಂಖ್ಯೆ & ಚಿಹ್ನೆ',
-        rows: [
-            { label: 'ಕನ್ನಡ ಅಂಕಿ', chars: ['೧', '೨', '೩', '೪', '೫', '೬', '೭', '೮', '೯', '೦'] },
-            { label: 'ಅಂಕಿಗಳು', chars: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'] },
-            { label: 'ಕಾರ್ಯಾಚರಣೆ', chars: ['+', '-', '*', '/', '%', '=', '==', '!=', '<', '>'] },
-            { label: 'ಚಿಹ್ನೆಗಳು', chars: ['(', ')', '[', ']', '{', '}', '"', ',', ':', '#'] }
-        ]
-    },
-    functions: {
-        title: 'ಕಾರ್ಯಗಳು',
-        isKeyword: true,
-        rows: [
-            { label: 'ಮೂಲ', chars: ['ಮುದ್ರಿಸು', 'ಕೊಡು', 'ಒಟ್ಟು', 'ಎಣಿಕೆ'] },
-            { label: 'ಗಣಿತ', chars: ['ಗರಿಷ್ಠ', 'ಕನಿಷ್ಠ', 'ವರ್ಗಮೂಲ', 'ಘಾತ', 'ಯಾದೃಚ್ಛಿಕ', 'ನಿರಪೇಕ್ಷ', 'ಲಾಗ್', 'ಅಂಶ', 'ಸರಾಸರಿ', 'ಮೊತ್ತ', 'ಪೈ', 'ಇ_ಸಂಖ್ಯೆ', 'ಸುತ್ತು', 'ಮಸಾಅ', 'ಲಸಾಅ', 'ಅವಿಭಾಜ್ಯವೇ', 'ಫಿಬೊನಾಚಿ'] },
-            { label: 'ಪರಿವರ್ತನೆ', chars: ['ಪೂರ್ಣಾಂಕ', 'ವರ್ಣಮಾಲೆ', 'ಸಂಖ್ಯೆಗೆ', 'ಪಠ್ಯಕ್ಕೆ', 'ಪ್ರಕಾರ', 'ಅಂಕಿಗಳು', 'ಸಂಖ್ಯೆಯೇ'] },
-            { label: 'ಪಟ್ಟಿ', chars: ['ಏರಿಕೆ', 'ಇಳಿಕೆ', 'ಸಂಗ್ರಹಿಸು', 'ಹುಡುಕು', 'ಸೇರಿಸು', 'ತೆಗೆ', 'ವಿಲೀನ', 'ಪಟ್ಟಿಯ_ಉದ್ದ', 'ಶ್ರೇಣಿ', 'ವಿಶಿಷ್ಟ', 'ತಿರುಗಿಸು'] },
-            { label: 'ಉನ್ನತ', chars: ['ನಕ್ಷೆ', 'ಶೋಧಕ', 'ಕಡಿತ'] },
-            { label: 'ನಿಘಂಟು', chars: ['ಕೀಗಳು', 'ಮೌಲ್ಯಗಳು', 'ಕೀ_ಇದೆಯೇ'] },
-            { label: 'ಆಮೆ ಚಿತ್ರ', chars: ['ಮುಂದೆ', 'ಹಿಂದೆ', 'ಬಲಕ್ಕೆ', 'ಎಡಕ್ಕೆ', 'ಬಣ್ಣ', 'ದಪ್ಪ', 'ವೃತ್ತ', 'ಚುಕ್ಕೆ', 'ಪೆನ್_ಮೇಲೆ', 'ಪೆನ್_ಕೆಳಗೆ', 'ಹೋಗು', 'ಮನೆಗೆ', 'ಹಿನ್ನೆಲೆ'] },
-            { label: 'ಪಠ್ಯ', chars: ['ಜೋಡಿಸು', 'ಉದ್ದ', 'ಪ್ರತಿಬಿಂಬ', 'ಕತ್ತರಿಸು', 'ವಿಭಜಿಸು', 'ಬದಲಿಸು', 'ಒಳಗೊಂಡಿದೆ', 'ಟ್ರಿಮ್', 'ಪುನರಾವರ್ತಿಸು', 'ಪ್ಯಾಡ್', 'ಆರಂಭಿಸು', 'ಕೊನೆಗೊಳ್ಳು', 'ಸ್ಥಾನ', 'ಗಣನೆ', 'ಪದಗಳು'] },
-            { label: 'ದಿನಾಂಕ', chars: ['ಇಂದು', 'ಸಮಯ', 'ವರ್ಷ', 'ತಿಂಗಳು', 'ದಿನ'] },
-            { label: 'ತ್ರಿಕೋನಮಿತಿ', chars: ['ಸೈನ್', 'ಕೊಸೈನ್', 'ಟ್ಯಾನ್'] }
-        ]
-    },
-    control: {
-        title: 'ನಿಯಂತ್ರಣ',
-        isKeyword: true,
-        rows: [
-            { label: 'ಷರತ್ತು', chars: ['ಆದರೆ', 'ಇಲ್ಲವಾದರೆ', 'ಸತ್ಯ', 'ಅಸತ್ಯ'] },
-            { label: 'ಲೂಪ್', chars: ['ಆವರ್ತನೆ', 'ಪುನರಾವರ್ತನೆ', 'ರಿಂದ', 'ವರೆಗೆ'] },
-            { label: 'ಕಾರ್ಯ', chars: ['ಕಾರ್ಯ', 'ಹಿಂತಿರುಗಿಸು', 'ನಿಲ್ಲಿಸು', 'ಮುಂದುವರಿಸು'] },
-            { label: 'ತರ್ಕ', chars: ['ಮತ್ತು', 'ಅಥವಾ', 'ಅಲ್ಲ', 'ಬದಲಾವಣೆ'] }
-        ]
-    }
-};
-
-const KEYBOARD_TABS = [
-    { key: 'letters', label: 'ಅಕ್ಷರ' },
-    { key: 'numbers', label: '೧೨೩' },
-    { key: 'functions', label: 'ಕಾರ್ಯ' },
-    { key: 'control', label: 'ನಿಯಂತ್ರಣ' }
-];
-
 // The welcome demo that auto-types on the homepage editor.
 const DEMO_CODE = 'ಮುದ್ರಿಸು("ನಮಸ್ಕಾರ, ಕರ್ನಾಟಕ!")\n\nಅ = ೧೦\nಆ = ೨೦\nಮುದ್ರಿಸು("ಮೊತ್ತ: " ಅ + ಆ)';
 
@@ -116,7 +62,6 @@ const CodeEditor = ({ autoDemo = false }) => {
     const [turtle, setTurtle] = useState(null);
     const [shareMsg, setShareMsg] = useState('');
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-    const [activeTab, setActiveTab] = useState('letters');
     const [demoTyping, setDemoTyping] = useState(shouldDemo);
     const [translit, setTranslit] = useState(() => localStorage.getItem('kl_translit') === '1');
     const textareaRef = useRef(null);
@@ -268,45 +213,57 @@ const CodeEditor = ({ autoDemo = false }) => {
         }
         try {
             await navigator.clipboard.writeText(url);
-            setShareMsg('ಲಿಂಕ್ ನಕಲಿಸಲಾಗಿದೆ! ಈಗ ಹಂಚಿಕೊಳ್ಳಿ 🎉');
+            setShareMsg('ಲಿಂಕ್ ನಕಲಿಸಲಾಗಿದೆ. ಈಗ ಹಂಚಿಕೊಳ್ಳಿ.');
         } catch {
             setShareMsg('ಲಿಂಕ್: ' + url);
         }
         setTimeout(() => setShareMsg(''), 4000);
     };
 
-    const insertText = (text) => {
-        const textarea = textareaRef.current;
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const newCode = code.substring(0, start) + text + code.substring(end);
-        setCode(newCode);
-
+    // Apply an edit at the cursor, reading the live textarea so fast taps never drop text.
+    const editAtCursor = (fn) => {
+        const ta = textareaRef.current;
+        if (!ta) return;
+        cancelDemo();
+        const { text, caret } = fn(ta.value, ta.selectionStart, ta.selectionEnd);
+        setCode(text);
         setTimeout(() => {
-            textarea.focus();
-            textarea.setSelectionRange(start + text.length, start + text.length);
+            ta.focus({ preventScroll: true });
+            ta.setSelectionRange(caret, caret);
         }, 0);
     };
 
-    const handleBackspace = () => {
-        const textarea = textareaRef.current;
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
+    // caretBack: how many characters to step back, e.g. 1 puts the cursor inside "()".
+    const insertText = (insert, caretBack = 0) => editAtCursor((v, s0, e0) => ({
+        text: v.slice(0, s0) + insert + v.slice(e0),
+        caret: s0 + insert.length - caretBack,
+    }));
 
-        if (start === end && start > 0) {
-            setCode(code.slice(0, start - 1) + code.slice(end));
-            setTimeout(() => {
-                textarea.focus();
-                textarea.setSelectionRange(start - 1, start - 1);
-            }, 0);
-        } else if (start !== end) {
-            setCode(code.slice(0, start) + code.slice(end));
-            setTimeout(() => {
-                textarea.focus();
-                textarea.setSelectionRange(start, start);
-            }, 0);
+    // Replace the `count` characters before the cursor (used for ಕ → ಕಿ).
+    const replaceBefore = (count, insert) => editAtCursor((v, s0, e0) => {
+        const from = Math.max(0, s0 - count);
+        return { text: v.slice(0, from) + insert + v.slice(e0), caret: from + insert.length };
+    });
+
+    const handleBackspace = () => editAtCursor((v, s0, e0) => {
+        if (s0 !== e0) return { text: v.slice(0, s0) + v.slice(e0), caret: s0 };
+        if (s0 === 0) return { text: v, caret: 0 };
+        return { text: v.slice(0, s0 - 1) + v.slice(e0), caret: s0 - 1 };
+    });
+
+    // Move by whole letters (grapheme clusters) so ಕಿ is never split in two.
+    const moveCaret = (delta) => editAtCursor((v, s0) => {
+        let caret = s0;
+        if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+            const bounds = [0];
+            for (const seg of new Intl.Segmenter('kn', { granularity: 'grapheme' }).segment(v)) bounds.push(seg.index + seg.segment.length);
+            if (delta < 0) caret = [...bounds].reverse().find((b0) => b0 < s0) ?? 0;
+            else caret = bounds.find((b0) => b0 > s0) ?? v.length;
+        } else {
+            caret = Math.min(v.length, Math.max(0, s0 + delta));
         }
-    };
+        return { text: v, caret };
+    });
 
     const lineNumbersRef = useRef(null);
 
@@ -315,8 +272,6 @@ const CodeEditor = ({ autoDemo = false }) => {
             lineNumbersRef.current.scrollTop = e.target.scrollTop;
         }
     };
-
-    const currentLayout = KEYBOARD_LAYOUTS[activeTab];
 
     return (
         <div className="code-editor-section panel">
@@ -332,9 +287,9 @@ const CodeEditor = ({ autoDemo = false }) => {
                                 onClick={toggleTranslit}
                                 title="English ಟೈಪ್ ಮಾಡಿ, ಕನ್ನಡ ಬರುತ್ತದೆ (namaskara → ನಮಸ್ಕಾರ)"
                             >
-                                <Languages size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} /> {translit ? 'ಕನ್ನಡ ✓' : 'EN→ಕ'}
+                                <Languages size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} /> {translit ? 'ಕನ್ನಡ ಆನ್' : 'EN→ಕ'}
                             </button>
-                            <button className="btn btn-secondary" onClick={() => setKeyboardVisible(!isKeyboardVisible)}>
+                            <button className={`btn ${isKeyboardVisible ? 'btn-accent' : 'btn-secondary'}`} onClick={() => setKeyboardVisible(!isKeyboardVisible)} aria-pressed={isKeyboardVisible}>
                                 <Keyboard size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} /> ಕೀಬೋರ್ಡ್
                             </button>
                             <button className="btn btn-secondary" onClick={copyToClipboard}>
@@ -355,7 +310,7 @@ const CodeEditor = ({ autoDemo = false }) => {
                             </button>
                         </div>
                         {shareMsg && <div className="share-msg">{shareMsg}</div>}
-                        {translit && <div className="translit-hint">💡 English ಟೈಪ್ ಮಾಡಿ, space ಒತ್ತಿ — ಕನ್ನಡ ಬರುತ್ತದೆ (ಉದಾ: <b>namaskara</b> → ನಮಸ್ಕಾರ). ಇದಕ್ಕೆ ಇಂಟರ್ನೆಟ್ ಬೇಕು.</div>}
+                        {translit && <div className="translit-hint"><Lightbulb size={14} style={{ verticalAlign: "-2px" }} /> English ಟೈಪ್ ಮಾಡಿ, space ಒತ್ತಿ — ಕನ್ನಡ ಬರುತ್ತದೆ (ಉದಾ: <b>namaskara</b> → ನಮಸ್ಕಾರ). ಇದಕ್ಕೆ ಇಂಟರ್ನೆಟ್ ಬೇಕು.</div>}
                     </div>
 
                     <div className="editor-with-keyboard">
@@ -365,7 +320,7 @@ const CodeEditor = ({ autoDemo = false }) => {
                                     <div key={i}>{i + 1}</div>
                                 ))}
                             </div>
-                            <textarea
+                            <HighlightedTextarea
                                 ref={textareaRef}
                                 className={`editor-textarea${demoTyping ? ' demo-typing' : ''}`}
                                 value={code}
@@ -374,6 +329,7 @@ const CodeEditor = ({ autoDemo = false }) => {
                                 onMouseDown={cancelDemo}
                                 onKeyDown={(e) => { cancelDemo(); if (!handleRunShortcut(e)) handleTranslitKey(e); }}
                                 aria-label="ಕನ್ನಡ ಲಿಪಿ ಕೋಡ್ ಎಡಿಟರ್"
+                                inputMode={isKeyboardVisible ? 'none' : undefined}
                                 readOnly={demoTyping}
                                 spellCheck="false"
                                 placeholder="ಇಲ್ಲಿ ನಿಮ್ಮ ಕೋಡ್ ಬರೆಯಿರಿ..."
@@ -381,44 +337,13 @@ const CodeEditor = ({ autoDemo = false }) => {
                         </div>
 
                         {isKeyboardVisible && (
-                            <div className="virtual-keyboard">
-                                <div className="keyboard-header">
-                                    <span className="keyboard-title">{currentLayout.title}</span>
-                                    <button className="keyboard-close" onClick={() => setKeyboardVisible(false)}><X size={16} /></button>
-                                </div>
-                                <div className="keyboard-tabs">
-                                    {KEYBOARD_TABS.map((tab) => (
-                                        <button
-                                            key={tab.key}
-                                            className={`keyboard-tab${activeTab === tab.key ? ' active' : ''}`}
-                                            onClick={() => setActiveTab(tab.key)}
-                                        >
-                                            {tab.label}
-                                        </button>
-                                    ))}
-                                </div>
-                                <div className="keyboard-keys">
-                                    {currentLayout.rows.map((row, ri) => (
-                                        <div key={ri} className="keys-row">
-                                            <span className="keys-row-label">{row.label}</span>
-                                            {row.chars.map((char, ci) => (
-                                                <button
-                                                    key={ci}
-                                                    className={`key${currentLayout.isKeyword ? ' key-keyword' : ''}`}
-                                                    onClick={() => insertText(char)}
-                                                >
-                                                    {char}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="keyboard-actions">
-                                    <button className="keyboard-action" onClick={handleBackspace} title="Backspace">⌫</button>
-                                    <button className="keyboard-action keyboard-action-wide" onClick={() => insertText(' ')} title="Space">Space</button>
-                                    <button className="keyboard-action" onClick={() => insertText('\n')} title="New Line">↵</button>
-                                </div>
-                            </div>
+                            <VirtualKeyboard
+                                onInsert={insertText}
+                                onReplaceBefore={replaceBefore}
+                                onBackspace={handleBackspace}
+                                onMove={moveCaret}
+                                onClose={() => setKeyboardVisible(false)}
+                            />
                         )}
                     </div>
                 </div>

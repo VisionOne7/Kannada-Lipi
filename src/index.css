@@ -23,6 +23,8 @@
 
     --accent: var(--k-yellow-vibrant);
     --accent-glow: hsla(51, 100%, 50%, 0.3);
+    /* Readable accent for text: bright yellow on dark backgrounds */
+    --accent-text: #FFD54A;
 
     --success: hsl(142, 71%, 45%);
     --error: hsl(0, 84%, 60%);
@@ -91,6 +93,8 @@
     --border-glass: 1px solid rgba(0, 0, 0, 0.08);
     --border-glass-color: rgba(0, 0, 0, 0.08);
     --accent-glow: hsla(51, 100%, 50%, 0.15);
+    /* Deep amber keeps yellow-accent text readable on white (WCAG AA) */
+    --accent-text: #8A5A00;
 
     --wiki-bg: #ffffff;
     --wiki-border: #a2a9b1;
@@ -622,6 +626,9 @@ h3 {
     margin-top: 4px;
 }
 .out-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
     margin-top: 8px;
     padding: 8px 12px;
     border-radius: var(--radius-sm);
@@ -659,15 +666,7 @@ h3 {
     white-space: nowrap;
     transition: transform 0.15s, box-shadow 0.15s;
 }
-.install-btn.icon {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.92);
-    color: #7a1010;
-    flex-shrink: 0;
-}
+.install-btn.header-icon-btn { padding: 0; }
 .install-btn.full {
     padding: 12px 22px;
     border: none;
@@ -675,7 +674,7 @@ h3 {
     color: #fff;
     font-size: 1rem;
 }
-.install-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+.install-btn.full:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 .install-btn:focus-visible { outline: 2px solid var(--k-red); outline-offset: 2px; }
 
 /* Offline / back-online toast */
@@ -703,3 +702,79 @@ h3 {
 .offline-toast.back svg { color: #4ade80; }
 @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
 @media (prefers-reduced-motion: reduce) { .offline-toast { animation: none; } }
+
+/* GitHub star button (header and mobile menu) */
+.gh-star {
+    display: inline-flex;
+    align-items: stretch;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.gh-star:hover { border-color: var(--k-yellow); box-shadow: 0 2px 10px rgba(255, 200, 0, 0.25); }
+.gh-star:focus-visible { outline: 2px solid var(--k-red); outline-offset: 2px; }
+.gh-star-main { display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; }
+.gh-star-main svg:nth-child(2) { color: #e0a800; }
+.gh-star-count {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    border-left: 1px solid var(--border-glass-color);
+    background: var(--glass-yellow);
+    font-variant-numeric: tabular-nums;
+}
+/* In the header the star sits beside the menu only on wide screens */
+@media (max-width: 1100px) { .gh-star-header { display: none; } }
+@media (max-width: 1440px) { .gh-star-header .gh-star-label { display: none; } }
+
+/* Icons that replace the emoji markers in content data */
+.data-icon { color: var(--k-red); flex-shrink: 0; }
+.data-icon-inline { vertical-align: -3px; color: #c2410c; }
+[data-theme="dark"] .data-icon { color: #ff6b6b; }
+[data-theme="dark"] .data-icon-inline { color: #fbbf24; }
+.out-hint-icon { flex-shrink: 0; margin-top: 3px; color: #ffd84d; }
+
+/* Flag-striped pill badge above the title */
+.hero-badge {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--gap-md);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--k-yellow), var(--k-red));
+    box-shadow: 0 4px 14px rgba(215, 25, 32, 0.25);
+}
+
+/* Page loading state (lazy-loaded routes) */
+.page-loader {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+.page-loader-spinner {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 3px solid var(--glass-yellow);
+    border-top-color: var(--k-red);
+    animation: klSpin 0.8s linear infinite;
+}
+@keyframes klSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .page-loader-spinner { animation-duration: 2.4s; } }

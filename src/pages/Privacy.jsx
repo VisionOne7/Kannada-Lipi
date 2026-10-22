@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ShieldCheck, HardDrive, Globe, Baby, Trash2, Mail, CheckCircle2 } from 'lucide-react';
 import './Legal.css';
+import PageHeader from '../components/PageHeader';
 
-const UPDATED = '೪ ಅಕ್ಟೋಬರ್ ೨೦೨೬ (4 October 2026)';
+const UPDATED = '೨೨ ಅಕ್ಟೋಬರ್ ೨೦೨೬ (22 October 2026)';
 
 // Everything this site keeps in the browser. Used for the table and the
 // "delete my data" button, so the two never drift apart.
@@ -18,10 +19,12 @@ export const LOCAL_KEYS = [
     { key: 'kannadalipi_theme', kn: 'ಬೆಳಕು / ಕತ್ತಲೆ ಥೀಮ್', en: 'Light or dark theme' },
     { key: 'kl_translit', kn: 'EN→ಕ ಟೈಪಿಂಗ್ ಆನ್/ಆಫ್', en: 'Transliteration on/off' },
     { key: 'kl_turtle_speed', kn: 'ಆಮೆ ವೇಗ', en: 'Turtle animation speed' },
-    { key: 'kl_visits_cached', kn: 'ಭೇಟಿಗಳ ಸಂಖ್ಯೆಯ ಪ್ರತಿ', en: 'Cached visitor count' },
+    { key: 'kl_gh_stars', kn: 'GitHub ನಕ್ಷತ್ರಗಳ ಸಂಖ್ಯೆಯ ಪ್ರತಿ', en: 'Cached GitHub star count' },
     { key: 'kannadalipi_code', kn: 'ತಾತ್ಕಾಲಿಕ ಕೋಡ್', en: 'Temporary editor code' },
 ];
 const SESSION_KEYS = ['kl_counted_session'];
+// Left over from the old visitor counter; still cleared by "delete my data".
+const LEGACY_KEYS = ['kl_visits_cached'];
 
 const Privacy = () => {
     const [cleared, setCleared] = useState(false);
@@ -30,18 +33,16 @@ const Privacy = () => {
         if (!window.confirm('ಈ ಸಾಧನದಲ್ಲಿರುವ ನಿಮ್ಮ ಎಲ್ಲಾ ಕನ್ನಡ ಲಿಪಿ ಪ್ರಗತಿ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಅಳಿಸಬೇಕೇ? ಇದನ್ನು ಹಿಂಪಡೆಯಲು ಆಗುವುದಿಲ್ಲ.')) return;
         try {
             LOCAL_KEYS.forEach(({ key }) => localStorage.removeItem(key));
+            LEGACY_KEYS.forEach((key) => localStorage.removeItem(key));
             SESSION_KEYS.forEach((key) => sessionStorage.removeItem(key));
         } catch { /* storage blocked: nothing stored anyway */ }
         setCleared(true);
     };
 
     return (
+        <>
+        <PageHeader icon={ShieldCheck} title="ಗೌಪ್ಯತಾ ನೀತಿ" subtitle={`Privacy Policy · ಕೊನೆಯ ನವೀಕರಣ: ${UPDATED}`} />
         <div className="legal-page animate-in">
-            <header className="legal-hero">
-                <ShieldCheck size={40} className="legal-hero-icon" />
-                <h1>ಗೌಪ್ಯತಾ ನೀತಿ</h1>
-                <p className="legal-sub">Privacy Policy · ಕೊನೆಯ ನವೀಕರಣ: {UPDATED}</p>
-            </header>
 
             <section className="glass-card legal-summary">
                 <h2>ಸಂಕ್ಷಿಪ್ತವಾಗಿ (In short)</h2>
@@ -89,7 +90,7 @@ const Privacy = () => {
                     <li><strong>Vercel</strong> ವೆಬ್‌ಸೈಟ್ ಅನ್ನು ಹೋಸ್ಟ್ ಮಾಡುತ್ತದೆ ಮತ್ತು ಸುರಕ್ಷತೆಗಾಗಿ ಸಾಮಾನ್ಯ ಸರ್ವರ್ ಲಾಗ್‌ಗಳನ್ನು ಇಡಬಹುದು. <span>Hosts the website and may keep standard server logs for security.</span></li>
                     <li><strong>Google Fonts</strong> ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. <span>Serves the fonts.</span></li>
                     <li><strong>Google Input Tools</strong> ನೀವು "EN→ಕ" ಆನ್ ಮಾಡಿದಾಗ ಮಾತ್ರ ಬಳಕೆಯಾಗುತ್ತದೆ. ಆಗ ನೀವು ಟೈಪ್ ಮಾಡುವ ಇಂಗ್ಲಿಷ್ ಪದಗಳು ಕನ್ನಡಕ್ಕೆ ಬದಲಾಗಲು Google ಗೆ ಹೋಗುತ್ತವೆ. ಅದು ಡೀಫಾಲ್ಟ್ ಆಗಿ ಆಫ್ ಇರುತ್ತದೆ. <span>Used only when you switch on "EN→ಕ". The English words you type are then sent to Google to be converted. It is off by default.</span></li>
-                    <li><strong>CounterAPI</strong> ಹೆಡರ್‌ನಲ್ಲಿರುವ ಒಟ್ಟು ಭೇಟಿಗಳ ಸಂಖ್ಯೆಯನ್ನು ಎಣಿಸುತ್ತದೆ. ಇದು ಒಂದು ಸಂಖ್ಯೆ ಮಾತ್ರ, ನಿಮ್ಮ ಬಗ್ಗೆ ಯಾವುದೇ ಮಾಹಿತಿ ಕಳುಹಿಸುವುದಿಲ್ಲ. <span>Counts total visits shown in the header. Only a number is increased; nothing about you is sent.</span></li>
+                    <li><strong>GitHub</strong> ಹೆಡರ್‌ನಲ್ಲಿರುವ ನಕ್ಷತ್ರಗಳ (stars) ಸಂಖ್ಯೆಯನ್ನು ಒದಗಿಸುತ್ತದೆ. ಗಂಟೆಗೆ ಒಮ್ಮೆ ಮಾತ್ರ ಕೇಳಲಾಗುತ್ತದೆ, ನಿಮ್ಮ ಬಗ್ಗೆ ಯಾವುದೇ ಮಾಹಿತಿ ಕಳುಹಿಸುವುದಿಲ್ಲ. <span>Provides the star count shown in the header. It is fetched at most once an hour, and nothing about you is sent.</span></li>
                 </ul>
                 <p>ಕರ್ನಾಟಕ ಮಾಹಿತಿ ಪುಟಗಳಲ್ಲಿರುವ ಹೊರಗಿನ ಲಿಂಕ್‌ಗಳು ಬೇರೆ ಸೈಟ್‌ಗಳಿಗೆ ಕರೆದೊಯ್ಯುತ್ತವೆ. ಅವುಗಳ ಗೌಪ್ಯತಾ ನೀತಿಗಳು ಬೇರೆ.</p>
                 <p className="legal-en">External links on the Karnataka pages take you to other websites, which have their own privacy policies.</p>
@@ -110,6 +111,7 @@ const Privacy = () => {
                 <p className="legal-crosslink">ಬಳಕೆಯ ನಿಯಮಗಳನ್ನೂ ಓದಿ: <NavLink to="/terms">Terms of Use</NavLink></p>
             </section>
         </div>
+        </>
     );
 };
 

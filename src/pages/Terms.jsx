@@ -2,16 +2,14 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FileText, Code2, Info, Users, AlertTriangle, Mail } from 'lucide-react';
 import './Legal.css';
+import PageHeader from '../components/PageHeader';
 
 const UPDATED = '೪ ಅಕ್ಟೋಬರ್ ೨೦೨೬ (4 October 2026)';
 
 const Terms = () => (
-    <div className="legal-page animate-in">
-        <header className="legal-hero">
-            <FileText size={40} className="legal-hero-icon" />
-            <h1>ಬಳಕೆಯ ನಿಯಮಗಳು</h1>
-            <p className="legal-sub">Terms of Use · ಕೊನೆಯ ನವೀಕರಣ: {UPDATED}</p>
-        </header>
+    <>
+        <PageHeader icon={FileText} title="ಬಳಕೆಯ ನಿಯಮಗಳು" subtitle={`Terms of Use · ಕೊನೆಯ ನವೀಕರಣ: ${UPDATED}`} />
+        <div className="legal-page animate-in">
 
         <section className="glass-card legal-section">
             <h2><Code2 size={20} /> ಉಚಿತ ಮತ್ತು ಮುಕ್ತ ಮೂಲ (Free and open source)</h2>
@@ -51,6 +49,7 @@ const Terms = () => (
             <p className="legal-crosslink">ಗೌಪ್ಯತಾ ನೀತಿಯನ್ನೂ ಓದಿ: <NavLink to="/privacy">Privacy Policy</NavLink></p>
         </section>
     </div>
+        </>
 );
 
 export default Terms;

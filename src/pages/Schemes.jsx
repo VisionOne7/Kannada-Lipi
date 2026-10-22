@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {
     Landmark, ExternalLink, CheckCircle, UserCheck, LayoutGrid, BadgeCheck,
-    Users, Wheat, GraduationCap, HeartHandshake, Search
-} from 'lucide-react';
+    Users, Wheat, GraduationCap, HeartHandshake, Search, TriangleAlert } from 'lucide-react';
 import { SCHEMES, SCHEME_CATEGORIES } from '../data/schemes';
 import './Schemes.css';
 
@@ -91,7 +90,7 @@ const Schemes = () => {
                 )}
 
                 <p className="schemes-disclaimer">
-                    ⚠️ ಇಲ್ಲಿನ ಮಾಹಿತಿ ಸಾಮಾನ್ಯ ಉಲ್ಲೇಖಕ್ಕಾಗಿ ಮಾತ್ರ. ನಿಖರವಾದ ವಿವರಗಳಿಗೆ ಅಧಿಕೃತ ಜಾಲತಾಣವನ್ನು ಪರಿಶೀಲಿಸಿ.
+                    <TriangleAlert size={14} style={{ verticalAlign: "-2px" }} /> ಇಲ್ಲಿನ ಮಾಹಿತಿ ಸಾಮಾನ್ಯ ಉಲ್ಲೇಖಕ್ಕಾಗಿ ಮಾತ್ರ. ನಿಖರವಾದ ವಿವರಗಳಿಗೆ ಅಧಿಕೃತ ಜಾಲತಾಣವನ್ನು ಪರಿಶೀಲಿಸಿ.
                 </p>
             </div>
         </div>

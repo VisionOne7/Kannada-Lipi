@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { BarChart3, Users, GraduationCap, Grid3x3, MapPin, IndianRupee, ChevronDown, Building2 } from 'lucide-react';
+import { BarChart3, Users, GraduationCap, Grid3x3, MapPin, IndianRupee, ChevronDown, Building2, Sparkles, Map as MapIcon } from 'lucide-react';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
     ResponsiveContainer
@@ -10,6 +10,7 @@ import { DISTRICT_GDP } from '../data/districtGDP';
 import { DISTRICT_INFO } from '../data/districtInfo';
 import { DISTRICT_PATHS, MAP_VIEWBOX } from '../data/karnatakaMap';
 import './DistrictStats.css';
+import DataIcon from '../components/DataIcon';
 
 // Convert a JS number to Kannada numerals via the interpreter helper, with
 // thousands grouping for readability.
@@ -49,7 +50,7 @@ const MapSection = () => {
                     {info ? (
                         <div className="dmap-info-body" key={info.nameEn}>
                             <div className="dmap-info-head">
-                                <span className="dmap-info-emoji">{info.emoji}</span>
+                                <span className="dmap-info-emoji"><DataIcon value={info.emoji} size={28} /></span>
                                 <div>
                                     <h3 className="dmap-info-name">{info.name}</h3>
                                     <span className="dmap-info-en">{info.nameEn}</span>
@@ -61,7 +62,7 @@ const MapSection = () => {
                                 <div className="dmap-row"><GraduationCap size={14} /> <span><b>ಸಾಕ್ಷರತೆ:</b> {kn(info.literacy)}%</span></div>
                                 <div className="dmap-row"><Grid3x3 size={14} /> <span><b>ವಿಸ್ತೀರ್ಣ:</b> {kn(info.area)} ಚ.ಕಿ.ಮೀ</span></div>
                             </div>
-                            {info.knownFor && <div className="dmap-known">✨ {info.knownFor}</div>}
+                            {info.knownFor && <div className="dmap-known"><Sparkles size={14} style={{ verticalAlign: "-2px" }} /> {info.knownFor}</div>}
                         </div>
                     ) : (
                         <div className="dmap-empty"><MapPin size={38} /><p>ಜಿಲ್ಲೆ ಆಯ್ಕೆ ಮಾಡಿ</p></div>
@@ -69,7 +70,7 @@ const MapSection = () => {
                 </aside>
             </div>
             <p className="dmap-credit">
-                🗺️ ನಕ್ಷೆ ದತ್ತಾಂಶ: <a href="https://github.com/udit-001/india-maps-data" target="_blank" rel="noopener noreferrer">india-maps-data</a> (Census of India boundaries)
+                <MapIcon size={14} style={{ verticalAlign: "-2px" }} /> ನಕ್ಷೆ ದತ್ತಾಂಶ: <a href="https://github.com/udit-001/india-maps-data" target="_blank" rel="noopener noreferrer">india-maps-data</a> (Census of India boundaries)
             </p>
         </div>
     );
@@ -292,7 +293,7 @@ const DistrictStats = () => {
                 </div>
 
                 <p className="district-source">
-                    📊 ಮೂಲ: ಭಾರತ ಜನಗಣತಿ ೨೦೧೧ (Census of India 2011). ನವೀಕೃತ ಅಂಕಿಅಂಶಗಳಿಗೆ ಅಧಿಕೃತ ಮೂಲಗಳನ್ನು ನೋಡಿ.
+                    <BarChart3 size={14} style={{ verticalAlign: "-2px" }} /> ಮೂಲ: ಭಾರತ ಜನಗಣತಿ ೨೦೧೧ (Census of India 2011). ನವೀಕೃತ ಅಂಕಿಅಂಶಗಳಿಗೆ ಅಧಿಕೃತ ಮೂಲಗಳನ್ನು ನೋಡಿ.
                 </p>
                 </div>}
 
@@ -301,7 +302,7 @@ const DistrictStats = () => {
                 <EconomySection />
 
                 <p className="district-source">
-                    📊 ಆರ್ಥಿಕ ಮೂಲ: data.gov.in — District Income &amp; Per Capita Income (೨೦೧೯-೨೦, ಪ್ರಸ್ತುತ ಬೆಲೆ). ತಾಲ್ಲೂಕು ಅಂಕಿಅಂಶಗಳನ್ನು ಜಿಲ್ಲೆಗಳಾಗಿ ಒಟ್ಟುಗೂಡಿಸಲಾಗಿದೆ.
+                    <BarChart3 size={14} style={{ verticalAlign: "-2px" }} /> ಆರ್ಥಿಕ ಮೂಲ: data.gov.in — District Income &amp; Per Capita Income (೨೦೧೯-೨೦, ಪ್ರಸ್ತುತ ಬೆಲೆ). ತಾಲ್ಲೂಕು ಅಂಕಿಅಂಶಗಳನ್ನು ಜಿಲ್ಲೆಗಳಾಗಿ ಒಟ್ಟುಗೂಡಿಸಲಾಗಿದೆ.
                 </p>
                 </div>}
             </div>
