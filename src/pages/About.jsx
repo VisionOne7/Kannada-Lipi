@@ -279,7 +279,7 @@ const About = () => {
                         </div>
                         <div className="opensource-actions">
                             <a
-                                href="https://github.com/amoghavarsh/Kannada-Lipi"
+                                href="https://github.com/VisionOne7/Kannada-Lipi"
                                 className="btn btn-primary"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -287,7 +287,7 @@ const About = () => {
                                 <Star size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} /> GitHub‌ನಲ್ಲಿ ⭐ ನೀಡಿ
                             </a>
                             <a
-                                href="https://github.com/amoghavarsh/Kannada-Lipi/blob/main/CONTRIBUTING.md"
+                                href="https://github.com/VisionOne7/Kannada-Lipi/blob/main/CONTRIBUTING.md"
                                 className="btn btn-secondary"
                                 target="_blank"
                                 rel="noopener noreferrer"

@@ -7,8 +7,7 @@ If you discover a security vulnerability in Kannada Lipi, please report it
 
 - **Preferred:** Use GitHub's [private security advisory](../../security/advisories/new)
   feature ("Report a vulnerability").
-- **Or:** open a minimal private report via GitHub — please avoid posting details
-  in public issues until a fix is out.
+- **Or:** email support@visionone7.in with "K-Lipi security" in the subject.
 
 Please include:
 
@@ -28,6 +27,6 @@ browser and nothing is sent to a server. The most relevant areas are:
 
 ## Response
 
-This is a community/hobby project maintained in spare time. We'll acknowledge
+K-Lipi is maintained by [VisionOne7](https://www.visionone7.in). We'll acknowledge
 valid reports as soon as we can and credit reporters (unless you prefer to stay
 anonymous).

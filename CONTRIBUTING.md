@@ -18,9 +18,9 @@ bug reports, or documentation.
 **Prerequisites:** Node.js `>=18`.
 
 ```bash
-# 1. Fork this repo on GitHub, then clone your fork
-git clone https://github.com/<your-username>/KannadaLipi.git
-cd KannadaLipi
+# 1. Fork github.com/VisionOne7/Kannada-Lipi, then clone your fork
+git clone https://github.com/<your-username>/Kannada-Lipi.git
+cd Kannada-Lipi
 
 # 2. Install dependencies
 npm install
