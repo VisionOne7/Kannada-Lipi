@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![K-Lipi logo](public/images/icon-192.png)
+<img src="public/images/logo-mark.png" alt="K-Lipi logo" width="120">
 
 ### Karnataka's first programming language in Kannada
 
