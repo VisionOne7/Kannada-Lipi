@@ -1,0 +1,184 @@
+/* On-screen Kannada keyboard */
+.vk {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-glass-color);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+}
+
+/* Desktop: docked under the editor, in the normal page flow */
+.vk-docked {
+    margin-top: 10px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    animation: vkIn 0.18s ease;
+}
+.vk-docked .vk-body { max-height: 260px; }
+
+/* Phones: bottom sheet over the page */
+.vk-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9000;
+    height: min(52vh, 440px);
+    border-radius: 16px 16px 0 0;
+    border-bottom: none;
+    box-shadow: 0 -10px 30px rgba(10, 10, 20, 0.22);
+    padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+    animation: vkUp 0.2s ease;
+}
+.vk-sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(90deg, var(--k-yellow) 0 50%, var(--k-red) 50% 100%);
+}
+.vk-sheet .vk-body { flex: 1; min-height: 0; }
+body.vk-sheet-open { padding-bottom: min(52vh, 440px); }
+.vk-sheet .vk-top, .vk-sheet .vk-gunita, .vk-sheet .vk-actions { flex-shrink: 0; }
+
+.vk-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.vk-tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    flex: 1;
+    scrollbar-width: none;
+}
+.vk-tabs::-webkit-scrollbar { display: none; }
+.vk-tab {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-base);
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.vk-tab:hover { color: var(--text-primary); border-color: var(--k-yellow); }
+.vk-tab.active { background: var(--k-red); border-color: var(--k-red); color: #fff; }
+.vk-close {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-base);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+.vk-close:hover { color: var(--text-primary); }
+
+/* Vowel-sign strip for the last consonant: one row that scrolls sideways */
+.vk-gunita {
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: var(--glass-yellow);
+    border: 1px dashed rgba(217, 119, 6, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+}
+.vk-gunita.show { border-style: solid; }
+.vk-hint { font-size: 0.8rem; color: var(--text-secondary); }
+.vk-gunita .vk-keys {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+}
+.vk-gunita .vk-key { flex-shrink: 0; }
+
+.vk-body {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 2px;
+}
+.vk-row { display: flex; flex-direction: column; gap: 4px; }
+.vk-row-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+.vk-keys { display: flex; flex-wrap: wrap; gap: 5px; }
+.vk-vyanjana { display: flex; flex-direction: column; gap: 5px; }
+
+.vk-key {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, transform 0.08s;
+}
+.vk-key:hover { border-color: var(--k-yellow); background: var(--glass-yellow); }
+.vk-key:active { transform: translateY(1px); }
+.vk-key.active { border-color: var(--k-red); box-shadow: 0 0 0 2px rgba(215, 25, 32, 0.2); }
+.vk-key-word { font-size: 0.88rem; font-family: var(--font-mono); }
+.vk-key-gunita { background: var(--bg-surface); font-size: 1.1rem; min-width: 44px; }
+.vk-key:focus-visible, .vk-tab:focus-visible, .vk-action:focus-visible, .vk-close:focus-visible {
+    outline: 2px solid var(--k-red);
+    outline-offset: 2px;
+}
+
+.vk-actions {
+    display: flex;
+    gap: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-glass-color);
+}
+.vk-action {
+    min-width: 48px;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+.vk-action:hover { border-color: var(--k-yellow); background: var(--glass-yellow); }
+.vk-action-wide { flex: 1; }
+
+@keyframes vkIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes vkUp { from { transform: translateY(100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .vk-docked, .vk-sheet { animation: none; } }
+
+@media (max-width: 380px) {
+    .vk-key { min-width: 36px; min-height: 38px; padding: 4px 7px; font-size: 1rem; }
+}

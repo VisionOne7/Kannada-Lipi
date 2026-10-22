@@ -2,6 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { Link as LinkIcon, ClipboardList, Search } from 'lucide-react';
 import linksData from '../data/karnatakaLinks.json';
 import './KarnatakaLinks.css';
+import DataIcon from '../components/DataIcon';
+import PageHeader from '../components/PageHeader';
 
 const KarnatakaLinks = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -35,17 +37,14 @@ const KarnatakaLinks = () => {
     };
 
     return (
+        <>
+        <PageHeader
+                icon={LinkIcon}
+                title="ಉಪಯುಕ್ತ ಲಿಂಕ್‌ಗಳು"
+                subtitle="ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಅಧಿಕೃತ ಜಾಲತಾಣಗಳು, ಸೇವೆಗಳು ಮತ್ತು ಸಂಪನ್ಮೂಲಗಳ ಪಟ್ಟಿ. Official Karnataka government websites and services in one place."
+            />
         <div className="links-page">
-            <div className="links-hero animate-in">
-                <div className="links-hero-content">
-                    <h1 className="links-title"><LinkIcon size={24} style={{ marginRight: 8, verticalAlign: 'middle' }} /> ಉಪಯುಕ್ತ ಲಿಂಕ್‌ಗಳು</h1>
-                    <h2 className="links-subtitle">Karnataka Useful Links</h2>
-                    <p className="links-desc">
-                        A curated directory of official Karnataka government websites, services, and resources.
-                        Find quick links to government portals, transport, utilities, education, and more.
-                    </p>
-                </div>
-            </div>
+
 
             {/* Search and Filter Section */}
             <div className="links-controls panel animate-in">
@@ -84,7 +83,7 @@ const KarnatakaLinks = () => {
                             className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
                             onClick={() => setSelectedCategory(category.id)}
                         >
-                            <span className="category-icon">{category.icon}</span>
+                            <span className="category-icon"><DataIcon value={category.icon} size={18} /></span>
                             <span className="category-label">{category.name}</span>
                         </button>
                     ))}
@@ -111,7 +110,7 @@ const KarnatakaLinks = () => {
                             style={{ animationDelay: `${index * 0.03}s` }}
                         >
                             <div className="link-card-header">
-                                <span className="link-icon">{link.icon}</span>
+                                <span className="link-icon"><DataIcon value={link.icon} size={22} /></span>
                                 <div className="link-titles">
                                     <h3 className="link-name">{link.name}</h3>
                                     <p className="link-english">{link.english}</p>
@@ -120,7 +119,7 @@ const KarnatakaLinks = () => {
                             <p className="link-desc">{link.desc}</p>
                             <div className="link-card-footer">
                                 <span className="link-category-badge">
-                                    {getCategoryIcon(link.category)} {getCategoryName(link.category)}
+                                    <DataIcon value={getCategoryIcon(link.category)} size={13} className="data-icon data-icon-inline" /> {getCategoryName(link.category)}
                                 </span>
                                 <a
                                     href={link.url}
@@ -183,6 +182,7 @@ const KarnatakaLinks = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

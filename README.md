@@ -11,7 +11,7 @@
 [**Try it at k-lipi.in**](https://www.k-lipi.in) · [Kids' zone](https://www.k-lipi.in/kids) · [Teachers' guide](https://www.k-lipi.in/teachers) · [Docs](https://www.k-lipi.in/help)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.1.0-D71920.svg)](https://www.k-lipi.in/about)
+[![Version](https://img.shields.io/badge/version-3.2.0-D71920.svg)](https://www.k-lipi.in/about)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 Free and open source, built by [VisionOne7](https://www.visionone7.in) for Karnataka's schools.

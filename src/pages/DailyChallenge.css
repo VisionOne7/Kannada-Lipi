@@ -211,3 +211,7 @@
     .challenge-title { font-size: 1.2rem; }
     .challenge-editor { font-size: 1rem; }
 }
+
+/* Background lives on the wrapper so syntax colours show through */
+.challenge-editor-hl { background: var(--bg-base); border-radius: var(--radius-md); }
+.challenge-editor-hl .challenge-editor { min-height: 150px; }

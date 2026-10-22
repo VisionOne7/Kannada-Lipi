@@ -70,7 +70,7 @@
 }
 
 .stat-text strong {
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 600;
 }
 
@@ -122,7 +122,7 @@
     font-weight: 600;
     padding: 3px 10px;
     background: rgba(var(--accent-rgb), 0.1);
-    color: var(--accent);
+    color: var(--accent-text);
     border-radius: var(--radius-sm);
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -161,7 +161,7 @@
 }
 
 .code-keyword {
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 600;
 }
 

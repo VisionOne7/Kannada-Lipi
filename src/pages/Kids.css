@@ -310,3 +310,5 @@
     .kids-code { font-size: 1.05rem; min-height: 170px; }
     .blocks-workspace { height: 400px; }
 }
+
+.kids-code-hl { background: #0d1117; border-radius: var(--radius-md); }

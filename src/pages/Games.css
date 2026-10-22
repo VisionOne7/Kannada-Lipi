@@ -155,7 +155,7 @@
 }
 
 .game-result-icon {
-    color: var(--k-yellow);
+    color: var(--accent-text);
     filter: drop-shadow(0 2px 6px rgba(215, 25, 32, 0.3));
 }
 

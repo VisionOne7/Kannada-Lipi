@@ -4,6 +4,7 @@ import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import OutputText from '../components/OutputText';
 import { getDailyChallenge, dayKey, CHALLENGES } from '../data/challenges';
 import './DailyChallenge.css';
+import HighlightedTextarea from '../components/HighlightedTextarea';
 
 const STREAK_KEY = 'kl_challenge_streak';
 const LAST_KEY = 'kl_challenge_last';
@@ -89,7 +90,7 @@ const DailyChallenge = () => {
                     <span className="page-header-icon"><CalendarDays size={28} /></span>
                     ಇಂದಿನ ಸವಾಲು
                 </h1>
-                <p className="page-header-subtitle">ಪ್ರತಿದಿನ ಒಂದು ಹೊಸ ಸವಾಲು — ಬಗೆಹರಿಸಿ, ಸ್ಟ್ರೀಕ್ ಬೆಳೆಸಿ! 🔥</p>
+                <p className="page-header-subtitle">ಪ್ರತಿದಿನ ಒಂದು ಹೊಸ ಸವಾಲು — ಬಗೆಹರಿಸಿ, ಸ್ಟ್ರೀಕ್ ಬೆಳೆಸಿ!</p>
             </header>
 
             <div className="challenge-content">
@@ -114,8 +115,9 @@ const DailyChallenge = () => {
 
                     {/* Editor */}
                     <div className="challenge-editor-wrap">
-                        <textarea
+                        <HighlightedTextarea
                             ref={textareaRef}
+                            wrapperClassName="challenge-editor-hl"
                             className="challenge-editor"
                             value={code}
                             onChange={(e) => setCode(e.target.value)}
@@ -136,7 +138,7 @@ const DailyChallenge = () => {
                         </button>
                     </div>
 
-                    {showHint && <div className="challenge-hint">💡 {challenge.hint}</div>}
+                    {showHint && <div className="challenge-hint"><Lightbulb size={15} style={{ verticalAlign: "-2px" }} /> {challenge.hint}</div>}
 
                     {/* Output */}
                     <div className="challenge-output-label">ಔಟ್‌ಪುಟ್</div>
@@ -159,7 +161,7 @@ const DailyChallenge = () => {
             {/* Celebration overlay */}
             {justSolved && (
                 <div className="challenge-celebrate">
-                    <div className="celebrate-emoji">🎉</div>
+                    <div className="celebrate-emoji"><Trophy size={56} strokeWidth={1.6} /></div>
                     <div className="celebrate-text">ಸ್ಟ್ರೀಕ್ +೧!</div>
                 </div>
             )}

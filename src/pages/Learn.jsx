@@ -5,12 +5,12 @@ import {
     BookOpen, BarChart3, ClipboardList, Target, Terminal, Lightbulb,
     Play, CheckCircle, RotateCcw, PartyPopper, Hand, Package, Hash,
     GitBranch, Zap, FileText, Triangle, RefreshCw, Circle, Ruler,
-    Link as LinkIcon, Microscope, Repeat, Plus, Search, Award
-} from 'lucide-react';
+    Link as LinkIcon, Microscope, Repeat, Plus, Search, Award, Check } from 'lucide-react';
 import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import OutputText from '../components/OutputText';
 import { LESSONS } from '../data/lessons.js';
 import './Learn.css';
+import PageHeader from '../components/PageHeader';
 
 const LESSON_ICONS = {
     Hand, Package, Hash, GitBranch, BarChart3, Zap, FileText, Triangle,
@@ -144,13 +144,7 @@ const Learn = () => {
     return (
         <div className="learn-page animate-in">
             {/* Learn Header */}
-            <header className="learn-header">
-                <h1 className="learn-header-title">
-                    <span className="learn-header-icon"><BookOpen size={28} /></span>
-                    ಕಲಿಯಿರಿ
-                </h1>
-                <p className="learn-header-subtitle">ಹಂತ ಹಂತವಾಗಿ ಕನ್ನಡ ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಕಲಿಯಿರಿ</p>
-            </header>
+            <PageHeader icon={BookOpen} title="ಕಲಿಯಿರಿ" subtitle="ಹಂತ ಹಂತವಾಗಿ ಕನ್ನಡ ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಕಲಿಯಿರಿ" />
 
             <div className="docs-container">
                 {/* Sidebar with lesson navigation */}
@@ -178,7 +172,7 @@ const Learn = () => {
                                     className={`learn-nav-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
                                 >
                                     <span className="learn-nav-status">
-                                        {isCompleted ? '✓' : toKannadaNumeral(lesson.id)}
+                                        {isCompleted ? <Check size={14} strokeWidth={3} /> : toKannadaNumeral(lesson.id)}
                                     </span>
                                     <span className="learn-nav-label">
                                         <LessonIcon iconKey={lesson.iconKey} size={14} /> {lesson.title.split(' - ')[0]}
@@ -192,7 +186,7 @@ const Learn = () => {
                             className={`btn btn-sm learn-cert-btn ${completedCount >= totalLessons ? 'btn-accent' : 'btn-secondary'}`}
                         >
                             <Award size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                            {completedCount >= totalLessons ? 'ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯಿರಿ 🎉' : 'ಪ್ರಮಾಣಪತ್ರ'}
+                            {completedCount >= totalLessons ? 'ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯಿರಿ' : 'ಪ್ರಮಾಣಪತ್ರ'}
                         </NavLink>
 
                         <button className="btn btn-secondary btn-sm learn-reset-btn" onClick={resetProgress}>
@@ -329,7 +323,7 @@ const Learn = () => {
                             onClick={() => startLesson(lesson.id)}
                             title={lesson.title}
                         >
-                            {isCompleted ? '✓' : toKannadaNumeral(lesson.id)}
+                            {isCompleted ? <Check size={14} strokeWidth={3} /> : toKannadaNumeral(lesson.id)}
                         </button>
                     );
                 })}

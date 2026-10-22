@@ -3,10 +3,11 @@ import {
     BookOpen, Users, Scroll, Drama, UtensilsCrossed, Map, PartyPopper, Waves,
     TreePine, GraduationCap, IndianRupee, Languages, MapPin, HelpCircle,
     Landmark, BarChart3, Ruler, Thermometer, MessageSquare, PenTool,
-    Trophy, Star, User, Calendar, Lightbulb, Menu, X
-} from 'lucide-react';
+    Trophy, Star, User, Calendar, Lightbulb, Menu, X, Crown, TriangleAlert } from 'lucide-react';
 import data from '../data/karnataka.json';
 import './Karnataka.css';
+import DataIcon from '../components/DataIcon';
+import PageHeader from '../components/PageHeader';
 
 const { quotes: QUOTES, quiz: QUIZ, facts: FACTS } = data;
 
@@ -207,7 +208,7 @@ const Karnataka = () => {
                             <h3><I icon={BarChart3} /> ತ್ವರಿತ ಸಂಗತಿಗಳು (Fast Facts)</h3>
                             <ul>
                                 {data.fastFacts.map((f, i) => (
-                                    <li key={i}>{f.icon} <b>{f.label}:</b> {f.value}</li>
+                                    <li key={i}><DataIcon value={f.icon} size={16} className="data-icon data-icon-inline" /> <b>{f.label}:</b> {f.value}</li>
                                 ))}
                             </ul>
                         </div>
@@ -218,7 +219,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.symbols.map((s, i) => (
                                 <div key={i} className="symbol-card">
-                                    <span className="symbol-icon">{s.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={s.icon} size={30} /></span>
                                     <div className="symbol-name">{s.name}</div>
                                 </div>
                             ))}
@@ -265,10 +266,10 @@ const Karnataka = () => {
                                         <span className="kn-timeline-period">{t.period}</span>
                                         <h3 className="kn-timeline-name">{t.name} <span className="kn-timeline-en">{t.english}</span></h3>
                                         <div className="kn-timeline-meta">
-                                            {t.capital && <span className="kn-tl-tag">🏛️ {t.capital}</span>}
-                                            {t.king && <span className="kn-tl-tag">👑 {t.king}</span>}
+                                            {t.capital && <span className="kn-tl-tag"><Landmark size={13} style={{ verticalAlign: "-2px" }} /> {t.capital}</span>}
+                                            {t.king && <span className="kn-tl-tag"><Crown size={13} style={{ verticalAlign: "-2px" }} /> {t.king}</span>}
                                         </div>
-                                        {t.fact && <p className="kn-timeline-fact">💡 {t.fact}</p>}
+                                        {t.fact && <p className="kn-timeline-fact"><Lightbulb size={14} style={{ verticalAlign: "-2px" }} /> {t.fact}</p>}
                                     </div>
                                 </div>
                             ))}
@@ -286,7 +287,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.artForms.map((art, i) => (
                                 <article key={i} className="symbol-card">
-                                    <span className="symbol-icon">{art.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={art.icon} size={30} /></span>
                                     <div className="symbol-name">{art.name}</div>
                                     <p className="text-secondary" style={{ fontSize: '0.8rem', margin: 'var(--gap-xs) 0 0 0' }}>{art.desc}</p>
                                 </article>
@@ -305,7 +306,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.cuisine.map((food, i) => (
                                 <article key={i} className="symbol-card">
-                                    <span className="symbol-icon">{food.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={food.icon} size={30} /></span>
                                     <div className="symbol-name">{food.name}</div>
                                     <p className="text-secondary" style={{ fontSize: '0.8rem', margin: 'var(--gap-xs) 0 0 0' }}>{food.desc}</p>
                                 </article>
@@ -369,7 +370,7 @@ const Karnataka = () => {
                         <div className="sub-places-grid">
                             {data.rivers.map((r, i) => (
                                 <article key={i} className="sub-place">
-                                    <strong>{r.icon} {r.name}{r.english ? ` (${r.english})` : ''}</strong>
+                                    <strong><DataIcon value={r.icon} size={18} className="data-icon data-icon-inline" /> {r.name}{r.english ? ` (${r.english})` : ''}</strong>
                                     {r.length && <div style={{ fontSize: '0.8rem', marginTop: 'var(--gap-xs)' }}><b>ಉದ್ದ:</b> {r.length}</div>}
                                     {r.origin && <div style={{ fontSize: '0.8rem' }}><b>ಉಗಮ:</b> {r.origin}</div>}
                                     {r.districts && <div style={{ fontSize: '0.8rem' }}><b>ಜಿಲ್ಲೆಗಳು:</b> {r.districts.join(', ')}</div>}
@@ -390,7 +391,7 @@ const Karnataka = () => {
                         <div className="sub-places-grid">
                             {data.wildlife.map((w, i) => (
                                 <article key={i} className="sub-place">
-                                    <strong>{w.icon} {w.name}{w.english ? ` (${w.english})` : ''}</strong>
+                                    <strong><DataIcon value={w.icon} size={18} className="data-icon data-icon-inline" /> {w.name}{w.english ? ` (${w.english})` : ''}</strong>
                                     {w.location && <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 'var(--gap-xs)' }}><I icon={MapPin} /> {w.location}</div>}
                                     {w.area && <div style={{ fontSize: '0.8rem' }}><b>ವಿಸ್ತೀರ್ಣ:</b> {w.area}</div>}
                                     {w.animals && <div style={{ fontSize: '0.8rem' }}><b>ಪ್ರಾಣಿಗಳು:</b> {w.animals.join(', ')}</div>}
@@ -411,7 +412,7 @@ const Karnataka = () => {
                         <div className="sub-places-grid">
                             {data.education.map((e, i) => (
                                 <article key={i} className="sub-place">
-                                    <strong>{e.icon} {e.name}{e.english ? ` (${e.english})` : ''}</strong>
+                                    <strong><DataIcon value={e.icon} size={18} className="data-icon data-icon-inline" /> {e.name}{e.english ? ` (${e.english})` : ''}</strong>
                                     {e.location && <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 'var(--gap-xs)' }}><I icon={MapPin} /> {e.location}</div>}
                                     {e.founded && <div style={{ fontSize: '0.8rem' }}><b>ಸ್ಥಾಪನೆ:</b> {e.founded}</div>}
                                     <p className="text-secondary">{e.desc}</p>
@@ -431,7 +432,7 @@ const Karnataka = () => {
                         <div className="sub-places-grid">
                             {data.economy.map((ec, i) => (
                                 <article key={i} className="sub-place">
-                                    <strong>{ec.icon} {ec.name}{ec.english ? ` (${ec.english})` : ''}</strong>
+                                    <strong><DataIcon value={ec.icon} size={18} className="data-icon data-icon-inline" /> {ec.name}{ec.english ? ` (${ec.english})` : ''}</strong>
                                     {ec.contribution && <div style={{ fontSize: '0.8rem', marginTop: 'var(--gap-xs)' }}><b>ಕೊಡುಗೆ:</b> {ec.contribution}</div>}
                                     {ec.hub && <div style={{ fontSize: '0.8rem' }}><b>ಕೇಂದ್ರ:</b> {ec.hub}</div>}
                                     {ec.companies && <div style={{ fontSize: '0.8rem' }}><b>ಪ್ರಮುಖ:</b> {ec.companies.join(', ')}</div>}
@@ -452,7 +453,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.languages.map((lang, i) => (
                                 <article key={i} className="symbol-card">
-                                    <span className="symbol-icon">{lang.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={lang.icon} size={30} /></span>
                                     <div className="symbol-name">{lang.name}{lang.english ? ` (${lang.english})` : ''}</div>
                                     {lang.speakers && <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}><I icon={MessageSquare} /> {lang.speakers} ಮಾತನಾಡುವವರು</div>}
                                     {lang.script && <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}><I icon={PenTool} /> {lang.script}</div>}
@@ -472,7 +473,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.geography.regions.map((r, i) => (
                                 <article key={i} className="symbol-card">
-                                    <span className="symbol-icon">{r.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={r.icon} size={30} /></span>
                                     <div className="symbol-name">{r.name} ({r.english})</div>
                                     <p className="text-secondary" style={{ fontSize: '0.8rem', margin: 'var(--gap-xs) 0 0 0' }}>{r.desc}</p>
                                 </article>
@@ -496,7 +497,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.stateSymbols.map((s, i) => (
                                 <article key={i} className="symbol-card">
-                                    <span className="symbol-icon">{s.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={s.icon} size={30} /></span>
                                     <div className="symbol-name">{s.name}</div>
                                     <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{s.value}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{s.english}</div>
@@ -530,7 +531,7 @@ const Karnataka = () => {
                             ))}
                         </div>
                         <p className="kn-cabinet-note">
-                            ⚠️ {data.cabinet.note} <a href={data.cabinet.source} target="_blank" rel="noopener noreferrer">ಅಧಿಕೃತ ಪಟ್ಟಿ →</a>
+                            <TriangleAlert size={14} style={{ verticalAlign: "-2px" }} /> {data.cabinet.note} <a href={data.cabinet.source} target="_blank" rel="noopener noreferrer">ಅಧಿಕೃತ ಪಟ್ಟಿ →</a>
                         </p>
                     </section>
                 );
@@ -543,7 +544,7 @@ const Karnataka = () => {
                         <div className="symbols-grid">
                             {data.transport.items.map((t, i) => (
                                 <article key={i} className="symbol-card" style={{ textAlign: 'left' }}>
-                                    <span className="symbol-icon">{t.icon}</span>
+                                    <span className="symbol-icon"><DataIcon value={t.icon} size={30} /></span>
                                     <div className="symbol-name">{t.name}</div>
                                     <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{t.value}</div>
                                     <p className="text-secondary" style={{ fontSize: '0.8rem', margin: 'var(--gap-xs) 0 0 0' }}>{t.desc}</p>
@@ -588,13 +589,7 @@ const Karnataka = () => {
     return (
         <div className="karnataka-page">
             {/* Wiki Header */}
-            <header className="wiki-header">
-                <h1 className="wiki-title">
-                    <span className="wiki-title-icon"><Landmark size={28} /></span>
-                    ಕರ್ನಾಟಕ ವೈಭವ
-                </h1>
-                <p className="wiki-subtitle">ನಾಡಿನ ಸಾಹಿತ್ಯ, ಸಂಸ್ಕೃತಿ ಮತ್ತು ಇತಿಹಾಸದ ಪರಿಚಯ</p>
-            </header>
+            <PageHeader icon={Landmark} title="ಕರ್ನಾಟಕ ವೈಭವ" subtitle="ನಾಡಿನ ಸಾಹಿತ್ಯ, ಸಂಸ್ಕೃತಿ ಮತ್ತು ಇತಿಹಾಸದ ಪರಿಚಯ" />
 
             {/* Mobile Overlay — rendered directly in the tree, no portal needed */}
             <div

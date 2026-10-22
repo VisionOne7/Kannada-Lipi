@@ -69,7 +69,8 @@
     min-width: 45px;
     overflow: hidden;
     user-select: none;
-    line-height: 1.7;
+    /* Same line height as the code (1.15rem x 1.7) so numbers stay level with lines */
+    line-height: calc(1.15rem * 1.7);
     height: 460px;
     padding-top: 22px;
 }
@@ -92,175 +93,6 @@
 
 .editor-with-keyboard {
     position: relative;
-}
-
-.virtual-keyboard {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    padding: 12px 14px;
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-glass-color);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
-    animation: kbFadeIn 0.2s ease;
-    max-height: 60%;
-    overflow-y: auto;
-}
-
-.keyboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.keyboard-title {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-}
-
-.keyboard-close {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    transition: all 0.2s;
-}
-
-.keyboard-close:hover {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-}
-
-.keyboard-tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--border-glass-color);
-    padding-bottom: 8px;
-}
-
-.keyboard-tab {
-    padding: 5px 14px;
-    border: 1px solid var(--border-glass-color);
-    border-radius: var(--radius-sm);
-    background: var(--bg-surface);
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: all 0.2s;
-}
-
-.keyboard-tab:hover {
-    border-color: var(--accent);
-    color: var(--text-primary);
-}
-
-.keyboard-tab.active {
-    background: var(--accent);
-    color: var(--bg-base);
-    border-color: var(--accent);
-}
-
-.keyboard-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px solid var(--border-glass-color);
-}
-
-.keyboard-action {
-    padding: 6px 14px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-glass-color);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.15s;
-}
-
-.keyboard-action:hover {
-    background: var(--accent);
-    color: var(--bg-base);
-    border-color: var(--accent);
-}
-
-.keyboard-action-wide {
-    flex: 1;
-    text-align: center;
-}
-
-.keys-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 6px;
-}
-
-.keys-row:last-child {
-    margin-bottom: 0;
-}
-
-.keys-row-label {
-    width: 100%;
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 2px;
-    font-weight: 600;
-}
-
-.key {
-    padding: 6px 10px;
-    border-radius: 5px;
-    border: 1px solid var(--border-glass-color);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.15s;
-    min-width: 32px;
-    text-align: center;
-}
-
-.key:hover {
-    background: var(--accent);
-    color: var(--bg-base);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-}
-
-.key.key-keyword {
-    background: rgba(var(--accent-rgb), 0.1);
-    border-color: rgba(var(--accent-rgb), 0.3);
-    font-size: 0.75rem;
-    padding: 6px 12px;
-}
-
-@keyframes kbFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .output-panel {
@@ -363,73 +195,6 @@
         word-break: break-word;
     }
 
-    /* Virtual keyboard: fixed at bottom on mobile */
-    .virtual-keyboard {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-        max-height: 45vh;
-        padding: var(--gap-sm) var(--gap-md);
-        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
-        z-index: 100;
-    }
-
-    /* Add bottom padding to editor when keyboard is open */
-    .editor-container.keyboard-open {
-        margin-bottom: 45vh;
-    }
-
-    .keyboard-header {
-        margin-bottom: 6px;
-    }
-
-    .keyboard-tabs {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 3px;
-        margin-bottom: 8px;
-    }
-
-    .keyboard-tab {
-        padding: 5px 10px;
-        font-size: 0.7rem;
-    }
-
-    .keys-row {
-        justify-content: center;
-        gap: 4px;
-        margin-bottom: 4px;
-    }
-
-    .key {
-        padding: 7px 10px;
-        font-size: 0.85rem;
-        min-width: 34px;
-        touch-action: manipulation;
-    }
-
-    .key.key-keyword {
-        padding: 7px 12px;
-        font-size: 0.75rem;
-    }
-
-    .keyboard-actions {
-        flex-wrap: wrap;
-        gap: 4px;
-        margin-top: 6px;
-        padding-top: 6px;
-    }
-
-    .keyboard-action {
-        flex: 1;
-        min-width: 70px;
-        text-align: center;
-        font-size: 0.8rem;
-        padding: 6px 8px;
-        touch-action: manipulation;
-    }
 }
 
 @media (max-width: 480px) {
@@ -449,46 +214,6 @@
         min-height: 120px;
         font-size: 0.8rem;
         padding: var(--gap-sm);
-    }
-
-    .virtual-keyboard {
-        max-height: 40vh;
-        padding: var(--gap-xs) var(--gap-sm);
-    }
-
-    .editor-container.keyboard-open {
-        margin-bottom: 40vh;
-    }
-
-    .key {
-        padding: 6px 8px;
-        font-size: 0.8rem;
-        min-width: 30px;
-    }
-
-    .key.key-keyword {
-        padding: 5px 10px;
-        font-size: 0.7rem;
-    }
-
-    .keyboard-title {
-        font-size: 0.65rem;
-    }
-
-    .keyboard-tab {
-        padding: 4px 8px;
-        font-size: 0.65rem;
-    }
-
-    .keyboard-action {
-        font-size: 0.75rem;
-        padding: 5px 8px;
-        min-width: 60px;
-    }
-
-    .keyboard-close {
-        font-size: 1rem;
-        padding: 2px 6px;
     }
 }
 /* Share link confirmation toast */
@@ -524,4 +249,12 @@
 .output-screen.has-turtle { overflow-y: auto; }
 .output-turtle {
     margin-bottom: var(--gap-md);
+}
+
+/* Learn.css also styles .line-numbers; scope ours so the gutter always
+   matches the code's line height (1.15rem x 1.7). */
+.editor-container .line-numbers {
+    font-size: 0.9rem;
+    line-height: calc(1.15rem * 1.7);
+    padding: 22px 8px 22px;
 }

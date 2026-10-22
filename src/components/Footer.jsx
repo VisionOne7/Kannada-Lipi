@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Link, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -24,7 +24,7 @@ const Footer = () => {
                         <NavLink to="/kids" className="footer-link">ಮಕ್ಕಳ ಕೋಡ್ ಲೋಕ</NavLink>
                         <NavLink to="/examples" className="footer-link">ಉದಾಹರಣೆಗಳು</NavLink>
                         <NavLink to="/karnataka" className="footer-link">ಕರ್ನಾಟಕ</NavLink>
-                        <NavLink to="/links" className="footer-link"><Link size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} /> ಲಿಂಕ್‌ಗಳು</NavLink>
+                        <NavLink to="/links" className="footer-link">ಲಿಂಕ್‌ಗಳು</NavLink>
                     </div>
                     <div className="footer-column">
                         <h4>ಸಹಾಯ</h4>

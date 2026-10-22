@@ -4,6 +4,7 @@ import { GraduationCap, Printer, Footprints, Clock, WifiOff, Award, BookOpen, Bl
 import InstallApp from '../components/InstallApp';
 import './Legal.css';
 import './Teachers.css';
+import PageHeader from '../components/PageHeader';
 
 const TRACKS = [
     {
@@ -47,12 +48,9 @@ const PLAN = [
 ];
 
 const Teachers = () => (
+    <>
+    <PageHeader className="no-print" icon={GraduationCap} title="ಶಿಕ್ಷಕರಿಗೆ ಮಾರ್ಗದರ್ಶಿ" subtitle="Teachers' guide · ಶಾಲೆಯಲ್ಲಿ ಕನ್ನಡ ಲಿಪಿ ಬಳಸುವುದು ಹೇಗೆ" />
     <div className="legal-page teachers-page animate-in">
-        <header className="legal-hero no-print">
-            <GraduationCap size={40} className="legal-hero-icon" />
-            <h1>ಶಿಕ್ಷಕರಿಗೆ ಮಾರ್ಗದರ್ಶಿ</h1>
-            <p className="legal-sub">Teachers' guide · ಶಾಲೆಯಲ್ಲಿ ಕನ್ನಡ ಲಿಪಿ ಬಳಸುವುದು ಹೇಗೆ</p>
-        </header>
 
         <section className="glass-card legal-section no-print">
             <p>ಕನ್ನಡ ಲಿಪಿ ಉಚಿತ, ಲಾಗಿನ್ ಬೇಕಿಲ್ಲ, ಮತ್ತು ಮಕ್ಕಳ ಯಾವುದೇ ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. ರಾಷ್ಟ್ರೀಯ ಶಿಕ್ಷಣ ನೀತಿ ೨೦೨೦ ತರಗತಿ ೬ ರಿಂದ ಕೋಡಿಂಗ್ ಕಲಿಸಲು ಶಿಫಾರಸು ಮಾಡುತ್ತದೆ. ಮಾತೃಭಾಷೆಯಲ್ಲಿ ಕಲಿತರೆ ಮಕ್ಕಳು ಭಾಷೆಯ ಬದಲು ತರ್ಕದ ಮೇಲೆ ಗಮನ ಕೊಡುತ್ತಾರೆ.</p>
@@ -130,6 +128,7 @@ const Teachers = () => (
             <p className="legal-en">Open k-lipi.in in Chrome or Edge and press "Install app". Coding, lessons and turtle levels then work offline. Progress stays on each computer.</p>
         </section>
     </div>
+    </>
 );
 
 export default Teachers;

@@ -1,17 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-    Save, Link as LinkIcon, Lightbulb, Palette, Mic, Smartphone,
-    Rocket, Eye, Gem, Github, ClipboardList, Star, GitFork, Code2
+    Rocket, Eye, Gem, ClipboardList, Star, GitFork, Code2, Info, Keyboard, TriangleAlert, Variable,
+    TextCursorInput, FolderOpen, ClipboardCheck, Languages, Smile, Image as ImageIcon, ChevronDown,
+    Building2, MapPin, ArrowRight,
 } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
+import GitHubStar, { REPO_URL, GitHubMark } from '../components/GitHubStar';
 import './About.css';
 
 const CHANGELOG_DATA = [
     {
+        version: "3.2.0",
+        date: "ಅಕ್ಟೋಬರ್ ೨೦೨೬",
+        author: "VisionOne7",
+        isLatest: true,
+        sections: [
+            {
+                title: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು (New Features)",
+                icon: "new",
+                bulletType: "added",
+                items: [
+                    { tag: "NEW", text: "ಕೋಡ್ ಬಣ್ಣಗಳು (Syntax highlighting) - ಎಡಿಟರ್, ಮಕ್ಕಳ ಕೋಡ್ ಪ್ಯಾಡ್ ಮತ್ತು ಇಂದಿನ ಸವಾಲಿನಲ್ಲಿ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "GitHub ಸ್ಟಾರ್ ಬಟನ್ - ಹೆಡರ್‌ನಲ್ಲಿ ಲೈವ್ ಸ್ಟಾರ್ ಸಂಖ್ಯೆ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಹೊಸ ಮುಖಪುಟ - ಕನ್ನಡ ಲಿಪಿ ಪರಿಚಯ, ಅಂಕಿಅಂಶಗಳು, ವೈಶಿಷ್ಟ್ಯ ಕಾರ್ಡ್‌ಗಳು ಮತ್ತು ಮುಕ್ತ ಮೂಲ ವಿಭಾಗ", tagClass: "tag-new" }
+                ]
+            },
+            {
+                title: "ಸುಧಾರಣೆಗಳು (Improvements)",
+                icon: "improved",
+                bulletType: "changed",
+                items: [
+                    { tag: "UI", text: "ಹೊಸ ಹೆಡರ್ - ಸ್ಪಷ್ಟವಾಗಿ ಓದಬಹುದಾದ ಮೆನು, ಕರ್ನಾಟಕ ಧ್ವಜದ ಪಟ್ಟಿ", tagClass: "tag-ui" },
+                    { tag: "UI", text: "ಎಮೋಜಿ ಬದಲು ವೃತ್ತಿಪರ ಐಕಾನ್‌ಗಳು - ಎಲ್ಲಾ ಪುಟಗಳಲ್ಲಿ", tagClass: "tag-ui" },
+                    { tag: "UI", text: "ಎಲ್ಲಾ ಪುಟಗಳಿಗೆ ಒಂದೇ ರೀತಿಯ ಶೀರ್ಷಿಕೆ ವಿನ್ಯಾಸ", tagClass: "tag-ui" },
+                    { tag: "IMPROVED", text: "ವೇಗವಾದ ಲೋಡಿಂಗ್ - ಪ್ರತಿ ಪುಟ ಬೇಕಾದಾಗ ಮಾತ್ರ ಲೋಡ್ ಆಗುತ್ತದೆ", tagClass: "tag-improved" },
+                    { tag: "FIX", text: "ಎಡಿಟರ್‌ನ ಸಾಲು ಸಂಖ್ಯೆಗಳು ಈಗ ಕೋಡ್ ಸಾಲುಗಳೊಂದಿಗೆ ಸರಿಯಾಗಿ ಹೊಂದುತ್ತವೆ", tagClass: "tag-fixed" },
+                    { tag: "FIX", text: "ಕೆಲಸ ಮಾಡದ ಭೇಟಿಗಳ ಎಣಿಕೆ ತೆಗೆದುಹಾಕಲಾಗಿದೆ", tagClass: "tag-fixed" }
+                ]
+            }
+        ]
+    },
+    {
         version: "3.1.0",
         date: "ಅಕ್ಟೋಬರ್ ೨೦೨೬",
-        author: "KannadaLipi Team",
-        isLatest: true,
+        author: "VisionOne7",
+        isLatest: false,
         sections: [
             {
                 title: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು (New Features)",
@@ -46,7 +80,7 @@ const CHANGELOG_DATA = [
     {
         version: "3.0.0",
         date: "ಜುಲೈ ೨೦೨೬",
-        author: "KannadaLipi Team",
+        author: "VisionOne7",
         isLatest: false,
         sections: [
             {
@@ -79,7 +113,7 @@ const CHANGELOG_DATA = [
     {
         version: "2.2.0",
         date: "ಫೆಬ್ರವರಿ ೨೦೨೬",
-        author: "KannadaLipi Team",
+        author: "VisionOne7",
         isLatest: false,
         sections: [
             {
@@ -116,7 +150,7 @@ const CHANGELOG_DATA = [
     {
         version: "2.1.0",
         date: "ಫೆಬ್ರವರಿ ೨೦೨೬",
-        author: "KannadaLipi Team",
+        author: "VisionOne7",
         isLatest: false,
         sections: [
             {
@@ -137,7 +171,7 @@ const CHANGELOG_DATA = [
     {
         version: "2.0.0",
         date: "ಫೆಬ್ರವರಿ ೨೦೨೬",
-        author: "KannadaLipi Team",
+        author: "VisionOne7",
         isLatest: false,
         sections: [
             {
@@ -178,7 +212,7 @@ const CHANGELOG_DATA = [
     {
         version: "1.0.0",
         date: "ಜನವರಿ ೨೦೨೬",
-        author: "KannadaLipi Team",
+        author: "VisionOne7",
         isLatest: false,
         sections: [
             {
@@ -198,15 +232,17 @@ const CHANGELOG_DATA = [
     }
 ];
 
-const FUTURE_PLAN_ICONS = { Save, LinkIcon, Lightbulb, Palette, Mic, Smartphone };
-
+// What's coming next (Phase 2 roadmap)
 const FUTURE_PLANS = [
-    { iconKey: "Save", title: "ಫೈಲ್ ಉಳಿಸುವಿಕೆ", desc: "ಕೋಡ್ ಅನ್ನು .kl ಫೈಲ್ ಆಗಿ ಉಳಿಸಿ ಮತ್ತು ತೆರೆಯಿರಿ" },
-    { iconKey: "LinkIcon", title: "ಕೋಡ್ ಹಂಚಿಕೆ", desc: "ನಿಮ್ಮ ಕೋಡ್ ಅನ್ನು ಲಿಂಕ್ ಮೂಲಕ ಹಂಚಿಕೊಳ್ಳಿ" },
-    { iconKey: "Lightbulb", title: "ಆಟೋ-ಕಂಪ್ಲೀಷನ್", desc: "ಕೀವರ್ಡ್ ಸಲಹೆಗಳು ಟೈಪ್ ಮಾಡುವಾಗ" },
-    { iconKey: "Palette", title: "ಗ್ರಾಫಿಕ್ಸ್ ಲೈಬ್ರರಿ", desc: "ಚಿತ್ರಗಳನ್ನು ಬಿಡಿಸುವ ಕಾರ್ಯಗಳು" },
-    { iconKey: "Mic", title: "ಧ್ವನಿ ಬೆಂಬಲ", desc: "ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡಿ ಕೋಡ್ ಬರೆಯಿರಿ" },
-    { iconKey: "Smartphone", title: "ಮೊಬೈಲ್ ಅಪ್ಲಿಕೇಶನ್", desc: "Android ಮತ್ತು iOS ಅಪ್ಲಿಕೇಶನ್" }
+    { Icon: Keyboard, title: "ಆಫ್‌ಲೈನ್ ಕನ್ನಡ ಟೈಪಿಂಗ್", desc: "Google ಇಲ್ಲದೆ namaskara → ನಮಸ್ಕಾರ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ" },
+    { Icon: TriangleAlert, title: "ದೋಷದ ಸಾಲು ಗುರುತು", desc: "ತಪ್ಪಾದ ಸಾಲು ಎಡಿಟರ್‌ನಲ್ಲೇ ಕೆಂಪಾಗುತ್ತದೆ" },
+    { Icon: Variable, title: "ವೇರಿಯಬಲ್ ಫಲಕ", desc: "ರನ್ ನಂತರ ಪ್ರತಿ ವೇರಿಯಬಲ್ ಮತ್ತು ಅದರ ಮೌಲ್ಯ" },
+    { Icon: TextCursorInput, title: "ಸ್ವಯಂ ಪೂರ್ಣಗೊಳಿಸುವಿಕೆ", desc: "ಟೈಪ್ ಮಾಡುವಾಗ ಕೀವರ್ಡ್ ಮತ್ತು ಕಾರ್ಯ ಸಲಹೆಗಳು" },
+    { Icon: FolderOpen, title: "ನನ್ನ ಪ್ರೋಗ್ರಾಂಗಳು", desc: "ಹೆಸರಿನೊಂದಿಗೆ ಉಳಿಸಿ, ಮತ್ತೆ ತೆರೆಯಿರಿ" },
+    { Icon: ClipboardCheck, title: "ಶಿಕ್ಷಕರ ಅಸೈನ್‌ಮೆಂಟ್ ಲಿಂಕ್", desc: "ಸವಾಲು ಲಿಂಕ್ ಹಂಚಿ, ಫಲಿತಾಂಶ ತಕ್ಷಣ" },
+    { Icon: Languages, title: "ಕನ್ನಡ / English ಇಂಟರ್ಫೇಸ್", desc: "ಪೋಷಕರು ಮತ್ತು ಹೊರರಾಜ್ಯದ ಶಿಕ್ಷಕರಿಗೆ" },
+    { Icon: Smile, title: "ಇನ್ನಷ್ಟು ಮಕ್ಕಳ ಹಂತಗಳು", desc: "ಹಂತ ೧೩ ರಿಂದ ೨೫ ಮತ್ತು ಮಕ್ಕಳ ಪ್ರಮಾಣಪತ್ರ" },
+    { Icon: ImageIcon, title: "ಕೋಡ್ ಚಿತ್ರ ಹಂಚಿಕೆ", desc: "ನಿಮ್ಮ ಕೋಡ್ ಅನ್ನು ಸುಂದರ ಚಿತ್ರವಾಗಿ ಹಂಚಿ" }
 ];
 
 const FEATURES_DATA = [
@@ -238,11 +274,7 @@ const About = () => {
     return (
         <div className="about-page animate-in">
             {/* Hero Banner */}
-            <header className="hero-banner">
-
-                <h1 className="hero-title">ಕನ್ನಡ ಲಿಪಿ</h1>
-                <p className="hero-subtitle">ಕರ್ನಾಟಕದ ಮೊದಲ ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಭಾಷೆ</p>
-            </header>
+            <PageHeader icon={Info} title="ನಮ್ಮ ಬಗ್ಗೆ" subtitle="ಕನ್ನಡ ಲಿಪಿ: ಕರ್ನಾಟಕದ ಮೊದಲ ಕನ್ನಡ ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಭಾಷೆ. ಉದ್ದೇಶ, ತಂಡ, ಬಿಡುಗಡೆಗಳು ಮತ್ತು ಮುಂದಿನ ಯೋಜನೆಗಳು." />
 
             <div className="about-content">
                 {/* Mission/Vision Section */}
@@ -261,41 +293,39 @@ const About = () => {
 
                 <div className="section-divider"></div>
 
-                {/* Open Source */}
-                <section className="dev-section">
-                    <h2 className="section-title">ಮುಕ್ತ ಮೂಲ (Open Source)</h2>
-                    <article className="opensource-card">
-                        <span className="opensource-glow" aria-hidden="true"></span>
-                        <div className="opensource-icon"><Github size={30} /></div>
-                        <h3 className="opensource-title">ಇದು ಎಲ್ಲರ ಯೋಜನೆ 🤝</h3>
-                        <p className="opensource-desc">
-                            ಕನ್ನಡ ಲಿಪಿ ಒಂದು ಮುಕ್ತ ಮೂಲ (open-source) ಯೋಜನೆ. ಡೆವಲಪರ್, ಶಿಕ್ಷಕ,
-                            ಅಥವಾ ಕನ್ನಡ ಪ್ರೇಮಿ — ಯಾರೂ ಕೊಡುಗೆ ನೀಡಬಹುದು!
-                        </p>
-                        <div className="opensource-badges">
-                            <span className="os-badge"><Code2 size={14} /> React + Vite</span>
-                            <span className="os-badge"><Star size={14} /> MIT License</span>
-                            <span className="os-badge"><GitFork size={14} /> PRs Welcome</span>
-                        </div>
-                        <div className="opensource-actions">
-                            <a
-                                href="https://github.com/VisionOne7/Kannada-Lipi"
-                                className="btn btn-primary"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <Star size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} /> GitHub‌ನಲ್ಲಿ ⭐ ನೀಡಿ
-                            </a>
-                            <a
-                                href="https://github.com/VisionOne7/Kannada-Lipi/blob/main/CONTRIBUTING.md"
-                                className="btn btn-secondary"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <GitFork size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} /> ಕೊಡುಗೆ ನೀಡಿ
-                            </a>
-                        </div>
-                    </article>
+                {/* Who builds it */}
+                <section className="maker-section">
+                    <h2 className="section-title">ನಿರ್ಮಾತೃರು (Built by)</h2>
+                    <div className="maker-grid">
+                        <article className="maker-card">
+                            <img src="/images/visionone7.png" alt="VisionOne7" className="maker-logo" width="64" height="64" />
+                            <div>
+                                <h3>VisionOne7</h3>
+                                <p className="maker-meta"><Building2 size={14} /> ಸಾಫ್ಟ್‌ವೇರ್ ಸ್ಟುಡಿಯೋ <span>·</span> <MapPin size={14} /> ಬಾಗಲಕೋಟೆ, ಕರ್ನಾಟಕ</p>
+                                <p>ಕನ್ನಡ ಲಿಪಿಯನ್ನು ವಿಷನ್‌ಒನ್7 ನಿರ್ಮಿಸಿ ನಿರ್ವಹಿಸುತ್ತದೆ. ಇದು ಕರ್ನಾಟಕದ ಶಾಲೆಗಳಿಗೆ ನಮ್ಮ ಉಚಿತ ಕೊಡುಗೆ.</p>
+                                <a className="maker-link" href="https://www.visionone7.in" target="_blank" rel="noopener noreferrer">visionone7.in <ArrowRight size={14} /></a>
+                            </div>
+                        </article>
+
+                        <article className="maker-card maker-oss">
+                            <span className="maker-oss-icon"><GitHubMark size={28} /></span>
+                            <div>
+                                <h3>ಇದು ಎಲ್ಲರ ಯೋಜನೆ</h3>
+                                <p>ಕನ್ನಡ ಲಿಪಿ ಮುಕ್ತ ಮೂಲ. ಡೆವಲಪರ್, ಶಿಕ್ಷಕ ಅಥವಾ ಕನ್ನಡ ಪ್ರೇಮಿ, ಯಾರೂ ಕೊಡುಗೆ ನೀಡಬಹುದು.</p>
+                                <div className="opensource-badges">
+                                    <span className="os-badge"><Code2 size={14} /> React + Vite</span>
+                                    <span className="os-badge"><Star size={14} /> MIT License</span>
+                                    <span className="os-badge"><GitFork size={14} /> PRs Welcome</span>
+                                </div>
+                                <div className="maker-actions">
+                                    <GitHubStar />
+                                    <a className="btn btn-secondary" href={`${REPO_URL}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer">
+                                        <GitFork size={16} /> ಕೊಡುಗೆ ನೀಡಿ
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </section>
 
                 <div className="section-divider"></div>
@@ -328,21 +358,9 @@ const About = () => {
                         </div>
 
                         {/* Version Cards */}
-                        {CHANGELOG_DATA.map((ver, idx) => (
-                            <article key={idx} className={`version-card ${ver.isLatest ? 'latest' : ''}`}>
-                                <div className="version-header">
-                                    <div className="version-avatar">ಕ</div>
-                                    <div className="version-meta">
-                                        <div className="version-author">{ver.author}</div>
-                                        <div className="version-date">{ver.date}</div>
-                                    </div>
-                                    {ver.isLatest && <span className="version-badge">ಇತ್ತೀಚಿನ</span>}
-                                </div>
-                                
-                                <h3 className="version-title" style={{ fontSize: '1.25rem' }}>
-                                    ಆವೃತ್ತಿ <span className="version-number">{ver.version}</span>
-                                </h3>
-                                
+                        {CHANGELOG_DATA.map((ver, idx) => {
+                            const count = ver.sections.reduce((n, sec) => n + sec.items.length, 0);
+                            const body = (
                                 <div className="version-body">
                                     {ver.sections.map((section, sIdx) => (
                                         <div key={sIdx} className="change-section">
@@ -368,8 +386,36 @@ const About = () => {
                                         </div>
                                     ))}
                                 </div>
-                            </article>
-                        ))}
+                            );
+                            if (!ver.isLatest) {
+                                return (
+                                    <details key={idx} className="version-card version-older">
+                                        <summary className="version-summary">
+                                            <span className="version-summary-title">ಆವೃತ್ತಿ <span className="version-number">{ver.version}</span></span>
+                                            <span className="version-summary-meta">{ver.date} · {count} ಬದಲಾವಣೆಗಳು</span>
+                                            <ChevronDown size={18} className="version-summary-caret" />
+                                        </summary>
+                                        {body}
+                                    </details>
+                                );
+                            }
+                            return (
+                                <article key={idx} className="version-card latest">
+                                    <div className="version-header">
+                                        <img src="/images/visionone7.png" alt="" className="version-avatar-img" width="44" height="44" />
+                                        <div className="version-meta">
+                                            <div className="version-author">{ver.author}</div>
+                                            <div className="version-date">{ver.date}</div>
+                                        </div>
+                                        <span className="version-badge">ಇತ್ತೀಚಿನ</span>
+                                    </div>
+                                    <h3 className="version-title" style={{ fontSize: '1.25rem' }}>
+                                        ಆವೃತ್ತಿ <span className="version-number">{ver.version}</span>
+                                    </h3>
+                                    {body}
+                                </article>
+                            );
+                        })}
 
                         {/* Future Plans Section */}
                         <section className="future-section">
@@ -378,13 +424,13 @@ const About = () => {
                                     <span style={{marginRight: '8px'}}><Rocket size={18} style={{ verticalAlign: 'middle' }} /></span>
                                     ಭವಿಷ್ಯದ ಯೋಜನೆಗಳು
                                 </h3>
-                                <p className="future-subtitle">ಮುಂಬರುವ ಆವೃತ್ತಿಗಳಲ್ಲಿ ಸೇರಿಸಲಾಗುವ ವೈಶಿಷ್ಟ್ಯಗಳು</p>
+                                <p className="future-subtitle">ಮುಂದಿನ ಬಿಡುಗಡೆಯಲ್ಲಿ ಬರುತ್ತಿರುವ ವೈಶಿಷ್ಟ್ಯಗಳು</p>
                             </div>
                             <div className="future-grid">
                                 {FUTURE_PLANS.map((plan, idx) => (
                                     <article key={idx} className="future-item">
                                         <h4 style={{ fontSize: '0.85rem' }}>
-                                            <span style={{marginRight: '6px'}}>{React.createElement(FUTURE_PLAN_ICONS[plan.iconKey], { size: 16, style: { verticalAlign: 'middle' } })}</span>
+                                            <plan.Icon size={16} style={{ marginRight: 6, verticalAlign: '-3px' }} />
                                             {plan.title}
                                         </h4>
                                         <p style={{ fontSize: '0.8rem' }}>{plan.desc}</p>

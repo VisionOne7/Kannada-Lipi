@@ -140,7 +140,7 @@ const Certificate = () => {
         const c = drawCertificate();
         c.toBlob(async (blob) => {
             const file = new File([blob], 'kannada-lipi-certificate.png', { type: 'image/png' });
-            const text = `ನಾನು ಕನ್ನಡ ಲಿಪಿಯಲ್ಲಿ ಕೋಡಿಂಗ್ ಕಲಿತೆ! 🎉 k-lipi.in`;
+            const text = `ನಾನು ಕನ್ನಡ ಲಿಪಿಯಲ್ಲಿ ಕೋಡಿಂಗ್ ಕಲಿತೆ! k-lipi.in`;
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 try { await navigator.share({ files: [file], text, title: 'ಕನ್ನಡ ಲಿಪಿ' }); return; } catch { /* cancelled */ }
             }
@@ -180,7 +180,7 @@ const Certificate = () => {
                     </div>
                 ) : !issued ? (
                     <div className="cert-form panel">
-                        <h3>🎉 ಅಭಿನಂದನೆಗಳು! ನೀವು ಅರ್ಹರಾಗಿದ್ದೀರಿ</h3>
+                        <h3><Award size={22} style={{ verticalAlign: "-4px", color: "var(--k-red)" }} /> ಅಭಿನಂದನೆಗಳು! ನೀವು ಅರ್ಹರಾಗಿದ್ದೀರಿ</h3>
                         <p>ಪ್ರಮಾಣಪತ್ರದ ಮೇಲೆ ಬರಬೇಕಾದ ನಿಮ್ಮ ಹೆಸರು ನಮೂದಿಸಿ:</p>
                         <input
                             className="cert-name-input"

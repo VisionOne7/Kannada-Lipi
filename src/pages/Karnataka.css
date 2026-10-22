@@ -114,13 +114,13 @@
 .docs-nav-link:hover,
 .docs-nav-link-btn:hover {
     background: rgba(var(--accent-rgb), 0.08);
-    color: var(--accent);
+    color: var(--accent-text);
 }
 
 .docs-nav-link.active,
 .docs-nav-link-btn.active {
     background: rgba(var(--accent-rgb), 0.12);
-    color: var(--accent);
+    color: var(--accent-text);
     font-weight: 600;
 }
 
@@ -171,7 +171,7 @@
 
 .section-title::before {
     content: '§';
-    color: var(--k-yellow);
+    color: var(--accent-text);
     font-weight: 400;
 }
 
@@ -323,9 +323,14 @@
 }
 
 .symbol-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--gap-sm);
-    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--gap-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--glass-yellow), var(--glass-red));
 }
 
 .symbol-name {

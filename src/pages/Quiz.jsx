@@ -18,10 +18,10 @@ const shuffle = (arr) => {
 // A short Kannada verdict based on the final score ratio.
 const verdict = (score, total) => {
     const pct = score / total;
-    if (pct === 1) return 'ಪರಿಪೂರ್ಣ! ನೀವು ಕರ್ನಾಟಕ ತಜ್ಞರು! 🏆';
-    if (pct >= 0.7) return 'ಅದ್ಭುತ! ನಿಮಗೆ ಕರ್ನಾಟಕದ ಬಗ್ಗೆ ಚೆನ್ನಾಗಿ ಗೊತ್ತಿದೆ. 🎉';
-    if (pct >= 0.4) return 'ಚೆನ್ನಾಗಿದೆ! ಇನ್ನಷ್ಟು ಕಲಿಯಿರಿ. 👍';
-    return 'ಪರವಾಗಿಲ್ಲ! ಕರ್ನಾಟಕ ಪುಟ ಓದಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. 📖';
+    if (pct === 1) return 'ಪರಿಪೂರ್ಣ! ನೀವು ಕರ್ನಾಟಕ ತಜ್ಞರು!';
+    if (pct >= 0.7) return 'ಅದ್ಭುತ! ನಿಮಗೆ ಕರ್ನಾಟಕದ ಬಗ್ಗೆ ಚೆನ್ನಾಗಿ ಗೊತ್ತಿದೆ.';
+    if (pct >= 0.4) return 'ಚೆನ್ನಾಗಿದೆ! ಇನ್ನಷ್ಟು ಕಲಿಯಿರಿ.';
+    return 'ಪರವಾಗಿಲ್ಲ! ಕರ್ನಾಟಕ ಪುಟ ಓದಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
 };
 
 const Quiz = () => {
@@ -58,7 +58,7 @@ const Quiz = () => {
     };
 
     const shareResult = async () => {
-        const text = `ನಾನು ಕನ್ನಡ ಲಿಪಿ ಕರ್ನಾಟಕ ರಸಪ್ರಶ್ನೆಯಲ್ಲಿ ${score}/${questions.length} ಅಂಕ ಗಳಿಸಿದೆ! 🎉`;
+        const text = `ನಾನು ಕನ್ನಡ ಲಿಪಿ ಕರ್ನಾಟಕ ರಸಪ್ರಶ್ನೆಯಲ್ಲಿ ${score}/${questions.length} ಅಂಕ ಗಳಿಸಿದೆ!`;
         const url = window.location.origin + '/quiz';
         if (navigator.share) {
             try { await navigator.share({ title: 'ಕರ್ನಾಟಕ ರಸಪ್ರಶ್ನೆ', text, url }); return; } catch { /* cancelled */ }

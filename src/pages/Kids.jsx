@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { useSearchParams, NavLink } from 'react-router-dom';
 import confetti from 'canvas-confetti';
-import { Map as MapIcon, Blocks, Palette, Star, CheckCircle2, ChevronRight, ChevronLeft, Sparkles, GraduationCap } from 'lucide-react';
+import { Map as MapIcon, Blocks, Palette, Star, CheckCircle2, ChevronRight, ChevronLeft, Sparkles, GraduationCap, Lightbulb } from 'lucide-react';
 import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import { kn } from '../lib/js/interpreter/errors.js';
 import { checkLevel } from '../lib/js/turtleCheck.js';
@@ -119,7 +119,7 @@ function Levels() {
                         onReset={() => { setCode(level.starter); setResult(null); setFeedback(null); }}
                         onHint={() => setShowHint((s) => !s)}
                     />
-                    {showHint && <div className="kids-hint">💡 {level.hint}</div>}
+                    {showHint && <div className="kids-hint"><Lightbulb size={16} style={{ verticalAlign: "-2px" }} /> {level.hint}</div>}
                 </section>
 
                 <section className="glass-card level-stage">
