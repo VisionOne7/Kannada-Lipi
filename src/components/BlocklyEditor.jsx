@@ -7,6 +7,7 @@ import { kn } from '../lib/js/interpreter/errors.js';
 import { TURTLE_COLORS } from '../lib/js/interpreter/turtle.js';
 import TurtleCanvas from './TurtleCanvas';
 import OutputText from './OutputText';
+import { encodeText } from '../lib/js/share.js';
 
 /**
  * ಬ್ಲಾಕ್ ಕೋಡಿಂಗ್: drag-and-drop Kannada blocks that generate real KannadaLipi
@@ -128,10 +129,6 @@ function generate(workspace) {
     return lines.join('\n');
 }
 
-const encodeCode = (text) => {
-    try { return btoa(encodeURIComponent(text)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); } catch { return ''; }
-};
-
 const BlocklyEditor = () => {
     const divRef = useRef(null);
     const wsRef = useRef(null);
@@ -229,7 +226,7 @@ const BlocklyEditor = () => {
                 <div className="glass-card blocks-code">
                     <div className="blocks-code-head">
                         <span><Code2 size={16} /> ಇದೇ ಕನ್ನಡ ಲಿಪಿ ಕೋಡ್</span>
-                        <a className="blocks-open" href={`/?code=${encodeCode(code)}`} title="ಮುಖ್ಯ ಎಡಿಟರ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ">
+                        <a className="blocks-open" href={`/?code=${encodeText(code)}`} title="ಮುಖ್ಯ ಎಡಿಟರ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ">
                             <ExternalLink size={14} /> ಎಡಿಟರ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ
                         </a>
                     </div>

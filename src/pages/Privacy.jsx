@@ -4,7 +4,7 @@ import { ShieldCheck, HardDrive, Globe, Baby, Trash2, Mail, CheckCircle2 } from 
 import './Legal.css';
 import PageHeader from '../components/PageHeader';
 
-const UPDATED = '೨೨ ಅಕ್ಟೋಬರ್ ೨೦೨೬ (22 October 2026)';
+const UPDATED = '೨೩ ಅಕ್ಟೋಬರ್ ೨೦೨೬ (23 October 2026)';
 
 // Everything this site keeps in the browser. Used for the table and the
 // "delete my data" button, so the two never drift apart.
@@ -21,6 +21,9 @@ export const LOCAL_KEYS = [
     { key: 'kl_turtle_speed', kn: 'ಆಮೆ ವೇಗ', en: 'Turtle animation speed' },
     { key: 'kl_gh_stars', kn: 'GitHub ನಕ್ಷತ್ರಗಳ ಸಂಖ್ಯೆಯ ಪ್ರತಿ', en: 'Cached GitHub star count' },
     { key: 'kannadalipi_code', kn: 'ತಾತ್ಕಾಲಿಕ ಕೋಡ್', en: 'Temporary editor code' },
+    { key: 'kl_programs', kn: 'ನನ್ನ ಪ್ರೋಗ್ರಾಂಗಳು (ನೀವು ಉಳಿಸಿದ ಕೋಡ್)', en: 'My programs (code you saved)' },
+    { key: 'kl_lang', kn: 'ಇಂಟರ್ಫೇಸ್ ಭಾಷೆ (ಕನ್ನಡ / English)', en: 'Interface language' },
+    { key: 'kl_assignment_name', kn: 'ಕಾರ್ಯ ಲಿಂಕ್‌ನಲ್ಲಿ ನಮೂದಿಸಿದ ಹೆಸರು', en: 'Name typed on an assignment' },
 ];
 const SESSION_KEYS = ['kl_counted_session'];
 // Left over from the old visitor counter; still cleared by "delete my data".
@@ -89,7 +92,6 @@ const Privacy = () => {
                 <ul className="legal-list">
                     <li><strong>Vercel</strong> ವೆಬ್‌ಸೈಟ್ ಅನ್ನು ಹೋಸ್ಟ್ ಮಾಡುತ್ತದೆ ಮತ್ತು ಸುರಕ್ಷತೆಗಾಗಿ ಸಾಮಾನ್ಯ ಸರ್ವರ್ ಲಾಗ್‌ಗಳನ್ನು ಇಡಬಹುದು. <span>Hosts the website and may keep standard server logs for security.</span></li>
                     <li><strong>Google Fonts</strong> ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. <span>Serves the fonts.</span></li>
-                    <li><strong>Google Input Tools</strong> ನೀವು "EN→ಕ" ಆನ್ ಮಾಡಿದಾಗ ಮಾತ್ರ ಬಳಕೆಯಾಗುತ್ತದೆ. ಆಗ ನೀವು ಟೈಪ್ ಮಾಡುವ ಇಂಗ್ಲಿಷ್ ಪದಗಳು ಕನ್ನಡಕ್ಕೆ ಬದಲಾಗಲು Google ಗೆ ಹೋಗುತ್ತವೆ. ಅದು ಡೀಫಾಲ್ಟ್ ಆಗಿ ಆಫ್ ಇರುತ್ತದೆ. <span>Used only when you switch on "EN→ಕ". The English words you type are then sent to Google to be converted. It is off by default.</span></li>
                     <li><strong>GitHub</strong> ಹೆಡರ್‌ನಲ್ಲಿರುವ ನಕ್ಷತ್ರಗಳ (stars) ಸಂಖ್ಯೆಯನ್ನು ಒದಗಿಸುತ್ತದೆ. ಗಂಟೆಗೆ ಒಮ್ಮೆ ಮಾತ್ರ ಕೇಳಲಾಗುತ್ತದೆ, ನಿಮ್ಮ ಬಗ್ಗೆ ಯಾವುದೇ ಮಾಹಿತಿ ಕಳುಹಿಸುವುದಿಲ್ಲ. <span>Provides the star count shown in the header. It is fetched at most once an hour, and nothing about you is sent.</span></li>
                 </ul>
                 <p>ಕರ್ನಾಟಕ ಮಾಹಿತಿ ಪುಟಗಳಲ್ಲಿರುವ ಹೊರಗಿನ ಲಿಂಕ್‌ಗಳು ಬೇರೆ ಸೈಟ್‌ಗಳಿಗೆ ಕರೆದೊಯ್ಯುತ್ತವೆ. ಅವುಗಳ ಗೌಪ್ಯತಾ ನೀತಿಗಳು ಬೇರೆ.</p>

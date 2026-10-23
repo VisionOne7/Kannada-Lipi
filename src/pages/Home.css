@@ -376,3 +376,18 @@
     .home-stat-value { font-size: 1.7rem; }
     .cta-group .btn { flex: 1 1 calc(50% - var(--gap-md)); padding: 12px 10px; font-size: 0.9rem; }
 }
+
+/* Karnataka strip */
+.home-karnataka-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--gap-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--gap-lg);
+}
+.home-karnataka-sub { color: var(--text-secondary); margin: 0; }
+.home-karnataka-head .btn { display: inline-flex; align-items: center; gap: 6px; }
+.home-karnataka-grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1024px) { .home-karnataka-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .home-karnataka-grid { grid-template-columns: 1fr; } }

@@ -263,11 +263,7 @@ body {
 /* ─── Global glassmorphism upgrade for all page cards/panels ─────────────
    Applies frosted glass to the primary card classes across every page so
    the whole site reads as one glass system, without editing 15 CSS files.  */
-.example-card,
-.lesson-card,
 .feature-card,
-.function-card,
-.quick-ref-card,
 .link-card,
 .person-card,
 .symbol-card,
@@ -275,25 +271,19 @@ body {
 .wonder-card,
 .econ-card,
 .summary-card,
-.hero-stat,
 .quiz-box,
 .game-panel,
 .game-tab:not(.active),
 .challenge-card,
 .chart-panel,
 .econ-chart-panel,
-.progress-panel,
 .gddp-item,
 .version-card,
-.tech-item,
 .future-item,
-.examples-stats,
 .schemes-stats,
 .filter-bar,
 .wiki-infobox,
-.infobox,
-.tip-box,
-.search-box {
+.infobox {
     background: var(--glass-bg) !important;
     -webkit-backdrop-filter: blur(var(--glass-blur-lg, 20px));
     backdrop-filter: blur(var(--glass-blur-lg, 20px));
@@ -302,10 +292,7 @@ body {
 }
 
 /* Smooth, flag-tinted hover for the interactive cards */
-.example-card:hover,
-.lesson-card:hover,
 .feature-card:hover,
-.function-card:hover,
 .link-card:hover,
 .person-card:hover,
 .symbol-card:hover,
@@ -313,7 +300,6 @@ body {
 .wonder-card:hover,
 .econ-card:hover,
 .summary-card:hover,
-.hero-stat:hover,
 .gddp-item:hover {
     box-shadow: var(--glass-shadow-hover);
     border-color: rgba(255, 215, 0, 0.5) !important;
@@ -599,7 +585,7 @@ h3 {
     .section-title { font-size: 1.5rem; }
 
     /* Grids collapse to a single, full-width column */
-    .examples-grid, .schemes-grid, .wonders-grid, .rescards-grid,
+    .schemes-grid, .wonders-grid, .rescards-grid,
     .econ-grid, .skills-grid { grid-template-columns: 1fr !important; }
 
     /* Buttons: comfortable tap targets, don't overflow */

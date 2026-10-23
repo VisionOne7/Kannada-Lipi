@@ -8,10 +8,10 @@
 
 **ಕಲಿಯೋಕೆ ಕೋಟಿ ಭಾಷೆ, ಆಡೋಕೆ ಒಂದೇ ಭಾಷೆ**
 
-[**Try it at k-lipi.in**](https://www.k-lipi.in) · [Kids' zone](https://www.k-lipi.in/kids) · [Teachers' guide](https://www.k-lipi.in/teachers) · [Docs](https://www.k-lipi.in/help)
+[**Try it at k-lipi.in**](https://www.k-lipi.in) · [Kids' zone](https://www.k-lipi.in/kids) · [Teachers' guide](https://www.k-lipi.in/teachers) · [Learn & reference](https://www.k-lipi.in/learn)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.2.0-D71920.svg)](https://www.k-lipi.in/about)
+[![Version](https://img.shields.io/badge/version-3.3.0-D71920.svg)](https://www.k-lipi.in/about)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 Free and open source, built by [VisionOne7](https://www.visionone7.in) for Karnataka's schools.
@@ -30,19 +30,22 @@ Everything runs in the browser. There are no accounts, no ads and no tracking, a
 
 **For children (Classes 3–8)**
 - 🐢 **Turtle drawing:** `ಮುಂದೆ(೧೦೦)`, `ಬಲಕ್ಕೆ(೯೦)`, `ಬಣ್ಣ("ಕೆಂಪು")` and 12 more commands
-- 🎯 **ಆಮೆ ಸಾಹಸ:** 12 game levels, from reaching a mango to drawing stars and the Kannada flag
+- 🎯 **ಆಮೆ ಸಾಹಸ:** 25 game levels, from reaching a mango to variables, loops inside loops and functions, with a kids' certificate
 - 🧩 **Block coding:** drag Kannada blocks and see the matching K-Lipi code appear live
 - 🎨 **Drawing playground** with ready-made pictures to remix and save as PNG
 
 **For learners**
-- 📚 21 interactive lessons with a completion certificate
+- 📚 A learning hub: 21 interactive lessons, 31 examples and the full function reference, grouped by topic and searchable, with a completion certificate
 - 🔥 A daily challenge with streaks, plus coding games
-- 💡 Friendly errors in simple Kannada, with line numbers, hints and "did you mean…?"
-- ⌨️ On-screen Kannada keyboard and English-to-Kannada typing
-- 💾 Save and open programs as `.kl` files, or share them as links
+- 💡 Friendly errors in simple Kannada, with the faulty line underlined, hints and "did you mean…?"
+- ✍️ Autocomplete for keywords, functions and your own variables, plus a variables panel
+- ⌨️ On-screen Kannada keyboard and offline English-to-Kannada typing (`mudrisu` → `ಮುದ್ರಿಸು`)
+- 💾 "My programs" saved in the browser, `.kl` files, share links, or share code as a picture
+- 🌐 Kannada or English interface
 
 **For schools**
 - 👩‍🏫 Teachers' guide with grade-wise tracks, a 40-minute lesson plan and a printable worksheet
+- 🔗 Assignment links: write a task once, share it, and the site checks each student's answer (no server, no login)
 - 📴 Installable app that works offline in computer labs
 - 🔒 No login and no personal data collected
 
@@ -71,7 +74,7 @@ Everything runs in the browser. There are no accounts, no ads and no tracking, a
 ಚೌಕ(೮೦)
 ```
 
-The full function reference is on the [Help page](https://www.k-lipi.in/help).
+The full function reference is in the [learning hub](https://www.k-lipi.in/learn?tab=reference).
 
 ## Development
 

@@ -63,7 +63,7 @@
       "name": "ಉದಾಹರಣೆಗಳು",
       "short_name": "Examples",
       "description": "View code examples",
-      "url": "/examples",
+      "url": "/learn?tab=examples",
       "icons": [
         {
           "src": "/images/icon-192.png",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { GraduationCap, Printer, Footprints, Clock, WifiOff, Award, BookOpen, Blocks, Map as MapIcon, Flame } from 'lucide-react';
+import { GraduationCap, Printer, Footprints, Clock, WifiOff, Award, BookOpen, Blocks, Map as MapIcon, Flame, Link2 } from 'lucide-react';
+import AssignmentBuilder from '../components/AssignmentBuilder';
 import InstallApp from '../components/InstallApp';
 import './Legal.css';
 import './Teachers.css';
@@ -22,7 +23,7 @@ const TRACKS = [
         age: 'ವಯಸ್ಸು ೧೧–೧೩',
         focus: 'ಟೈಪ್ ಮಾಡಿ ಕೋಡ್, ಕೋನಗಳು, ವೇರಿಯಬಲ್, ಷರತ್ತು',
         items: [
-            { to: '/kids', Icon: MapIcon, text: 'ಆಮೆ ಸಾಹಸ ಹಂತ ೭–೧೨ (ಗಣಿತದ ಕೋನಗಳ ಜೊತೆ)' },
+            { to: '/kids', Icon: MapIcon, text: 'ಆಮೆ ಸಾಹಸ ಹಂತ ೭–೧೮ (ಕೋನಗಳು, ವೇರಿಯಬಲ್, ಲೂಪ್ ಒಳಗೆ ಲೂಪ್)' },
             { to: '/learn', Icon: BookOpen, text: 'ಕಲಿಯಿರಿ ಪಾಠ ೧–೧೦' },
             { to: '/challenge', Icon: Flame, text: 'ಇಂದಿನ ಸವಾಲು: ದಿನಕ್ಕೆ ೫ ನಿಮಿಷ' },
         ],
@@ -33,6 +34,7 @@ const TRACKS = [
         age: 'ವಯಸ್ಸು ೧೪–೧೬',
         focus: 'ಪಟ್ಟಿ, ನಿಘಂಟು, ಕಾರ್ಯಗಳು, ಸಮಸ್ಯೆ ಪರಿಹಾರ',
         items: [
+            { to: '/kids', Icon: MapIcon, text: 'ಆಮೆ ಸಾಹಸ ಹಂತ ೧೯–೨೫ (ಷರತ್ತು, ಪಟ್ಟಿ, ಆವರ್ತನೆ) ಮತ್ತು ಮಕ್ಕಳ ಪ್ರಮಾಣಪತ್ರ' },
             { to: '/learn', Icon: BookOpen, text: 'ಕಲಿಯಿರಿ ಪಾಠ ೧೧–೨೧' },
             { to: '/certificate', Icon: Award, text: 'ಪ್ರಮಾಣಪತ್ರ: ಎಲ್ಲಾ ೨೧ ಪಾಠಗಳ ನಂತರ' },
         ],
@@ -55,6 +57,13 @@ const Teachers = () => (
         <section className="glass-card legal-section no-print">
             <p>ಕನ್ನಡ ಲಿಪಿ ಉಚಿತ, ಲಾಗಿನ್ ಬೇಕಿಲ್ಲ, ಮತ್ತು ಮಕ್ಕಳ ಯಾವುದೇ ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. ರಾಷ್ಟ್ರೀಯ ಶಿಕ್ಷಣ ನೀತಿ ೨೦೨೦ ತರಗತಿ ೬ ರಿಂದ ಕೋಡಿಂಗ್ ಕಲಿಸಲು ಶಿಫಾರಸು ಮಾಡುತ್ತದೆ. ಮಾತೃಭಾಷೆಯಲ್ಲಿ ಕಲಿತರೆ ಮಕ್ಕಳು ಭಾಷೆಯ ಬದಲು ತರ್ಕದ ಮೇಲೆ ಗಮನ ಕೊಡುತ್ತಾರೆ.</p>
             <p className="legal-en">Free, no login, and no personal data collected from children. NEP 2020 recommends coding from Class 6. Learning in the mother tongue lets children focus on logic instead of English.</p>
+        </section>
+
+        <section className="glass-card legal-section no-print">
+            <h2><Link2 size={20} /> ಕಾರ್ಯ ಲಿಂಕ್ ರಚಿಸಿ (Assignment links)</h2>
+            <p>ತರಗತಿಗೆ ಒಂದು ಕೋಡಿಂಗ್ ಕಾರ್ಯ ಬರೆಯಿರಿ, ಲಿಂಕ್ ಅನ್ನು WhatsApp ಅಥವಾ ತರಗತಿ ಗುಂಪಿನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ. ವಿದ್ಯಾರ್ಥಿಗಳ ಉತ್ತರವನ್ನು ಸೈಟ್ ತಾನೇ ಪರಿಶೀಲಿಸುತ್ತದೆ.</p>
+            <p className="legal-en">Write a coding task, share the link on WhatsApp or the class group. The site checks each student's answer for you.</p>
+            <AssignmentBuilder />
         </section>
 
         <section className="no-print">

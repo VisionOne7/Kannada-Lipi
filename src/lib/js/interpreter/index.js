@@ -8,6 +8,32 @@ import KannadaRuntime from './runtime.js';
 import { friendlyError } from './errors.js';
 import { turtleResult, TURTLE_COMMAND_NAMES } from './turtle.js';
 
+const TURTLE_NAMES = new Set(TURTLE_COMMAND_NAMES);
+
+/**
+ * Find a call to a function that does not exist, before anything runs.
+ * Without this, a typo inside a branch that never runs (for example
+ * `ಆದರೆ ಅ == ಆ : ಮುಮುದ್ರಿಸು(...)` when the condition is false) goes unnoticed.
+ * Returns { name, line } for the first unknown call, or null.
+ */
+function findUnknownCall(ast) {
+    const defined = new Set();
+    const calls = [];
+    const walk = (node, line) => {
+        if (Array.isArray(node)) { node.forEach((n) => walk(n, line)); return; }
+        if (!node || typeof node !== 'object') return;
+        const here = node.line !== undefined ? node.line : line;
+        if (node.type === 'FunctionDef') defined.add(node.name);
+        // Keyword calls (ಮುದ್ರಿಸು, ಮೊತ್ತ, ...) are built in; only plain names can be unknown.
+        if (node.type === 'Call' && node.callee === 'IDENTIFIER') calls.push({ name: node.name, line: here });
+        for (const key of Object.keys(node)) {
+            if (key !== 'line' && node[key] && typeof node[key] === 'object') walk(node[key], here);
+        }
+    };
+    walk(ast, null);
+    return calls.find((c) => !defined.has(c.name) && !TURTLE_NAMES.has(c.name) && c.name !== 'ಮುದ್ರಿಸು') || null;
+}
+
 class KannadaLipi {
     constructor() {
         this.lexer = new KannadaLexer();
@@ -33,6 +59,13 @@ class KannadaLipi {
             // Parse
             const parser = new KannadaParser(tokens);
             const ast = parser.parse();
+
+            // Catch misspelt function names anywhere in the program, even in code that never runs.
+            const unknown = findUnknownCall(ast);
+            if (unknown) {
+                this.runtime.currentLine = unknown.line;
+                throw new Error(`ಅಪರಿಚಿತ ಕಾರ್ಯ: ${unknown.name}`);
+            }
 
             // Execute
             const output = this.runtime.run(ast);
@@ -62,6 +95,7 @@ class KannadaLipi {
                 hint: friendly.hint,
                 line: friendly.line,
                 output: printed ? `${printed}\n${errText}` : errText,
+                variables: { ...(this.runtime.variables || {}) },
                 turtle: turtleResult(this.runtime.turtle)
             };
         }

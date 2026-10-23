@@ -16,7 +16,7 @@ const BlocklyEditor = lazy(() => import('../components/BlocklyEditor'));
 
 const PROGRESS_KEY = 'kl_kids_levels';
 const MODES = [
-    { key: 'levels', label: 'ಆಮೆ ಸಾಹಸ', sub: '೧೨ ಹಂತಗಳು', Icon: MapIcon },
+    { key: 'levels', label: 'ಆಮೆ ಸಾಹಸ', sub: `${kn(TURTLE_LEVELS.length)} ಹಂತಗಳು`, Icon: MapIcon },
     { key: 'blocks', label: 'ಬ್ಲಾಕ್ ಕೋಡಿಂಗ್', sub: 'ಎಳೆದು ಜೋಡಿಸಿ', Icon: Blocks },
     { key: 'draw', label: 'ಚಿತ್ರ ಮೈದಾನ', sub: 'ನಿಮ್ಮ ಕಲೆ', Icon: Palette },
 ];
@@ -131,6 +131,7 @@ function Levels() {
                                 <div>
                                     <strong>ಶಭಾಷ್! ಹಂತ {kn(level.id)} ಗೆದ್ದಿರಿ!</strong>
                                     {allDone && <span> ಎಲ್ಲಾ ಹಂತಗಳು ಮುಗಿದಿವೆ. ನೀವು ನಿಜವಾದ ಕೋಡರ್!</span>}
+                                    {allDone && <NavLink to="/certificate?type=kids" className="kids-cert-link"><GraduationCap size={15} /> ನಿಮ್ಮ ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯಿರಿ</NavLink>}
                                 </div>
                                 {idx < TURTLE_LEVELS.length - 1 && (
                                     <button type="button" className="btn btn-accent" onClick={goNext}>

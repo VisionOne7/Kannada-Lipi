@@ -1,18 +1,20 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import OfflineNotice from './components/OfflineNotice';
 import ErrorBoundary from './components/ErrorBoundary';
+import { LangProvider } from './lib/i18n';
+import KarnatakaNav from './components/KarnatakaNav';
+import { KARNATAKA_PATHS } from './data/karnatakaSections';
 
 // Pages load on demand, so the first visit downloads only what it needs.
 // Home stays in the main bundle because most visits start there.
+const KarnatakaHub = lazy(() => import('./pages/KarnatakaHub'));
 const Karnataka = lazy(() => import('./pages/Karnataka'));
 const KarnatakaLinks = lazy(() => import('./pages/KarnatakaLinks'));
 const Learn = lazy(() => import('./pages/Learn'));
-const Examples = lazy(() => import('./pages/Examples'));
-const Help = lazy(() => import('./pages/Help'));
 const About = lazy(() => import('./pages/About'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Games = lazy(() => import('./pages/Games'));
@@ -30,6 +32,7 @@ const Economy = lazy(() => import('./pages/Economy'));
 const StudentResources = lazy(() => import('./pages/StudentResources'));
 const EServices = lazy(() => import('./pages/EServices'));
 const Embed = lazy(() => import('./pages/Embed'));
+const Assignment = lazy(() => import('./pages/Assignment'));
 
 
 // Shown for a moment while a page's code downloads.
@@ -66,21 +69,25 @@ function AppShell() {
             <div className="orb orb-3" aria-hidden="true"></div>
             <Header />
             <main className="main-content">
+                {KARNATAKA_PATHS.includes(location.pathname) && <KarnatakaNav />}
                 <Suspense fallback={<PageLoader />}>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/karnataka" element={<Karnataka />} />
+                        <Route path="/karnataka" element={<KarnatakaHub />} />
+                        <Route path="/karnataka/culture" element={<Karnataka />} />
                         <Route path="/links" element={<KarnatakaLinks />} />
                         <Route path="/learn" element={<Learn />} />
-                        <Route path="/examples" element={<Examples />} />
+                        {/* Examples and Help now live inside the learning hub */}
+                        <Route path="/examples" element={<Navigate to="/learn?tab=examples" replace />} />
                         <Route path="/games" element={<Games />} />
                         <Route path="/challenge" element={<DailyChallenge />} />
                         <Route path="/certificate" element={<Certificate />} />
                         <Route path="/kids" element={<Kids />} />
                         <Route path="/teachers" element={<Teachers />} />
+                        <Route path="/assignment" element={<Assignment />} />
                         <Route path="/privacy" element={<Privacy />} />
                         <Route path="/terms" element={<Terms />} />
-                        <Route path="/help" element={<Help />} />
+                        <Route path="/help" element={<Navigate to="/learn?tab=reference" replace />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/schemes" element={<Schemes />} />
                         <Route path="/wonders" element={<Wonders />} />
@@ -102,9 +109,11 @@ function AppShell() {
 function App() {
     return (
         <ErrorBoundary>
-            <Router>
-                <AppShell />
-            </Router>
+            <LangProvider>
+                <Router>
+                    <AppShell />
+                </Router>
+            </LangProvider>
         </ErrorBoundary>
     );
 }

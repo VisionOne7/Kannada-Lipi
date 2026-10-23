@@ -71,3 +71,11 @@
 [data-theme="dark"] .hl-theme-auto .hl-num, .hl-theme-dark .hl-num { color: #c4b5fd; }
 [data-theme="dark"] .hl-theme-auto .hl-op, .hl-theme-dark .hl-op { color: #94a3b8; }
 [data-theme="dark"] .hl-theme-auto .hl-comment, .hl-theme-dark .hl-comment { color: #8b949e; }
+
+/* The line a run error points to */
+.hl-errline {
+    background: rgba(215, 25, 32, 0.1);
+    text-decoration: underline wavy #D71920;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 4px;
+}

@@ -8,7 +8,7 @@
  *  - Other files:  stale-while-revalidate
  *  - Live APIs (transliteration, visitor count) are never cached.
  */
-const CACHE = 'kannadalipi-v4';
+const CACHE = 'kannadalipi-v5';
 const FONT_CACHE = 'kannadalipi-fonts-v1';
 const KEEP = [CACHE, FONT_CACHE];
 const SHELL = [

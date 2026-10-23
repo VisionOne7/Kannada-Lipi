@@ -1,10 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Award, Download, Share2, Lock } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { LESSONS } from '../data/lessons';
+import { TURTLE_LEVELS } from '../data/turtleLevels';
 import './Certificate.css';
 
-const TOTAL_LESSONS = Object.keys(LESSONS).length;
+// Two certificates: the lesson course, and the kids' turtle adventure (?type=kids).
+const KINDS = {
+    course: {
+        total: Object.keys(LESSONS).length,
+        unit: 'ಪಾಠಗಳು',
+        done: () => (JSON.parse(localStorage.getItem('kannadalipi_learning') || '{}').completedLessons || []).length,
+        subtitle: 'ಎಲ್ಲಾ ಪಾಠಗಳನ್ನು ಮುಗಿಸಿ, ನಿಮ್ಮ ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯಿರಿ',
+        lines: ['ಕನ್ನಡ ಲಿಪಿ ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಕೋರ್ಸ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ', 'ಪೂರ್ಣಗೊಳಿಸಿದ್ದಕ್ಕಾಗಿ ಇದನ್ನು ನೀಡಲಾಗಿದೆ.'],
+        continueTo: '/learn',
+        continueLabel: 'ಕಲಿಕೆ ಮುಂದುವರಿಸಿ',
+        file: 'kannada-lipi-certificate.png',
+        shareText: 'ನಾನು ಕನ್ನಡ ಲಿಪಿಯಲ್ಲಿ ಕೋಡಿಂಗ್ ಕಲಿತೆ! k-lipi.in',
+    },
+    kids: {
+        total: TURTLE_LEVELS.length,
+        unit: 'ಹಂತಗಳು',
+        done: () => JSON.parse(localStorage.getItem('kl_kids_levels') || '[]').length,
+        subtitle: 'ಆಮೆ ಸಾಹಸದ ಎಲ್ಲಾ ಹಂತಗಳನ್ನು ಗೆದ್ದು, ಪುಟಾಣಿ ಕೋಡರ್ ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯಿರಿ',
+        lines: ['ಆಮೆ ಸಾಹಸದ ಎಲ್ಲಾ ಹಂತಗಳನ್ನು ಗೆದ್ದು', 'ಪುಟಾಣಿ ಕೋಡರ್ ಆಗಿದ್ದಕ್ಕಾಗಿ ಇದನ್ನು ನೀಡಲಾಗಿದೆ.'],
+        continueTo: '/kids',
+        continueLabel: 'ಆಮೆ ಸಾಹಸಕ್ಕೆ ಹಿಂತಿರುಗಿ',
+        file: 'kannada-lipi-kids-certificate.png',
+        shareText: 'ನಾನು ಕನ್ನಡ ಲಿಪಿ ಆಮೆ ಸಾಹಸದ ಎಲ್ಲಾ ಹಂತಗಳನ್ನು ಗೆದ್ದೆ! k-lipi.in',
+    },
+};
 
 // Rounded-rectangle path helper for the canvas frame.
 const roundRect = (ctx, x, y, w, h, r) => {
@@ -18,6 +43,10 @@ const roundRect = (ctx, x, y, w, h, r) => {
 };
 
 const Certificate = () => {
+    const [params] = useSearchParams();
+    const kindId = params.get('type') === 'kids' ? 'kids' : 'course';
+    const kind = KINDS[kindId];
+    const TOTAL_LESSONS = kind.total;
     const [done, setDone] = useState(0);
     const [name, setName] = useState(() => localStorage.getItem('kl_cert_name') || '');
     const [issued, setIssued] = useState(false);
@@ -25,15 +54,12 @@ const Certificate = () => {
     const logoRef = useRef(null);
 
     useEffect(() => {
-        try {
-            const p = JSON.parse(localStorage.getItem('kannadalipi_learning') || '{}');
-            setDone((p.completedLessons || []).length);
-        } catch { setDone(0); }
+        try { setDone(kind.done()); } catch { setDone(0); }
         // Preload the real logo so it's ready when we draw.
         const img = new Image();
         img.src = '/images/logo.png';
         img.onload = () => { logoRef.current = img; };
-    }, []);
+    }, [kind]);
 
     const eligible = done >= TOTAL_LESSONS;
     const pct = Math.round((done / TOTAL_LESSONS) * 100);
@@ -94,8 +120,8 @@ const Certificate = () => {
 
         // Achievement — clean two-line statement
         ctx.fillStyle = '#444'; ctx.font = '22px Georgia, serif';
-        ctx.fillText('ಕನ್ನಡ ಲಿಪಿ ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಕೋರ್ಸ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ', W / 2, 520);
-        ctx.fillText('ಪೂರ್ಣಗೊಳಿಸಿದ್ದಕ್ಕಾಗಿ ಇದನ್ನು ನೀಡಲಾಗಿದೆ.', W / 2, 552);
+        ctx.fillText(kind.lines[0], W / 2, 520);
+        ctx.fillText(kind.lines[1], W / 2, 552);
 
         // Gold seal / badge
         const sex = W / 2, sey = 670, R = 52;
@@ -130,7 +156,7 @@ const Certificate = () => {
         c.toBlob((blob) => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url; a.download = 'kannada-lipi-certificate.png';
+            a.href = url; a.download = kind.file;
             document.body.appendChild(a); a.click(); document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
@@ -139,8 +165,8 @@ const Certificate = () => {
     const shareCert = async () => {
         const c = drawCertificate();
         c.toBlob(async (blob) => {
-            const file = new File([blob], 'kannada-lipi-certificate.png', { type: 'image/png' });
-            const text = `ನಾನು ಕನ್ನಡ ಲಿಪಿಯಲ್ಲಿ ಕೋಡಿಂಗ್ ಕಲಿತೆ! k-lipi.in`;
+            const file = new File([blob], kind.file, { type: 'image/png' });
+            const text = kind.shareText;
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 try { await navigator.share({ files: [file], text, title: 'ಕನ್ನಡ ಲಿಪಿ' }); return; } catch { /* cancelled */ }
             }
@@ -158,7 +184,7 @@ const Certificate = () => {
                     <span className="page-header-icon"><Award size={28} /></span>
                     ಪ್ರಮಾಣಪತ್ರ
                 </h1>
-                <p className="page-header-subtitle">ಎಲ್ಲಾ ಪಾಠಗಳನ್ನು ಮುಗಿಸಿ, ನಿಮ್ಮ ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯಿರಿ</p>
+                <p className="page-header-subtitle">{kind.subtitle}</p>
             </header>
 
             <div className="cert-content">
@@ -166,7 +192,7 @@ const Certificate = () => {
                 <div className="cert-progress-card panel">
                     <div className="cert-progress-top">
                         <span>ಪ್ರಗತಿ</span>
-                        <strong>{done} / {TOTAL_LESSONS} ಪಾಠಗಳು</strong>
+                        <strong>{done} / {TOTAL_LESSONS} {kind.unit}</strong>
                     </div>
                     <div className="cert-bar"><div className="cert-bar-fill" style={{ width: `${pct}%` }} /></div>
                 </div>
@@ -174,9 +200,9 @@ const Certificate = () => {
                 {!eligible ? (
                     <div className="cert-locked panel">
                         <Lock size={44} />
-                        <h3>ಇನ್ನೂ {TOTAL_LESSONS - done} ಪಾಠಗಳು ಬಾಕಿ</h3>
-                        <p>ಎಲ್ಲಾ {TOTAL_LESSONS} ಪಾಠಗಳನ್ನು ಮುಗಿಸಿದ ನಂತರ ಪ್ರಮಾಣಪತ್ರ ಲಭ್ಯ.</p>
-                        <NavLink to="/learn" className="btn btn-primary">ಕಲಿಕೆ ಮುಂದುವರಿಸಿ</NavLink>
+                        <h3>ಇನ್ನೂ {TOTAL_LESSONS - done} {kind.unit} ಬಾಕಿ</h3>
+                        <p>ಎಲ್ಲಾ {TOTAL_LESSONS} {kind.unit} ಮುಗಿಸಿದ ನಂತರ ಪ್ರಮಾಣಪತ್ರ ಲಭ್ಯ.</p>
+                        <NavLink to={kind.continueTo} className="btn btn-primary">{kind.continueLabel}</NavLink>
                     </div>
                 ) : !issued ? (
                     <div className="cert-form panel">
