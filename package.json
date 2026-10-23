@@ -33,7 +33,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.18.4",
-    "vite": "^7.3.1"
+    "vite": "^7.3.7"
   },
   "dependencies": {
     "blockly": "^13.3.0",

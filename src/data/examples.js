@@ -36,13 +36,3 @@ export const EXAMPLES = [
     { id: 30, title: "ಆಮೆ ಚೌಕ", category: "turtle", turtle: true, code: `# ಆಮೆ ಚಿತ್ರ - ಚೌಕ (Square)\nಬಣ್ಣ("ಕೆಂಪು")\nದಪ್ಪ(೪)\nಪುನರಾವರ್ತನೆ ಇ ೧ ರಿಂದ ೪ ವರೆಗೆ : ಮುಂದೆ(೧೨೦) ಬಲಕ್ಕೆ(೯೦)`, categoryLabel: "ಆಮೆ", iconKey: "Square" },
     { id: 31, title: "ಆಮೆ ನಕ್ಷತ್ರ", category: "turtle", turtle: true, code: `# ಆಮೆ ಚಿತ್ರ - ನಕ್ಷತ್ರ (Star)\nಬಣ್ಣ("ಹಳದಿ")\nದಪ್ಪ(೩)\nಪುನರಾವರ್ತನೆ ಇ ೧ ರಿಂದ ೫ ವರೆಗೆ : ಮುಂದೆ(೧೫೦) ಬಲಕ್ಕೆ(೧೪೪)`, categoryLabel: "ಆಮೆ", iconKey: "Star" }
 ];
-
-export const EXAMPLE_CATEGORIES = [
-    { id: 'all', label: 'ಎಲ್ಲಾ', iconKey: 'BookOpen' },
-    { id: 'basics', label: 'ಮೂಲಭೂತ', iconKey: 'Sprout' },
-    { id: 'math', label: 'ಗಣಿತ', iconKey: 'Hash' },
-    { id: 'strings', label: 'ಸ್ಟ್ರಿಂಗ್ಸ್', iconKey: 'FileText' },
-    { id: 'logic', label: 'ತರ್ಕ', iconKey: 'Brain' },
-    { id: 'lists', label: 'ಪಟ್ಟಿಗಳು', iconKey: 'BarChart3' },
-    { id: 'karnataka', label: 'ಕರ್ನಾಟಕ', iconKey: 'Landmark' }
-];
