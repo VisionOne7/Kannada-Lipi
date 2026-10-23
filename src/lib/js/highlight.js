@@ -25,21 +25,34 @@ const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace
 // One pass over the source: comment | string | number | word | operator | other
 const TOKEN = /(#[^\n]*)|("(?:[^"\\\n]|\\.)*"?)|([0-9೦-೯]+(?:\.[0-9೦-೯]+)?)|([ಀ-೿a-zA-Z_][ಀ-೿a-zA-Z0-9_]*)|(==|!=|>=|<=|[+\-*/%=<>])|([\s\S])/g;
 
-export function highlight(code) {
-    let out = '';
+/** Split code into coloured pieces: [{ type: 'kw' | 'fn' | 'turtle' | 'str' | 'num' | 'op' | 'comment' | null, text }] */
+export function tokenize(code) {
+    const tokens = [];
     let m;
     TOKEN.lastIndex = 0;
     while ((m = TOKEN.exec(code)) !== null) {
         const [text, comment, str, num, word, op] = m;
-        const safe = escapeHtml(text);
-        if (comment) out += `<span class="hl-comment">${safe}</span>`;
-        else if (str) out += `<span class="hl-str">${safe}</span>`;
-        else if (num) out += `<span class="hl-num">${safe}</span>`;
-        else if (word) {
-            const kind = KEYWORDS.get(word);
-            out += kind ? `<span class="hl-${kind}">${safe}</span>` : safe;
-        } else if (op) out += `<span class="hl-op">${safe}</span>`;
-        else out += safe;
+        let type = null;
+        if (comment) type = 'comment';
+        else if (str) type = 'str';
+        else if (num) type = 'num';
+        else if (word) type = KEYWORDS.get(word) || null;
+        else if (op) type = 'op';
+        tokens.push({ type, text });
+    }
+    return tokens;
+}
+
+export function highlight(code, errorLine = null) {
+    let out = tokenize(code)
+        .map(({ type, text }) => (type ? `<span class="hl-${type}">${escapeHtml(text)}</span>` : escapeHtml(text)))
+        .join('');
+    // Underline the line an error points to (tokens never cross lines, so splitting is safe).
+    if (errorLine) {
+        const lines = out.split('\n');
+        const i = errorLine - 1;
+        if (lines[i] !== undefined && lines[i] !== '') lines[i] = `<span class="hl-errline">${lines[i]}</span>`;
+        out = lines.join('\n');
     }
     // A trailing newline needs a visible character so the layer keeps the same height.
     return out + (code.endsWith('\n') ? ' ' : '');

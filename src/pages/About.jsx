@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-    Rocket, Eye, Gem, ClipboardList, Star, GitFork, Code2, Info, Keyboard, TriangleAlert, Variable,
-    TextCursorInput, FolderOpen, ClipboardCheck, Languages, Smile, Image as ImageIcon, ChevronDown,
-    Building2, MapPin, ArrowRight,
+    Rocket, Eye, Gem, ClipboardList, Star, GitFork, Code2, Info, ChevronDown,
+    Building2, MapPin, ArrowRight, ShieldCheck, Accessibility, BookOpen, Database, Search, Turtle,
 } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import GitHubStar, { REPO_URL, GitHubMark } from '../components/GitHubStar';
@@ -11,10 +10,46 @@ import './About.css';
 
 const CHANGELOG_DATA = [
     {
-        version: "3.2.0",
+        version: "3.3.0",
         date: "ಅಕ್ಟೋಬರ್ ೨೦೨೬",
         author: "VisionOne7",
         isLatest: true,
+        sections: [
+            {
+                title: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು (New Features)",
+                icon: "new",
+                bulletType: "added",
+                items: [
+                    { tag: "NEW", text: "ಕಲಿಕಾ ಕೇಂದ್ರ - ಪಾಠಗಳು, ಉದಾಹರಣೆಗಳು ಮತ್ತು ಕಾರ್ಯಗಳ ಉಲ್ಲೇಖ ಒಂದೇ ಪುಟದಲ್ಲಿ, ವಿಷಯವಾರು ಮತ್ತು ಹುಡುಕಾಟದೊಂದಿಗೆ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಕರ್ನಾಟಕ ಮುಖಪುಟ - ಎಲ್ಲಾ ೯ ವಿಭಾಗಗಳು ಕಾರ್ಡ್‌ಗಳಾಗಿ, ಪ್ರತಿ ಪುಟದಲ್ಲೂ ವಿಭಾಗದ ಪಟ್ಟಿ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಆಫ್‌ಲೈನ್ ಕನ್ನಡ ಟೈಪಿಂಗ್ - mudrisu → ಮುದ್ರಿಸು, ಇಂಟರ್ನೆಟ್ ಬೇಕಿಲ್ಲ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಸ್ವಯಂ ಸಲಹೆಗಳು - ಟೈಪ್ ಮಾಡುವಾಗ ಕಾರ್ಯ ಮತ್ತು ವೇರಿಯಬಲ್ ಸಲಹೆ, Tab ಒತ್ತಿ ಸೇರಿಸಿ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ದೋಷದ ಸಾಲು ಗುರುತು ಮತ್ತು ವೇರಿಯಬಲ್ ಫಲಕ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ನನ್ನ ಪ್ರೋಗ್ರಾಂಗಳು - ಹೆಸರಿನೊಂದಿಗೆ ಬ್ರೌಸರ್‌ನಲ್ಲೇ ಉಳಿಸಿ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಶಿಕ್ಷಕರ ಕಾರ್ಯ ಲಿಂಕ್‌ಗಳು - ಉತ್ತರ ತಾನೇ ಪರಿಶೀಲನೆ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಮಕ್ಕಳ ಆಮೆ ಸಾಹಸ ಹಂತ ೧೩–೨೫ ಮತ್ತು ಮಕ್ಕಳ ಪ್ರಮಾಣಪತ್ರ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಕೋಡ್ ಅನ್ನು ಚಿತ್ರವಾಗಿ ಹಂಚಿಕೊಳ್ಳಿ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಕನ್ನಡ / English ಇಂಟರ್ಫೇಸ್ ಬದಲಾವಣೆ", tagClass: "tag-new" }
+                ]
+            },
+            {
+                title: "ಸುಧಾರಣೆಗಳು (Improvements)",
+                icon: "improved",
+                bulletType: "changed",
+                items: [
+                    { tag: "FIX", text: "ರನ್ ಆಗದ ಸಾಲಿನಲ್ಲಿರುವ ತಪ್ಪು ಕಾರ್ಯದ ಹೆಸರೂ ಈಗ ಪತ್ತೆಯಾಗುತ್ತದೆ (ಉದಾ: ಮುಮುದ್ರಿಸು)", tagClass: "tag-fixed" },
+                    { tag: "IMPROVED", text: "ಪಾಠ ಪರಿಶೀಲನೆ ಈಗ ಎಲ್ಲಾ ೨೧ ಪಾಠಗಳಲ್ಲೂ ಸರಿಯಾದ ಕಾರ್ಯ ಬಳಕೆ ಪರಿಶೀಲಿಸುತ್ತದೆ", tagClass: "tag-improved" },
+                    { tag: "UI", text: "ಹೆಡರ್ ಚಿಕ್ಕದಾಗಿದೆ: ಉದಾಹರಣೆ ಮತ್ತು ಸಹಾಯ ಕಲಿಕಾ ಕೇಂದ್ರದೊಳಗೆ", tagClass: "tag-ui" },
+                    { tag: "PRIVACY", text: "ಕನ್ನಡ ಟೈಪಿಂಗ್ ಈಗ Google ಗೆ ಏನನ್ನೂ ಕಳುಹಿಸುವುದಿಲ್ಲ", tagClass: "tag-improved" }
+                ]
+            }
+        ]
+    },
+    {
+        version: "3.2.0",
+        date: "ಅಕ್ಟೋಬರ್ ೨೦೨೬",
+        author: "VisionOne7",
+        isLatest: false,
         sections: [
             {
                 title: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು (New Features)",
@@ -232,17 +267,14 @@ const CHANGELOG_DATA = [
     }
 ];
 
-// What's coming next (Phase 2 roadmap)
+// What's coming next (Phase 3 roadmap)
 const FUTURE_PLANS = [
-    { Icon: Keyboard, title: "ಆಫ್‌ಲೈನ್ ಕನ್ನಡ ಟೈಪಿಂಗ್", desc: "Google ಇಲ್ಲದೆ namaskara → ನಮಸ್ಕಾರ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ" },
-    { Icon: TriangleAlert, title: "ದೋಷದ ಸಾಲು ಗುರುತು", desc: "ತಪ್ಪಾದ ಸಾಲು ಎಡಿಟರ್‌ನಲ್ಲೇ ಕೆಂಪಾಗುತ್ತದೆ" },
-    { Icon: Variable, title: "ವೇರಿಯಬಲ್ ಫಲಕ", desc: "ರನ್ ನಂತರ ಪ್ರತಿ ವೇರಿಯಬಲ್ ಮತ್ತು ಅದರ ಮೌಲ್ಯ" },
-    { Icon: TextCursorInput, title: "ಸ್ವಯಂ ಪೂರ್ಣಗೊಳಿಸುವಿಕೆ", desc: "ಟೈಪ್ ಮಾಡುವಾಗ ಕೀವರ್ಡ್ ಮತ್ತು ಕಾರ್ಯ ಸಲಹೆಗಳು" },
-    { Icon: FolderOpen, title: "ನನ್ನ ಪ್ರೋಗ್ರಾಂಗಳು", desc: "ಹೆಸರಿನೊಂದಿಗೆ ಉಳಿಸಿ, ಮತ್ತೆ ತೆರೆಯಿರಿ" },
-    { Icon: ClipboardCheck, title: "ಶಿಕ್ಷಕರ ಅಸೈನ್‌ಮೆಂಟ್ ಲಿಂಕ್", desc: "ಸವಾಲು ಲಿಂಕ್ ಹಂಚಿ, ಫಲಿತಾಂಶ ತಕ್ಷಣ" },
-    { Icon: Languages, title: "ಕನ್ನಡ / English ಇಂಟರ್ಫೇಸ್", desc: "ಪೋಷಕರು ಮತ್ತು ಹೊರರಾಜ್ಯದ ಶಿಕ್ಷಕರಿಗೆ" },
-    { Icon: Smile, title: "ಇನ್ನಷ್ಟು ಮಕ್ಕಳ ಹಂತಗಳು", desc: "ಹಂತ ೧೩ ರಿಂದ ೨೫ ಮತ್ತು ಮಕ್ಕಳ ಪ್ರಮಾಣಪತ್ರ" },
-    { Icon: ImageIcon, title: "ಕೋಡ್ ಚಿತ್ರ ಹಂಚಿಕೆ", desc: "ನಿಮ್ಮ ಕೋಡ್ ಅನ್ನು ಸುಂದರ ಚಿತ್ರವಾಗಿ ಹಂಚಿ" }
+    { Icon: Turtle, title: "ಆಮೆ ಪಾಠಗಳು", desc: "ಕಲಿಕಾ ಕೇಂದ್ರದಲ್ಲೇ ಆಮೆ ಚಿತ್ರದ ಹಂತ ಹಂತದ ಪಾಠಗಳು" },
+    { Icon: BookOpen, title: "ಇನ್ನಷ್ಟು ಪಾಠಗಳು", desc: "ಕಾರ್ಯಗಳು, ಪುನರಾವರ್ತಿತ ಕರೆ ಮತ್ತು ಸಣ್ಣ ಯೋಜನೆಗಳು" },
+    { Icon: Database, title: "ಕರ್ನಾಟಕ ದತ್ತಾಂಶದೊಂದಿಗೆ ಕೋಡ್", desc: "ಜಿಲ್ಲೆಗಳ ಜನಸಂಖ್ಯೆ, ಮಳೆ ಮುಂತಾದ ನಿಜವಾದ ಮಾಹಿತಿಯೊಂದಿಗೆ ಅಭ್ಯಾಸ" },
+    { Icon: Accessibility, title: "ಪ್ರವೇಶಸಾಧ್ಯತೆ", desc: "ಸ್ಕ್ರೀನ್ ರೀಡರ್ ಮತ್ತು ಕೀಬೋರ್ಡ್ ಮಾತ್ರ ಬಳಸುವವರಿಗೆ ಪೂರ್ಣ ಬೆಂಬಲ" },
+    { Icon: Search, title: "ಪ್ರತಿ ಪುಟಕ್ಕೆ ಶೀರ್ಷಿಕೆ", desc: "ಹುಡುಕಾಟದಲ್ಲಿ ಪ್ರತಿ ಪುಟ ಸರಿಯಾಗಿ ಕಾಣಿಸಲಿ" },
+    { Icon: ShieldCheck, title: "ಸ್ವಯಂಚಾಲಿತ ಪರೀಕ್ಷೆಗಳು", desc: "ಪ್ರತಿ ಬದಲಾವಣೆಯಲ್ಲೂ ಇಂಟರ್ಪ್ರಿಟರ್ ಮತ್ತು ಪುಟಗಳ ಪರೀಕ್ಷೆ" }
 ];
 
 const FEATURES_DATA = [

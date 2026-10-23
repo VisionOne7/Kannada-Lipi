@@ -312,3 +312,14 @@
 }
 
 .kids-code-hl { background: #0d1117; border-radius: var(--radius-md); }
+
+.kids-cert-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-weight: 700;
+    color: var(--k-red);
+    text-decoration: none;
+}
+.kids-cert-link:hover { text-decoration: underline; }

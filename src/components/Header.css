@@ -401,3 +401,70 @@
 @media (prefers-reduced-motion: reduce) {
     .nav-mobile, .nav-overlay, .nav-dropdown-menu { transition: none; }
 }
+
+/* Karnataka mega menu: every section with a one-line description */
+.nav-dropdown-menu.nav-mega {
+    width: min(620px, calc(100vw - 32px));
+    padding: 10px;
+    gap: 8px;
+}
+.nav-mega-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+}
+.nav-mega-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background 0.15s;
+}
+.nav-mega-item:hover,
+.nav-mega-item:focus-visible { background: var(--glass-yellow); }
+.nav-mega-item.active { background: var(--glass-red); }
+.nav-mega-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: var(--glass-red);
+    color: var(--k-red);
+}
+.nav-mega-item:hover .nav-mega-icon { background: var(--k-red); color: #fff; }
+.nav-mega-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.nav-mega-title { font-size: 0.92rem; font-weight: 700; }
+.nav-mega-desc {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    white-space: normal;
+}
+.nav-mega-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--bg-surface-elevated);
+    color: var(--accent-text);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+.nav-mega-all:hover { background: var(--glass-yellow); }
+
+/* Interface language switch */
+.lang-btn {
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}

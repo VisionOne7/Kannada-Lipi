@@ -9,17 +9,18 @@ import './HighlightedTextarea.css';
  *
  * Props are passed straight to the textarea. `theme` is 'auto' (follows the
  * site theme) or 'dark' (for editors that always have a dark background).
+ * `errorLine` (1-based) underlines the line a run error points to.
  */
 const COPY_STYLES = ['fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing', 'tabSize',
     'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'borderTopWidth', 'borderLeftWidth',
     'borderRightWidth', 'borderBottomWidth', 'textIndent', 'wordSpacing'];
 
-const HighlightedTextarea = forwardRef(({ value, theme = 'auto', className = '', onScroll, wrapperClassName = '', ...rest }, ref) => {
+const HighlightedTextarea = forwardRef(({ value, theme = 'auto', className = '', onScroll, wrapperClassName = '', errorLine = null, ...rest }, ref) => {
     const taRef = useRef(null);
     const layerRef = useRef(null);
     useImperativeHandle(ref, () => taRef.current);
 
-    const html = useMemo(() => highlight(value || ''), [value]);
+    const html = useMemo(() => highlight(value || '', errorLine), [value, errorLine]);
 
     // Mirror the textarea's font, padding and inner width onto the layer.
     useEffect(() => {

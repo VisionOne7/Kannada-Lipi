@@ -1,0 +1,102 @@
+/* Karnataka hub: every Karnataka page as a card */
+.kh-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xl);
+}
+
+.kh-facts {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: var(--border-glass-color);
+    box-shadow: var(--glass-shadow);
+}
+.kh-fact {
+    padding: var(--gap-md);
+    background: var(--bg-surface);
+    text-align: center;
+}
+.kh-fact dt {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+.kh-fact dd {
+    margin: 4px 0 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.kh-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+}
+.kh-h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+.kh-h2 span {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.kh-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-md);
+}
+.kh-cta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    padding: var(--gap-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    box-shadow: var(--glass-shadow);
+}
+.kh-cta-item > div { flex: 1; min-width: 0; }
+.kh-cta-item h3 { margin: 0 0 4px; font-size: 1.1rem; }
+.kh-cta-item p { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--text-secondary); }
+.kh-cta-item .btn { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.kh-cta-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: var(--glass-yellow);
+    color: var(--accent-text);
+}
+
+@media (max-width: 900px) {
+    .kh-facts { grid-template-columns: repeat(3, 1fr); }
+    .kh-cta { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .kh-body { padding: var(--gap-lg) var(--gap-md); }
+    .kh-facts { grid-template-columns: repeat(2, 1fr); }
+    .kh-fact:last-child { grid-column: span 2; }
+    .kh-h2 { font-size: 1.25rem; flex-wrap: wrap; }
+    .kh-cta-item { flex-wrap: wrap; }
+    .kh-cta-item .btn { width: 100%; justify-content: center; }
+}
