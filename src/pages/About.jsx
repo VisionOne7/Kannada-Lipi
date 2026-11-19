@@ -10,10 +10,43 @@ import './About.css';
 
 const CHANGELOG_DATA = [
     {
+        version: "3.4.0",
+        date: "ನವೆಂಬರ್ ೨೦೨೬",
+        author: "VisionOne7",
+        isLatest: true,
+        sections: [
+            {
+                title: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು (New Features)",
+                icon: "new",
+                bulletType: "added",
+                items: [
+                    { tag: "NEW", text: "ನನ್ನ ಕಲಿಕೆ - ವಿಷಯವಾರು ಕಲಿಕೆಯ ಹಾದಿ ಮತ್ತು ೯ ಬ್ಯಾಡ್ಜ್‌ಗಳು", tagClass: "tag-new" },
+                    { tag: "NEW", text: "Ctrl + K ಹುಡುಕಾಟ - ಪುಟ, ಪಾಠ, ಕಾರ್ಯ ಮತ್ತು ಕ್ರಿಯೆಗಳು ಎಲ್ಲಿಂದ ಬೇಕಾದರೂ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಕರ್ನಾಟಕ ದತ್ತಾಂಶದೊಂದಿಗೆ ಕೋಡ್ - ಜಿಲ್ಲೆಗಳ ಜನಸಂಖ್ಯೆ, ಸಾಕ್ಷರತೆ, ವಿಸ್ತೀರ್ಣ ಮತ್ತು ಬಾರ್ ಚಾರ್ಟ್", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಕಲಿಯಿರಿ ಪುಟದಲ್ಲಿ ಆಮೆ ಚಿತ್ರದ ಪಾಠಗಳು ಮತ್ತು ಕರ್ನಾಟಕ ದತ್ತಾಂಶ ಪಾಠ (ಒಟ್ಟು ೨೫ ಪಾಠಗಳು)", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಮಕ್ಕಳ ಹಂತಗಳು: ಗೋಲ ಗುಮ್ಮಟ, ಮೈಸೂರು ಅರಮನೆ, ಹಂಪಿಯ ಕಲ್ಲಿನ ರಥ", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ತರಗತಿ ಫಲಿತಾಂಶ - ವಿದ್ಯಾರ್ಥಿಗಳ ಸಂದೇಶ ಅಂಟಿಸಿ, ಯಾರು ಮುಗಿಸಿದರು ಎಂದು ನೋಡಿ (ಸರ್ವರ್ ಇಲ್ಲ)", tagClass: "tag-new" },
+                    { tag: "NEW", text: "ಮೊದಲ ಭೇಟಿಯ ಸ್ವಾಗತ ಮತ್ತು 'ನನ್ನ ಮೊದಲ ಪ್ರೋಗ್ರಾಂ'", tagClass: "tag-new" }
+                ]
+            },
+            {
+                title: "ಸುಧಾರಣೆಗಳು (Improvements)",
+                icon: "improved",
+                bulletType: "changed",
+                items: [
+                    { tag: "UI", text: "ಫೋನ್‌ನಲ್ಲಿ ಕೆಳಗಿನ ಟ್ಯಾಬ್ ಬಾರ್, ಹೊಸ ಅಡಿಟಿಪ್ಪಣಿ, ಬೆಂಟೋ ಮುಖಪುಟ, ಸ್ನೇಹಪರ ೪೦೪ ಪುಟ", tagClass: "tag-ui" },
+                    { tag: "UI", text: "ಎಡಿಟರ್: ಅಕ್ಷರ ಗಾತ್ರ, ಕತ್ತಲೆ ಎಡಿಟರ್, ಪೂರ್ಣ ಪರದೆ, ಎಳೆದು ಅಗಲ ಬದಲಿಸುವ ವಿಭಾಜಕ", tagClass: "tag-ui" },
+                    { tag: "UI", text: "ಸೌಮ್ಯ ಚಲನೆಗಳು, ಸ್ಕ್ರಾಲ್ ಅನಿಮೇಶನ್, ಲೋಡಿಂಗ್ ಸ್ಕೆಲಿಟನ್, ಪ್ರತಿ ಪುಟಕ್ಕೆ ಶೀರ್ಷಿಕೆ, ಅಕ್ಷರದ ಗಾತ್ರ ಆಯ್ಕೆ", tagClass: "tag-ui" },
+                    { tag: "FIX", text: "ಕನ್ನಡ ಅಂಕಿಗಳಿರುವ ಮೌಲ್ಯಗಳ ಮೇಲೆ ಗಣಿತ ಈಗ ಸರಿಯಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ (ಉದಾ: ಪಟ್ಟಿಯ_ಉದ್ದ(ಪ) - ೧)", tagClass: "tag-fixed" }
+                ]
+            }
+        ]
+    },
+    {
         version: "3.3.0",
         date: "ಅಕ್ಟೋಬರ್ ೨೦೨೬",
         author: "VisionOne7",
-        isLatest: true,
+        isLatest: false,
         sections: [
             {
                 title: "ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು (New Features)",
@@ -269,11 +302,11 @@ const CHANGELOG_DATA = [
 
 // What's coming next (Phase 3 roadmap)
 const FUTURE_PLANS = [
-    { Icon: Turtle, title: "ಆಮೆ ಪಾಠಗಳು", desc: "ಕಲಿಕಾ ಕೇಂದ್ರದಲ್ಲೇ ಆಮೆ ಚಿತ್ರದ ಹಂತ ಹಂತದ ಪಾಠಗಳು" },
+    { Icon: Turtle, title: "ಹಂತ ಹಂತ ರನ್", desc: "ಒಂದೊಂದೇ ಸಾಲು ರನ್ ಮಾಡಿ, ವೇರಿಯಬಲ್‌ಗಳು ಬದಲಾಗುವುದನ್ನು ನೋಡಿ" },
     { Icon: BookOpen, title: "ಇನ್ನಷ್ಟು ಪಾಠಗಳು", desc: "ಕಾರ್ಯಗಳು, ಪುನರಾವರ್ತಿತ ಕರೆ ಮತ್ತು ಸಣ್ಣ ಯೋಜನೆಗಳು" },
-    { Icon: Database, title: "ಕರ್ನಾಟಕ ದತ್ತಾಂಶದೊಂದಿಗೆ ಕೋಡ್", desc: "ಜಿಲ್ಲೆಗಳ ಜನಸಂಖ್ಯೆ, ಮಳೆ ಮುಂತಾದ ನಿಜವಾದ ಮಾಹಿತಿಯೊಂದಿಗೆ ಅಭ್ಯಾಸ" },
+    { Icon: Database, title: "ಇನ್ನಷ್ಟು ಕರ್ನಾಟಕ ದತ್ತಾಂಶ", desc: "ಮಳೆ, ಬೆಳೆ, ನದಿಗಳು — ಇನ್ನಷ್ಟು ನಿಜವಾದ ಮಾಹಿತಿ" },
     { Icon: Accessibility, title: "ಪ್ರವೇಶಸಾಧ್ಯತೆ", desc: "ಸ್ಕ್ರೀನ್ ರೀಡರ್ ಮತ್ತು ಕೀಬೋರ್ಡ್ ಮಾತ್ರ ಬಳಸುವವರಿಗೆ ಪೂರ್ಣ ಬೆಂಬಲ" },
-    { Icon: Search, title: "ಪ್ರತಿ ಪುಟಕ್ಕೆ ಶೀರ್ಷಿಕೆ", desc: "ಹುಡುಕಾಟದಲ್ಲಿ ಪ್ರತಿ ಪುಟ ಸರಿಯಾಗಿ ಕಾಣಿಸಲಿ" },
+    { Icon: Search, title: "ಕೆಲಸದ ಹಾಳೆ PDF", desc: "ಕಂಪ್ಯೂಟರ್ ಕಡಿಮೆ ಇರುವ ಶಾಲೆಗಳಿಗೆ ತರಗತಿವಾರು ಮುದ್ರಣ ಪುಸ್ತಕ" },
     { Icon: ShieldCheck, title: "ಸ್ವಯಂಚಾಲಿತ ಪರೀಕ್ಷೆಗಳು", desc: "ಪ್ರತಿ ಬದಲಾವಣೆಯಲ್ಲೂ ಇಂಟರ್ಪ್ರಿಟರ್ ಮತ್ತು ಪುಟಗಳ ಪರೀಕ್ಷೆ" }
 ];
 

@@ -22,8 +22,8 @@
 
 .main-editor-area {
     display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: var(--gap-lg);
+    grid-template-columns: minmax(0, 1fr) 14px var(--out-w, 380px);
+    gap: 5px;
     align-items: flex-start;
 }
 
@@ -419,3 +419,95 @@
     .output-head { margin-bottom: var(--gap-xs); min-height: 0; }
     .suggest-doc { display: none; }
 }
+
+/* ---------- Editor comfort: divider, view tools, dark editor, sizes, focus ---------- */
+.split-handle {
+    align-self: stretch;
+    margin-top: 58px;
+    border-radius: 999px;
+    cursor: col-resize;
+    position: relative;
+    touch-action: none;
+}
+.split-handle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 4px;
+    height: 56px;
+    border-radius: 999px;
+    background: var(--border-glass-color);
+    transform: translate(-50%, -50%);
+    transition: background var(--dur-2) var(--ease-out), height var(--dur-2) var(--ease-out);
+}
+.split-handle:hover::after, .split-handle:focus-visible::after, body.resizing-editor .split-handle::after {
+    background: linear-gradient(180deg, var(--k-yellow), var(--k-red));
+    height: 96px;
+}
+body.resizing-editor { cursor: col-resize; user-select: none; }
+@media (max-width: 1024px) { .split-handle { display: none; } }
+
+.ed-tools {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 4;
+    display: flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 12px;
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--border-glass-color);
+    box-shadow: var(--shadow-sm);
+    opacity: 0.55;
+    transition: opacity var(--dur-2) var(--ease-out);
+}
+.editor-container:hover .ed-tools, .ed-tools:focus-within { opacity: 1; }
+.ed-tools button {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+.ed-tools button:hover { background: var(--glass-yellow); color: var(--text-primary); }
+.ed-tools button[aria-pressed="true"] { color: var(--k-red); }
+@media (hover: none) { .ed-tools { opacity: 1; } }
+
+/* Text size chosen with A- / A+ (gutter follows the code's line height) */
+.code-editor-section.ed-sized .editor-textarea { font-size: var(--ed-font) !important; }
+.code-editor-section.ed-sized .editor-container .line-numbers {
+    font-size: calc(var(--ed-font) * 0.78) !important;
+    line-height: calc(var(--ed-font) * 1.7) !important;
+}
+
+/* Dark editor, even in the light site theme */
+.code-editor-section.ed-dark .editor-container { background: #0d1117; border-color: #1f2733; }
+.code-editor-section.ed-dark .editor-container .line-numbers { background: #11161f; color: #4b5563; border-right-color: #1f2733; }
+.code-editor-section.ed-dark .editor-textarea { caret-color: var(--k-yellow); }
+.code-editor-section.ed-dark .ed-tools { background: rgba(20, 24, 34, 0.9); border-color: #1f2733; }
+.code-editor-section.ed-dark .ed-tools button { color: #9aa3b2; }
+
+/* Focus mode: the editor fills the whole screen */
+.code-editor-section.focus-mode {
+    position: fixed;
+    inset: 0;
+    z-index: 2100;
+    margin: 0;
+    border-radius: 0;
+    overflow: auto;
+    background: var(--bg-base);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    animation: page-in var(--dur-3) var(--ease-out);
+}
+.code-editor-section.focus-mode .editor-textarea { height: calc(100dvh - 190px); }
+.code-editor-section.focus-mode .output-screen { height: calc(100dvh - 150px); }
+body.editor-focus-open { overflow: hidden; }
+body.editor-focus-open .bottom-nav { display: none; }

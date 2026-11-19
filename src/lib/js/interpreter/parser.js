@@ -478,6 +478,8 @@ class KannadaParser {
         // Built-in functions and identifiers
         if (this.match('PRINT', 'ROUND', 'LENGTH', 'MAX', 'MIN', 'SORT_ASC', 'SORT_DESC',
             'COLLECT', 'SEARCH', 'SWAP', 'COUNT', 'INPUT', 'ALPHABET',
+            // Karnataka district data
+            'DISTRICT_LIST', 'DISTRICT_POPULATION', 'DISTRICT_LITERACY', 'DISTRICT_AREA', 'BAR_CHART',
             // String functions
             'CONCAT', 'STR_LENGTH', 'REVERSE', 'SUBSTRING', 'UPPERCASE', 'LOWERCASE',
             // Math functions

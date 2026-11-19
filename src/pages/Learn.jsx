@@ -8,7 +8,7 @@ import {
     Type, List, RefreshCw, Clock, PenTool, Hand, Package, Hash, BarChart3, Zap,
     FileText, Triangle, Circle, Ruler, Link as LinkIcon, Microscope, Repeat, Plus,
     Trophy, Calendar, Scissors, Sprout, Brain, Landmark, Square, Star, Upload,
-    Scale, Smile } from 'lucide-react';
+    Scale, Smile, Flag, MapPin } from 'lucide-react';
 import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import { highlight } from '../lib/js/highlight.js';
 import OutputText from '../components/OutputText';
@@ -28,7 +28,7 @@ const ICONS = {
     Rocket, Calculator, GitBranch, Type, List, RefreshCw, Clock, PenTool, Hand, Package,
     Hash, BarChart3, Zap, FileText, Triangle, Circle, Ruler, Link: LinkIcon, Microscope,
     Repeat, Plus, Search, Trophy, Calendar, Scissors, Sprout, Brain, Landmark, Square,
-    Star, Upload, ClipboardList, BookOpen, Code,
+    Star, Upload, ClipboardList, BookOpen, Code, Flag, MapPin,
 };
 const Ico = ({ name, size = 16, className = 'lh-ico' }) => {
     const Icon = ICONS[name];
@@ -68,6 +68,7 @@ const rowMatches = (q, r) => matches(q, r.symbol, r.name, r.nameEn, r.syntax, r.
 
 // ---- lesson checking ----
 const usesAny = (code, words) => words.some((w) => code.includes(w));
+const lineCount = (result) => ((result.turtle && result.turtle.commands) || []).filter((c) => c.type === 'line').length;
 const LESSON_CHECKS = {
     uses_assignment: (c) => c.includes('=') && !c.includes('=='),
     uses_math: (c) => /[+\-*/]/.test(c),
@@ -89,12 +90,17 @@ const LESSON_CHECKS = {
     uses_is_number: (c) => c.includes('ಸಂಖ್ಯೆಯೇ'),
     uses_unique_reverse: (c) => usesAny(c, ['ವಿಶಿಷ್ಟ', 'ತಿರುಗಿಸು']),
     uses_pad: (c) => c.includes('ಪ್ಯಾಡ್'),
+    // Turtle lessons are checked on what was actually drawn
+    turtle_square: (c, r) => c.includes('ಮುಂದೆ') && lineCount(r) >= 4,
+    turtle_hexagon: (c, r) => c.includes('ಪುನರಾವರ್ತನೆ') && lineCount(r) >= 6,
+    turtle_flag: (c, r) => c.includes('ಹಳದಿ') && c.includes('ಕೆಂಪು') && lineCount(r) >= 3,
+    uses_district_chart: (c) => c.includes('ಜಿಲ್ಲೆ_') && c.includes('ಬಾರ್_ಚಾರ್ಟ್'),
 };
 const lessonPassed = (lesson, code, result) => {
     if (!result.success) return false;
     if (lesson.validation.type === 'output_not_empty') return Boolean(result.output && result.output.trim());
     const check = LESSON_CHECKS[lesson.validation.type];
-    return check ? check(code) : true;
+    return check ? check(code, result) : true;
 };
 
 const loadProgress = () => {
@@ -217,6 +223,7 @@ const LessonView = ({ lesson, completed, onComplete, onOpen, onBack, onShowTopic
     const [output, setOutput] = useState('ಕೋಡ್ ರನ್ ಮಾಡಲು "ರನ್ ಮಾಡಿ" ಕ್ಲಿಕ್ ಮಾಡಿ...');
     const [showHint, setShowHint] = useState(false);
     const [status, setStatus] = useState(null); // null | 'pass' | 'fail'
+    const [turtle, setTurtle] = useState(null);
     const numbersRef = useRef(null);
 
     const topic = TOPIC_BY_ID[TOPIC_OF_LESSON[lesson.id]];
@@ -240,6 +247,7 @@ const LessonView = ({ lesson, completed, onComplete, onOpen, onBack, onShowTopic
         }
         const result = kannadaLipi.execute(code);
         setOutput(result.output || (result.success ? 'ಯಶಸ್ವಿ!' : result.error));
+        setTurtle(result.turtle && result.turtle.commands && result.turtle.commands.length ? result.turtle : null);
         return result;
     };
 
@@ -309,6 +317,7 @@ const LessonView = ({ lesson, completed, onComplete, onOpen, onBack, onShowTopic
 
             <div className="lesson-output">
                 <span className="lesson-output-label"><Terminal size={14} /> {t('ಔಟ್‌ಪುಟ್', 'Output')}</span>
+                {turtle && <div className="lesson-turtle"><TurtleCanvas turtle={turtle} compact /></div>}
                 <div className="output-text"><OutputText text={output} /></div>
             </div>
 
@@ -378,11 +387,22 @@ const Learn = () => {
         try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch { /* storage blocked */ }
     }, [progress]);
 
-    // "/" or Ctrl+K jumps to search
+    // A search term arriving in the URL from elsewhere (e.g. the site-wide search) fills the box.
+    // Our own typing also updates the URL, a moment later, so those echoes are ignored.
+    const urlQ = params.get('q') || '';
+    const typedQ = useRef(urlQ);
+    useEffect(() => {
+        if (urlQ !== typedQ.current) {
+            typedQ.current = urlQ;
+            setQuery(urlQ);
+        }
+    }, [urlQ]);
+
+    // "/" jumps to this page's search (Ctrl+K opens the site-wide search)
     useEffect(() => {
         const onKey = (e) => {
             const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName);
-            if ((e.key === '/' && !typing) || (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey))) {
+            if (e.key === '/' && !typing) {
                 e.preventDefault();
                 searchRef.current?.focus();
             }
@@ -405,6 +425,7 @@ const Learn = () => {
     const openLesson = (id) => update({ lesson: String(id), topic: TOPIC_OF_LESSON[id] });
     const onSearch = (value) => {
         setQuery(value);
+        typedQ.current = value.trim();
         update({ q: value.trim() || null }, true);
     };
 

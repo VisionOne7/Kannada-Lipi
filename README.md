@@ -11,7 +11,7 @@
 [**Try it at k-lipi.in**](https://www.k-lipi.in) · [Kids' zone](https://www.k-lipi.in/kids) · [Teachers' guide](https://www.k-lipi.in/teachers) · [Learn & reference](https://www.k-lipi.in/learn)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.3.0-D71920.svg)](https://www.k-lipi.in/about)
+[![Version](https://img.shields.io/badge/version-3.4.0-D71920.svg)](https://www.k-lipi.in/about)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 Free and open source, built by [VisionOne7](https://www.visionone7.in) for Karnataka's schools.
@@ -30,12 +30,15 @@ Everything runs in the browser. There are no accounts, no ads and no tracking, a
 
 **For children (Classes 3–8)**
 - 🐢 **Turtle drawing:** `ಮುಂದೆ(೧೦೦)`, `ಬಲಕ್ಕೆ(೯೦)`, `ಬಣ್ಣ("ಕೆಂಪು")` and 12 more commands
-- 🎯 **ಆಮೆ ಸಾಹಸ:** 25 game levels, from reaching a mango to variables, loops inside loops and functions, with a kids' certificate
+- 🎯 **ಆಮೆ ಸಾಹಸ:** 28 game levels, from reaching a mango to loops, functions and drawing Gol Gumbaz, the Mysuru Palace and Hampi's stone chariot, with a kids' certificate
 - 🧩 **Block coding:** drag Kannada blocks and see the matching K-Lipi code appear live
 - 🎨 **Drawing playground** with ready-made pictures to remix and save as PNG
 
 **For learners**
-- 📚 A learning hub: 21 interactive lessons, 31 examples and the full function reference, grouped by topic and searchable, with a completion certificate
+- 📚 A learning hub: 25 interactive lessons (including turtle drawing and Karnataka data), 35 examples and the full function reference, grouped by topic and searchable, with a completion certificate
+- 🗺️ **Code with real Karnataka data:** district population, literacy and area (Census 2011) and a bar chart, e.g. `ಬಾರ್_ಚಾರ್ಟ್(ಹೆಸರುಗಳು, ಸಾಕ್ಷರತೆ)`
+- 🏆 **My learning:** a learning path per topic and badges for what you've mastered
+- 🔎 **Ctrl + K search** for pages, lessons and functions from anywhere
 - 🔥 A daily challenge with streaks, plus coding games
 - 💡 Friendly errors in simple Kannada, with the faulty line underlined, hints and "did you mean…?"
 - ✍️ Autocomplete for keywords, functions and your own variables, plus a variables panel
@@ -46,6 +49,7 @@ Everything runs in the browser. There are no accounts, no ads and no tracking, a
 **For schools**
 - 👩‍🏫 Teachers' guide with grade-wise tracks, a 40-minute lesson plan and a printable worksheet
 - 🔗 Assignment links: write a task once, share it, and the site checks each student's answer (no server, no login)
+- 📋 Class results: paste students' completion messages to see who finished which assignment, with CSV export
 - 📴 Installable app that works offline in computer labs
 - 🔒 No login and no personal data collected
 

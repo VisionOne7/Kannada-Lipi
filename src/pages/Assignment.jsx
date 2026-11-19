@@ -5,6 +5,7 @@ import { ClipboardCheck, Play, CheckCircle, RotateCcw, Send, Terminal, TriangleA
 import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import { readAssignment, checkAssignment } from '../lib/js/assignment.js';
 import { encodeText } from '../lib/js/share.js';
+import { makeCompletionCode } from '../lib/js/classCodes.js';
 import { useLang } from '../lib/i18n';
 import PageHeader from '../components/PageHeader';
 import HighlightedTextarea from '../components/HighlightedTextarea';
@@ -25,6 +26,7 @@ const Assignment = () => {
     const [showExpected, setShowExpected] = useState(false);
     const [name, setName] = useState(() => { try { return localStorage.getItem(NAME_KEY) || ''; } catch { return ''; } });
     const [sent, setSent] = useState('');
+    const [completion, setCompletion] = useState('');
 
     if (!assignment) {
         return (
@@ -59,12 +61,17 @@ const Assignment = () => {
         const student = name.trim();
         try { localStorage.setItem(NAME_KEY, student); } catch { /* storage blocked */ }
         const when = new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+        // The KL1 code lets the teacher paste this message into /class
+        const resultCode = makeCompletionCode({ title: assignment.title, name: student || '-' });
+        setCompletion(resultCode);
         const text = [
             `ಕನ್ನಡ ಲಿಪಿ ಕಾರ್ಯ ಪೂರ್ಣಗೊಂಡಿದೆ`,
             `ಕಾರ್ಯ: ${assignment.title}`,
             `ವಿದ್ಯಾರ್ಥಿ: ${student || '-'}`,
             `ಸಮಯ: ${when}`,
-            `ಕೋಡ್: ${window.location.origin}/?code=${encodeText(code)}`,
+            `ಪ್ರೋಗ್ರಾಂ: ${window.location.origin}/?code=${encodeText(code)}`,
+            `ಫಲಿತಾಂಶ ಕೋಡ್: ${resultCode}`,
+            `(ಶಿಕ್ಷಕರು: ${window.location.origin}/class ನಲ್ಲಿ ಅಂಟಿಸಿ)`,
         ].join('\n');
         if (navigator.share) {
             try { await navigator.share({ title: assignment.title, text }); setSent('shared'); return; } catch { /* cancelled */ }
@@ -144,6 +151,11 @@ const Assignment = () => {
                         </div>
                         {sent === 'copied' && <p className="asg-sent">{t('ಸಂದೇಶ ನಕಲಿಸಲಾಗಿದೆ. ಈಗ ಶಿಕ್ಷಕರಿಗೆ ಪೇಸ್ಟ್ ಮಾಡಿ ಕಳುಹಿಸಿ.', 'Message copied. Paste it to your teacher.')}</p>}
                         {sent === 'failed' && <p className="asg-sent">{t('ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಈ ಪುಟದ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಕಳುಹಿಸಿ.', 'Could not copy. Send a screenshot of this page instead.')}</p>}
+                        {completion && (
+                            <p className="asg-code">
+                                {t('ಫಲಿತಾಂಶ ಕೋಡ್', 'Result code')}: <code>{completion}</code>
+                            </p>
+                        )}
                     </section>
                 )}
             </div>

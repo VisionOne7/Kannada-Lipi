@@ -24,6 +24,12 @@ export const LOCAL_KEYS = [
     { key: 'kl_programs', kn: 'ನನ್ನ ಪ್ರೋಗ್ರಾಂಗಳು (ನೀವು ಉಳಿಸಿದ ಕೋಡ್)', en: 'My programs (code you saved)' },
     { key: 'kl_lang', kn: 'ಇಂಟರ್ಫೇಸ್ ಭಾಷೆ (ಕನ್ನಡ / English)', en: 'Interface language' },
     { key: 'kl_assignment_name', kn: 'ಕಾರ್ಯ ಲಿಂಕ್‌ನಲ್ಲಿ ನಮೂದಿಸಿದ ಹೆಸರು', en: 'Name typed on an assignment' },
+    { key: 'kl_class_results', kn: 'ಶಿಕ್ಷಕರು ಅಂಟಿಸಿದ ತರಗತಿ ಫಲಿತಾಂಶಗಳು', en: 'Class results a teacher pasted in' },
+    { key: 'kl_text_size', kn: 'ಅಕ್ಷರದ ಗಾತ್ರ', en: 'Text size' },
+    { key: 'kl_editor_font', kn: 'ಎಡಿಟರ್ ಅಕ್ಷರದ ಗಾತ್ರ', en: 'Editor font size' },
+    { key: 'kl_editor_theme', kn: 'ಎಡಿಟರ್ ಬಣ್ಣ', en: 'Editor colour scheme' },
+    { key: 'kl_editor_split', kn: 'ಎಡಿಟರ್ ಮತ್ತು ಔಟ್‌ಪುಟ್ ಅಗಲ', en: 'Editor / output width' },
+    { key: 'kl_welcomed', kn: 'ಸ್ವಾಗತ ಸಂದೇಶ ನೋಡಿದ ಗುರುತು', en: 'Welcome message already seen' },
 ];
 const SESSION_KEYS = ['kl_counted_session'];
 // Left over from the old visitor counter; still cleared by "delete my data".

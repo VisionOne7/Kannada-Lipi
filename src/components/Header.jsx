@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation } from 'react-router-dom';
-import { ChevronDown, ArrowRight, Smile, Flame, Gamepad2, Sun, Moon, Compass } from 'lucide-react';
+import { ChevronDown, ArrowRight, Smile, Flame, Gamepad2, Sun, Moon, Compass, Search, Trophy, ALargeSmall, X } from 'lucide-react';
+import { UI_EVENTS, emit } from '../lib/ui';
+import { usePref } from '../lib/prefs';
 import { KARNATAKA_SECTIONS, KARNATAKA_PATHS } from '../data/karnatakaSections';
 import GitHubStar from './GitHubStar';
 import InstallApp from './InstallApp';
@@ -25,12 +27,31 @@ const Header = () => {
         } else {
             document.body.style.overflow = '';
         }
-        return () => { document.body.style.overflow = ''; };
+        const onKey = (e) => e.key === 'Escape' && setIsMenuOpen(false);
+        if (isMenuOpen) window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
     }, [isMenuOpen]);
 
     const toggleTheme = () => {
         setTheme(prev => prev === 'light' ? 'dark' : 'light');
     };
+
+    // The phone tab bar's "More" opens this menu; the search palette can flip the theme.
+    useEffect(() => {
+        const openMenu = () => setIsMenuOpen(true);
+        const flipTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+        window.addEventListener(UI_EVENTS.openMenu, openMenu);
+        window.addEventListener(UI_EVENTS.toggleTheme, flipTheme);
+        return () => {
+            window.removeEventListener(UI_EVENTS.openMenu, openMenu);
+            window.removeEventListener(UI_EVENTS.toggleTheme, flipTheme);
+        };
+    }, []);
+
+    const [textSize, setTextSize] = usePref('textSize');
 
     const toggleMenu = () => {
         setIsMenuOpen(prev => !prev);
@@ -91,6 +112,7 @@ const Header = () => {
 
     const navLinksGeneral = (
         <>
+            <NavLink to="/progress" className="nav-link" onClick={closeMenu}><Trophy size={15} /> {t('ನನ್ನ ಕಲಿಕೆ', 'My learning')}</NavLink>
             {karnatakaLinks}
             <NavLink to="/about" className="nav-link" onClick={closeMenu}>{t('ನಮ್ಮ ಬಗ್ಗೆ', 'About')}</NavLink>
         </>
@@ -142,6 +164,16 @@ const Header = () => {
                 </nav>
 
                 <div className="header-actions">
+                    <button
+                        className="header-search"
+                        onClick={() => emit(UI_EVENTS.openPalette)}
+                        aria-label={t('ಹುಡುಕಿ (Ctrl + K)', 'Search (Ctrl + K)')}
+                        title={t('ಹುಡುಕಿ (Ctrl + K)', 'Search (Ctrl + K)')}
+                    >
+                        <Search size={17} aria-hidden="true" />
+                        <span className="header-search-label">{t('ಹುಡುಕಿ', 'Search')}</span>
+                        <kbd>Ctrl K</kbd>
+                    </button>
                     <GitHubStar className="gh-star-header" />
                     <InstallApp />
                     <button
@@ -180,7 +212,23 @@ const Header = () => {
                 <>
                     <div className={`nav-overlay ${isMenuOpen ? 'active' : ''}`} onClick={closeMenu}></div>
                     <nav className={`nav nav-mobile ${isMenuOpen ? 'nav-open' : ''}`} aria-label="ಮುಖ್ಯ ಮೆನು">
+                        <button className="mobile-close" onClick={closeMenu} aria-label={t('ಮೆನು ಮುಚ್ಚಿ', 'Close menu')}><X size={20} /></button>
                         <GitHubStar />
+                        <div className="mobile-text-size" role="group" aria-label={t('ಅಕ್ಷರದ ಗಾತ್ರ', 'Text size')}>
+                            <ALargeSmall size={18} aria-hidden="true" />
+                            <span>{t('ಅಕ್ಷರದ ಗಾತ್ರ', 'Text size')}</span>
+                            {['100', '112', '125'].map((size, i) => (
+                                <button
+                                    key={size}
+                                    className={textSize === size ? 'on' : ''}
+                                    onClick={() => setTextSize(size)}
+                                    aria-pressed={textSize === size}
+                                    style={{ fontSize: `${0.85 + i * 0.15}rem` }}
+                                >
+                                    ಅ
+                                </button>
+                            ))}
+                        </div>
                         <div className="mobile-nav-section">
                             <h4 className="mobile-nav-heading">{t('ಕೋಡಿಂಗ್', 'Coding')}</h4>
                             {navLinksCoding}

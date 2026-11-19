@@ -83,3 +83,5 @@
     .legal-section p, .legal-list, .worksheet, .ws-cell { color: #000 !important; }
     .ws-cell, .ws-grid, .ws-lines div { border-color: #000 !important; }
 }
+.teachers-class-link { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: var(--gap-lg); }
+.teachers-class-link .btn { display: inline-flex; align-items: center; gap: 6px; }

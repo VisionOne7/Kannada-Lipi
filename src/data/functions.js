@@ -190,6 +190,19 @@ export const FUNCTION_CATEGORIES = [
             { name: "ಶೋಧಕ", nameEn: "Filter", syntax: "ಶೋಧಕ(ಪಟ್ಟಿ, \"ಕಾರ್ಯ_ಹೆಸರು\")", description: "ಷರತ್ತು ಪೂರೈಸುವ ಅಂಶಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತದೆ", descriptionEn: "Keeps elements that pass a test function", example: "ಶೋಧಕ([೧, ೨, ೩, ೪], \"ಸಮ\")", result: "[೨, ೪]" },
             { name: "ಕಡಿತ", nameEn: "Reduce", syntax: "ಕಡಿತ(ಪಟ್ಟಿ, \"ಕಾರ್ಯ_ಹೆಸರು\", ಆರಂಭ_ಮೌಲ್ಯ)", description: "ಪಟ್ಟಿಯನ್ನು ಒಂದೇ ಮೌಲ್ಯಕ್ಕೆ ಕಡಿಮೆ ಮಾಡುತ್ತದೆ", descriptionEn: "Reduces array to a single value", example: "ಕಡಿತ([೧, ೨, ೩], \"ಮೊತ್ತ\", ೦)", result: "೬" }
         ]
+    },
+    {
+        id: "karnataka-data",
+        name: "ಕರ್ನಾಟಕ ದತ್ತಾಂಶ",
+        nameEn: "Karnataka Data",
+        iconKey: "BarChart3",
+        functions: [
+            { name: "ಜಿಲ್ಲೆ_ಪಟ್ಟಿ", nameEn: "District list", syntax: "ಜಿಲ್ಲೆ_ಪಟ್ಟಿ()", description: "ಕರ್ನಾಟಕದ ಜಿಲ್ಲೆಗಳ ಹೆಸರುಗಳ ಪಟ್ಟಿ (ಜನಗಣತಿ ೨೦೧೧)", descriptionEn: "List of Karnataka district names (Census 2011)", example: "ಪಟ್ಟಿಯ_ಉದ್ದ(ಜಿಲ್ಲೆ_ಪಟ್ಟಿ())", result: "೩೦" },
+            { name: "ಜಿಲ್ಲೆ_ಜನಸಂಖ್ಯೆ", nameEn: "District population", syntax: "ಜಿಲ್ಲೆ_ಜನಸಂಖ್ಯೆ(\"ಜಿಲ್ಲೆ\")", description: "ಜಿಲ್ಲೆಯ ಜನಸಂಖ್ಯೆ (ಕನ್ನಡ ಅಥವಾ ಇಂಗ್ಲಿಷ್ ಹೆಸರು)", descriptionEn: "Population of a district (Kannada or English name)", example: "ಜಿಲ್ಲೆ_ಜನಸಂಖ್ಯೆ(\"ಕೊಡಗು\")", result: "೫೫೪೫೧೯" },
+            { name: "ಜಿಲ್ಲೆ_ಸಾಕ್ಷರತೆ", nameEn: "District literacy", syntax: "ಜಿಲ್ಲೆ_ಸಾಕ್ಷರತೆ(\"ಜಿಲ್ಲೆ\")", description: "ಜಿಲ್ಲೆಯ ಸಾಕ್ಷರತಾ ಪ್ರಮಾಣ (%)", descriptionEn: "Literacy rate of a district (%)", example: "ಜಿಲ್ಲೆ_ಸಾಕ್ಷರತೆ(\"ಉಡುಪಿ\")", result: "೮೬.೨೪" },
+            { name: "ಜಿಲ್ಲೆ_ವಿಸ್ತೀರ್ಣ", nameEn: "District area", syntax: "ಜಿಲ್ಲೆ_ವಿಸ್ತೀರ್ಣ(\"ಜಿಲ್ಲೆ\")", description: "ಜಿಲ್ಲೆಯ ವಿಸ್ತೀರ್ಣ (ಚ.ಕಿ.ಮೀ)", descriptionEn: "Area of a district (sq km)", example: "ಜಿಲ್ಲೆ_ವಿಸ್ತೀರ್ಣ(\"ಧಾರವಾಡ\")", result: "೪೨೬೦" },
+            { name: "ಬಾರ್_ಚಾರ್ಟ್", nameEn: "Bar chart", syntax: "ಬಾರ್_ಚಾರ್ಟ್(ಹೆಸರುಗಳು, ಮೌಲ್ಯಗಳು)", description: "ಎರಡು ಪಟ್ಟಿಗಳಿಂದ ಪಠ್ಯ ಬಾರ್ ಚಾರ್ಟ್ ಮುದ್ರಿಸುತ್ತದೆ", descriptionEn: "Prints a text bar chart from two lists", example: "ಬಾರ್_ಚಾರ್ಟ್([\"ಅ\", \"ಆ\"], [೩, ೬])", result: "ಅ ██████████ ೩" }
+        ]
     }
 ];
 

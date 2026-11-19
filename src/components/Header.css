@@ -468,3 +468,81 @@
     font-weight: 800;
     letter-spacing: 0.02em;
 }
+
+/* Search button: opens the Ctrl+K palette */
+.header-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 10px 0 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.header-search:hover { color: var(--text-primary); border-color: var(--k-yellow); box-shadow: 0 0 0 3px rgba(255, 200, 0, 0.18); }
+.header-search kbd {
+    padding: 1px 6px;
+    border: 1px solid var(--border-glass-color);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    background: var(--bg-surface-elevated);
+    color: var(--text-muted);
+    font: 700 0.7rem var(--font-main);
+}
+@media (max-width: 1440px) { .header-search-label, .header-search kbd { display: none; } .header-search { width: 40px; justify-content: center; padding: 0; } }
+
+/* Text size picker in the menu */
+.mobile-text-size {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 var(--gap-md);
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.mobile-text-size span { flex: 1; }
+.mobile-text-size button {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-weight: 800;
+    cursor: pointer;
+}
+.mobile-text-size button.on { background: var(--k-red); border-color: var(--k-red); color: #fff; }
+
+/* Phones: the bottom tab bar's "More" replaces the hamburger */
+@media (max-width: 768px) {
+    .hamburger-btn { display: none !important; }
+}
+
+/* Close button inside the phone menu */
+.mobile-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid var(--border-glass-color);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    cursor: pointer;
+}

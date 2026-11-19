@@ -1,43 +1,54 @@
+/* 404: lost turtle, search, quick links */
 .notfound-page {
+    min-height: 70vh;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--gap-xl) var(--gap-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
-    padding: 2rem;
     text-align: center;
+    gap: 12px;
 }
-
+.nf-art { width: min(340px, 90%); height: auto; }
+.nf-path {
+    fill: none;
+    stroke: var(--k-yellow);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 2 12;
+    animation: nf-walk 1.6s linear infinite;
+}
+.nf-q { font: 900 34px var(--font-main); fill: var(--k-red); animation: nf-bob 2s ease-in-out infinite; }
+@keyframes nf-walk { to { stroke-dashoffset: -28; } }
+@keyframes nf-bob { 50% { transform: translateY(-4px); } }
 .notfound-code {
-    font-size: 8rem;
-    font-weight: 700;
+    font-size: 4.5rem;
+    font-weight: 900;
     line-height: 1;
     background: linear-gradient(135deg, var(--k-yellow), var(--k-red));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: var(--gap-md);
 }
-
-.notfound-page h1 {
-    font-size: 2rem;
-    margin-bottom: var(--gap-sm);
+.notfound-page h1 { margin: 0; font-size: 1.8rem; }
+.notfound-msg { margin: 0 0 6px; color: var(--text-secondary); line-height: 1.6; }
+.nf-search { display: inline-flex; align-items: center; gap: 8px; }
+.nf-search kbd { padding: 1px 6px; border-radius: 6px; background: rgba(0, 0, 0, 0.1); font: 700 0.72rem var(--font-main); }
+.notfound-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 8px; }
+.nf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform var(--dur-2) var(--ease-spring), border-color var(--dur-2) var(--ease-out);
 }
-
-.notfound-msg {
-    font-size: 1.1rem;
-    margin-bottom: var(--gap-lg);
-}
-
-.notfound-actions {
-    display: flex;
-    gap: var(--gap-md);
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-@media (max-width: 480px) {
-    .notfound-code {
-        font-size: 5rem;
-    }
-}
+.nf-link:hover { transform: translateY(-2px); border-color: var(--k-yellow); }
+.nf-link svg { color: var(--k-red); }

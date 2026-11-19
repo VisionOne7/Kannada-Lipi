@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     BookOpen, Smile, GraduationCap, WifiOff, Flame, Gamepad2, ArrowRight, Award, Blocks,
-    ShieldCheck, Code2, Languages, Compass,
+    ShieldCheck, Code2, Languages, Compass, Trophy, Link2,
 } from 'lucide-react';
 import CodeEditor from '../components/CodeEditor';
 import GitHubStar, { REPO_URL, GitHubMark } from '../components/GitHubStar';
@@ -14,12 +14,16 @@ import { LESSONS } from '../data/lessons.js';
 import { EXAMPLES } from '../data/examples.js';
 import { TURTLE_LEVELS } from '../data/turtleLevels.js';
 import { useLang } from '../lib/i18n';
+import Welcome from '../components/Welcome';
+import { readProgress, BADGES } from '../lib/progress';
 import './Home.css';
 
 const HOME_KARNATAKA = ['culture', 'districts', 'wonders', 'quiz'].map((id) => KARNATAKA_SECTIONS.find((s) => s.id === id));
 
 const lexer = new KannadaLexer();
-const kn = (n) => lexer.toKannada(n);
+// Kannada digits for any number (including 0)
+const KN_DIGITS = ['೦', '೧', '೨', '೩', '೪', '೫', '೬', '೭', '೮', '೯'];
+const kn = (n) => String(n).replace(/[0-9]/g, (d) => KN_DIGITS[d]);
 
 // Counted from the real data, so the numbers never go stale.
 const CONTROL = new Set(['IF', 'ELSE', 'WHILE', 'FOR', 'FROM', 'TO', 'FUNCTION', 'RETURN',
@@ -33,27 +37,56 @@ const STATS = [
     { n: EXAMPLES.length, label: 'ಉದಾಹರಣೆಗಳು', sub: 'Examples' },
 ];
 
+// Small pictures inside the bento tiles: real K-Lipi code and a turtle drawing
+const CodeArt = () => (
+    <pre className="bento-code hl-theme-auto" aria-hidden="true">
+        <span className="hl-kw">ಪುನರಾವರ್ತನೆ</span> ನ <span className="hl-num">೧</span> <span className="hl-kw">ರಿಂದ</span> <span className="hl-num">೩</span> <span className="hl-kw">ವರೆಗೆ</span>:{'\n'}
+        {'    '}<span className="hl-fn">ಮುದ್ರಿಸು</span>(<span className="hl-str">"ಜೈ ಕರ್ನಾಟಕ!"</span>)
+    </pre>
+);
+const StarArt = () => (
+    <svg className="bento-star" viewBox="-110 -110 220 220" aria-hidden="true">
+        <polyline points="-75,-25 75,-25 -46,63 0,-80 46,63 -75,-25" fill="none" stroke="#FFC800" strokeWidth="7" strokeLinejoin="round" strokeLinecap="round" />
+        <g transform="translate(-75,-25) rotate(-72)">
+            <ellipse cx="0" cy="-15" rx="4.5" ry="5.5" fill="#3F8F3A" />
+            <ellipse cx="0" cy="0" rx="9" ry="11" fill="#FFD700" stroke="#D71920" strokeWidth="2.2" />
+        </g>
+    </svg>
+);
+
 const FEATURES = [
     {
-        to: '/learn', Icon: BookOpen, title: 'ಹಂತ ಹಂತವಾಗಿ ಕಲಿಯಿರಿ', en: 'Learn',
+        to: '/learn', Icon: BookOpen, size: 'lg', art: CodeArt, title: 'ಹಂತ ಹಂತವಾಗಿ ಕಲಿಯಿರಿ', en: 'Learn',
         text: 'ಪಾಠಗಳು, ಉದಾಹರಣೆಗಳು ಮತ್ತು ಕಾರ್ಯಗಳ ಉಲ್ಲೇಖ ಒಂದೇ ಕಡೆ. ಎಲ್ಲಾ ಪಾಠ ಮುಗಿಸಿದಾಗ ಪ್ರಮಾಣಪತ್ರ.',
         textEn: 'Lessons, examples and the function reference in one place. A certificate when you finish.',
         tags: [{ Icon: Award, t: 'ಪ್ರಮಾಣಪತ್ರ', en: 'Certificate' }],
     },
     {
-        to: '/kids', Icon: Smile, title: 'ಮಕ್ಕಳ ಕೋಡ್ ಲೋಕ', en: 'Kids zone',
+        to: '/kids', Icon: Smile, size: 'tall', art: StarArt, title: 'ಮಕ್ಕಳ ಕೋಡ್ ಲೋಕ', en: 'Kids zone',
         text: `ಆಮೆ ಚಿತ್ರ, ಕನ್ನಡ ಬ್ಲಾಕ್ ಕೋಡಿಂಗ್ ಮತ್ತು ${kn(TURTLE_LEVELS.length)} ಆಟದ ಹಂತಗಳು. ತರಗತಿ ೩ ರಿಂದ ೮.`,
         textEn: `Turtle drawing, Kannada block coding and ${TURTLE_LEVELS.length} game levels. Classes 3 to 8.`,
         tags: [{ Icon: Blocks, t: 'ಬ್ಲಾಕ್‌ಗಳು', en: 'Blocks' }],
     },
     {
-        to: '/teachers', Icon: GraduationCap, title: 'ಶಿಕ್ಷಕರಿಗೆ', en: 'Teachers',
-        text: 'ತರಗತಿವಾರು ಪಥ, ಪಾಠ ಯೋಜನೆ, ವರ್ಕ್‌ಶೀಟ್ ಮತ್ತು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಕಳುಹಿಸುವ ಕಾರ್ಯ ಲಿಂಕ್‌ಗಳು.',
-        textEn: 'Class-wise paths, lesson plans, worksheets and assignment links to send to students.',
-        tags: [{ Icon: Languages, t: 'NEP 2020', en: 'NEP 2020' }],
+        to: '/progress', Icon: Trophy, size: 'sm', progress: true, title: 'ನನ್ನ ಕಲಿಕೆ', en: 'My learning',
+        text: 'ನಿಮ್ಮ ಕಲಿಕೆಯ ಹಾದಿ ಮತ್ತು ಬ್ಯಾಡ್ಜ್‌ಗಳು.',
+        textEn: 'Your learning path and badges.',
+        tags: [],
     },
     {
-        to: '/privacy', Icon: WifiOff, title: 'ಆಫ್‌ಲೈನ್ ಮತ್ತು ಸುರಕ್ಷಿತ', en: 'Offline & private',
+        to: '/challenge', Icon: Flame, size: 'sm', title: 'ಇಂದಿನ ಸವಾಲು', en: 'Daily challenge',
+        text: 'ದಿನಕ್ಕೆ ಒಂದು ಪುಟ್ಟ ಒಗಟು. ಐದು ನಿಮಿಷ ಸಾಕು.',
+        textEn: 'One small puzzle a day. Five minutes is enough.',
+        tags: [],
+    },
+    {
+        to: '/teachers', Icon: GraduationCap, size: 'wide', title: 'ಶಿಕ್ಷಕರಿಗೆ', en: 'Teachers',
+        text: 'ತರಗತಿವಾರು ಪಥ, ಪಾಠ ಯೋಜನೆ, ವರ್ಕ್‌ಶೀಟ್, ಕಾರ್ಯ ಲಿಂಕ್‌ಗಳು ಮತ್ತು ತರಗತಿ ಫಲಿತಾಂಶ.',
+        textEn: 'Class-wise paths, lesson plans, worksheets, assignment links and class results.',
+        tags: [{ Icon: Languages, t: 'NEP 2020', en: 'NEP 2020' }, { Icon: Link2, t: 'ಕಾರ್ಯ ಲಿಂಕ್', en: 'Assignments' }],
+    },
+    {
+        to: '/privacy', Icon: WifiOff, size: 'wide', title: 'ಆಫ್‌ಲೈನ್ ಮತ್ತು ಸುರಕ್ಷಿತ', en: 'Offline & private',
         text: 'ಆ್ಯಪ್ ಸ್ಥಾಪಿಸಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆ ಕೋಡ್ ಮಾಡಿ. ಲಾಗಿನ್ ಇಲ್ಲ, ಜಾಹೀರಾತು ಇಲ್ಲ.',
         textEn: 'Install the app and code without internet. No login, no ads.',
         tags: [{ Icon: ShieldCheck, t: 'ಲಾಗಿನ್ ಇಲ್ಲ', en: 'No login' }],
@@ -63,9 +96,12 @@ const FEATURES = [
 const Home = () => {
     const { t, lang } = useLang();
     const num = (n) => (lang === 'en' ? String(n) : kn(n));
+    const progress = readProgress();
+    const badgeCount = BADGES.filter((b) => b.test(progress)).length;
 
     return (
         <div className="home-page animate-in">
+            <Welcome />
             {/* Editor leads: auto-types a demo, then hands over to the user */}
             <section className="home-editor-lead">
                 <div className="home-editor-intro">
@@ -85,7 +121,7 @@ const Home = () => {
             </section>
 
             {/* What K-Lipi is */}
-            <section className="home-section home-intro">
+            <section className="home-section home-intro reveal">
                 <span className="home-eyebrow"><Code2 size={14} /> {t('ಕನ್ನಡ ಲಿಪಿ ಎಂದರೇನು?', 'What is K-Lipi?')}</span>
                 <h2 className="home-h2">{t('ಮಾತೃಭಾಷೆಯಲ್ಲೇ ಕೋಡಿಂಗ್ ಕಲಿಯಿರಿ', 'Learn to code in your mother tongue')}</h2>
                 {lang === 'en' ? (
@@ -113,14 +149,21 @@ const Home = () => {
                 </dl>
             </section>
 
-            {/* Feature cards */}
-            <section className="home-section">
-                <div className="home-features">
-                    {FEATURES.map(({ to, Icon, title, en, text, textEn, tags }) => (
-                        <NavLink key={to} to={to} className="home-feature">
+            {/* Feature tiles (bento grid) */}
+            <section className="home-section reveal">
+                <div className="home-features bento">
+                    {FEATURES.map(({ to, Icon, size, art: Art, progress: showProgress, title, en, text, textEn, tags }) => (
+                        <NavLink key={to} to={to} className={`home-feature bento-${size}`}>
                             <span className="home-feature-icon"><Icon size={22} /></span>
                             <h3>{t(title, en)}{lang !== 'en' && <span>{en}</span>}</h3>
                             <p>{t(text, textEn)}</p>
+                            {Art && <Art />}
+                            {showProgress && (
+                                <div className="bento-progress">
+                                    <strong>{num(badgeCount)}<small>/{num(BADGES.length)}</small></strong>
+                                    <span>{t('ಬ್ಯಾಡ್ಜ್‌ಗಳು', 'badges')}</span>
+                                </div>
+                            )}
                             <div className="home-feature-foot">
                                 {tags.map(({ Icon: T, t: tag, en: tagEn }) => <span key={tag} className="home-tag"><T size={13} /> {t(tag, tagEn)}</span>)}
                                 <ArrowRight size={16} className="home-feature-arrow" />
@@ -131,7 +174,7 @@ const Home = () => {
             </section>
 
             {/* Karnataka section, so visitors see what it holds */}
-            <section className="home-section home-karnataka">
+            <section className="home-section home-karnataka reveal">
                 <div className="home-karnataka-head">
                     <div>
                         <span className="home-eyebrow"><Compass size={14} /> {t('ನಮ್ಮ ಕರ್ನಾಟಕ', 'Our Karnataka')}</span>
@@ -148,7 +191,7 @@ const Home = () => {
             </section>
 
             {/* Open source */}
-            <section className="home-section">
+            <section className="home-section reveal">
                 <div className="home-oss">
                     <div className="home-oss-text">
                         <span className="home-eyebrow"><GitHubMark size={14} /> {t('ಮುಕ್ತ ಮೂಲ · Open source', 'Open source')}</span>
