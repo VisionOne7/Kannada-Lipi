@@ -3,6 +3,25 @@
  */
 import KannadaLexer from './lexer.js';
 import { createTurtle, TURTLE_COMMANDS } from './turtle.js';
+import { DISTRICTS } from '../../../data/districtStats.js';
+
+const KN_TO_ASCII = { '೦': '0', '೧': '1', '೨': '2', '೩': '3', '೪': '4', '೫': '5', '೬': '6', '೭': '7', '೮': '8', '೯': '9' };
+// Built-ins return numbers written in Kannada digits ("೩೦"); arithmetic must read them too.
+const toPlainNumber = (v) => (typeof v === 'string' ? Number(v.replace(/[೦-೯]/g, (d) => KN_TO_ASCII[d])) : Number(v));
+const NUMERIC = /^\s*-?[0-9೦-೯]+(\.[0-9೦-೯]+)?\s*$/;
+const isNumeric = (v) => typeof v === 'number' || (typeof v === 'string' && NUMERIC.test(v));
+
+// Find a district by Kannada or English name; a unique start of the name also works (ಮೈಸೂರು, Mysuru).
+function findDistrict(name) {
+    const q = String(name ?? '').trim().toLowerCase();
+    if (!q) throw new Error('ಜಿಲ್ಲೆಯ ಹೆಸರು ಕೊಡಿ. ಉದಾ: ಜಿಲ್ಲೆ_ಜನಸಂಖ್ಯೆ("ಮೈಸೂರು")');
+    const exact = DISTRICTS.find((d) => d.name === q || d.nameEn.toLowerCase() === q);
+    if (exact) return exact;
+    const starts = DISTRICTS.filter((d) => d.name.startsWith(q) || d.nameEn.toLowerCase().startsWith(q));
+    if (starts.length === 1) return starts[0];
+    if (starts.length > 1) throw new Error(`"${name}" ಹಲವು ಜಿಲ್ಲೆಗಳಿಗೆ ಹೊಂದುತ್ತದೆ: ${starts.map((d) => d.name).join(', ')}`);
+    throw new Error(`"${name}" ಎಂಬ ಜಿಲ್ಲೆ ಸಿಗಲಿಲ್ಲ. ಎಲ್ಲಾ ಹೆಸರುಗಳಿಗೆ ಜಿಲ್ಲೆ_ಪಟ್ಟಿ() ನೋಡಿ`);
+}
 
 
 class KannadaRuntime {
@@ -284,32 +303,37 @@ class KannadaRuntime {
         const left = this.evaluate(node.left);
         const right = this.evaluate(node.right);
 
+        const a = toPlainNumber(left);
+        const b = toPlainNumber(right);
+        // Two numbers (in either digit system) compare by value: "೩೦" == 30
+        const same = () => (isNumeric(left) && isNumeric(right) ? a === b : left == right);
+
         switch (node.operator) {
             case 'PLUS':
-                return Number(left) + Number(right);
+                return a + b;
             case 'MINUS':
-                return Number(left) - Number(right);
+                return a - b;
             case 'TIMES':
-                return Number(left) * Number(right);
+                return a * b;
             case 'DIVIDE':
-                if (Number(right) === 0) {
+                if (b === 0) {
                     throw new Error('ಸೊನ್ನೆಯಿಂದ ವಿಭಜಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ');
                 }
-                return Number(left) / Number(right);
+                return a / b;
             case 'MODULO':
-                return Number(left) % Number(right);
+                return a % b;
             case 'GREATER_THAN':
-                return Number(left) > Number(right);
+                return a > b;
             case 'LESS_THAN':
-                return Number(left) < Number(right);
+                return a < b;
             case 'GREATER_EQUAL':
-                return Number(left) >= Number(right);
+                return a >= b;
             case 'LESS_EQUAL':
-                return Number(left) <= Number(right);
+                return a <= b;
             case 'DOUBLE_EQUAL':
-                return left == right;
+                return same();
             case 'NOT_EQUAL':
-                return left != right;
+                return !same();
             case 'AND':
                 return left && right;
             case 'OR':
@@ -371,6 +395,18 @@ class KannadaRuntime {
                 return this.builtinInput(args);
             case 'ALPHABET':
                 return this.builtinAlphabet();
+
+            // Karnataka district data
+            case 'DISTRICT_LIST':
+                return DISTRICTS.map((d) => d.name);
+            case 'DISTRICT_POPULATION':
+                return this.toKannada(findDistrict(args[0]).population);
+            case 'DISTRICT_LITERACY':
+                return this.toKannada(findDistrict(args[0]).literacy);
+            case 'DISTRICT_AREA':
+                return this.toKannada(findDistrict(args[0]).area);
+            case 'BAR_CHART':
+                return this.builtinBarChart(args);
 
             // String functions
             case 'CONCAT':
@@ -724,6 +760,23 @@ class KannadaRuntime {
     /**
      * Built-in print function
      */
+    /**
+     * Text bar chart: ಬಾರ್_ಚಾರ್ಟ್(ಹೆಸರುಗಳು, ಮೌಲ್ಯಗಳು)
+     */
+    builtinBarChart(args) {
+        const [labels, values] = args;
+        if (!Array.isArray(labels) || !Array.isArray(values)) throw new Error('ಬಾರ್_ಚಾರ್ಟ್ ಗೆ ಎರಡು ಪಟ್ಟಿಗಳು ಬೇಕು: ಹೆಸರುಗಳು ಮತ್ತು ಮೌಲ್ಯಗಳು');
+        if (labels.length !== values.length) throw new Error('ಬಾರ್_ಚಾರ್ಟ್: ಹೆಸರುಗಳು ಮತ್ತು ಮೌಲ್ಯಗಳ ಸಂಖ್ಯೆ ಒಂದೇ ಇರಬೇಕು');
+        const nums = values.map(toPlainNumber);
+        if (nums.some((n) => !Number.isFinite(n) || n < 0)) throw new Error('ಬಾರ್_ಚಾರ್ಟ್: ಮೌಲ್ಯಗಳು ಸೊನ್ನೆ ಅಥವಾ ಹೆಚ್ಚಿನ ಸಂಖ್ಯೆಗಳಾಗಿರಬೇಕು');
+        const max = Math.max(...nums, 0) || 1;
+        const width = Math.max(...labels.map((l) => String(l).length), 1);
+        return labels.map((l, i) => {
+            const bar = '█'.repeat(Math.max(nums[i] > 0 ? 1 : 0, Math.round((nums[i] / max) * 20)));
+            return `${String(l).padEnd(width, ' ')} ${bar} ${this.formatOutput(values[i])}`;
+        }).join('\n');
+    }
+
     builtinPrint(args) {
         if (args.length === 0) {
             return '';

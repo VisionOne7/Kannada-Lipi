@@ -31,6 +31,12 @@ class KannadaLexer {
             'ಆದರೆ': 'IF',
             'ಇಲ್ಲವಾದರೆ': 'ELSE',
             'ವರ್ಣಮಾಲೆ': 'ALPHABET',
+            // Karnataka district data (Census 2011)
+            'ಜಿಲ್ಲೆ_ಪಟ್ಟಿ': 'DISTRICT_LIST',
+            'ಜಿಲ್ಲೆ_ಜನಸಂಖ್ಯೆ': 'DISTRICT_POPULATION',
+            'ಜಿಲ್ಲೆ_ಸಾಕ್ಷರತೆ': 'DISTRICT_LITERACY',
+            'ಜಿಲ್ಲೆ_ವಿಸ್ತೀರ್ಣ': 'DISTRICT_AREA',
+            'ಬಾರ್_ಚಾರ್ಟ್': 'BAR_CHART',
             'ಎಣಿಕೆ': 'COUNT',
             'ಕೊಡು': 'INPUT',
             // New keywords for loops and functions

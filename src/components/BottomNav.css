@@ -1,0 +1,57 @@
+/* Phone tab bar */
+.bottom-nav { display: none; }
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: calc(10px + env(safe-area-inset-bottom));
+        z-index: 1200;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        padding: 6px;
+        border-radius: 22px;
+        background: var(--glass-bg-strong);
+        -webkit-backdrop-filter: blur(18px) saturate(150%);
+        backdrop-filter: blur(18px) saturate(150%);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 10px 30px rgba(20, 20, 40, 0.18);
+    }
+    /* Leave room so the last bit of every page isn't hidden behind the bar */
+    body { padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
+    /* The Kannada keyboard sheet takes this space when it is open */
+    body.vk-sheet-open .bottom-nav { display: none; }
+}
+
+.bn-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 2px;
+    border: none;
+    border-radius: 16px;
+    background: none;
+    color: var(--text-secondary);
+    font-family: var(--font-main);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--dur-2) var(--ease-out);
+}
+.bn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 30px;
+    border-radius: 999px;
+    transition: background var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-spring);
+}
+.bn-tab:active .bn-icon { transform: scale(0.9); }
+.bn-tab.active { color: var(--k-red); }
+.bn-tab.active .bn-icon { background: var(--glass-red); }
+.bn-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }

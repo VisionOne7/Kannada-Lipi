@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, useMemo } from 'react';
 import {
     Play, Keyboard, Copy, Trash2, Share2, Languages, Download, Upload, Lightbulb, FolderOpen,
-    Image as ImageIcon, Variable, ChevronDown } from 'lucide-react';
+    Image as ImageIcon, Variable, ChevronDown, AArrowDown, AArrowUp, Moon, Sun, Maximize2, Minimize2 } from 'lucide-react';
 import { kannadaLipi } from '../lib/js/interpreter/index.js';
 import { transliterate } from '../lib/js/translit.js';
 import { suggest } from '../lib/js/completions.js';
 import { encodeText, decodeText } from '../lib/js/share.js';
 import { codeToImage } from '../lib/js/codeImage.js';
 import { useLang } from '../lib/i18n';
+import { usePref } from '../lib/prefs';
+import { UI_EVENTS } from '../lib/ui';
 import TurtleCanvas from './TurtleCanvas';
 import OutputText from './OutputText';
 import VirtualKeyboard from './VirtualKeyboard';
@@ -59,6 +61,15 @@ const CodeEditor = ({ autoDemo = false }) => {
     const [translit, setTranslit] = useState(() => { try { return localStorage.getItem('kl_translit') === '1'; } catch { return false; } });
     const [caret, setCaret] = useState(0);
     const [hideSuggest, setHideSuggest] = useState(false);
+    // Editor comfort: text size, dark editor, focus mode, code/output split
+    const [editorFont, setEditorFont] = usePref('editorFont');
+    const [editorTheme, setEditorTheme] = usePref('editorTheme');
+    const [focusMode, setFocusMode] = useState(false);
+    const [outWidth, setOutWidth] = useState(() => {
+        try { return Number(localStorage.getItem('kl_editor_split')) || 0; } catch { return 0; }
+    });
+    const mainRef = useRef(null);
+    const runBtnRef = useRef(null);
     const textareaRef = useRef(null);
     const pendingCaret = useRef(null);
     const demoTimers = useRef([]);
@@ -191,6 +202,65 @@ const CodeEditor = ({ autoDemo = false }) => {
         setOutput('');
         setTurtle(null);
         setVariables(null);
+    };
+
+    // Other parts of the site (e.g. the welcome) can put code in this editor.
+    useEffect(() => {
+        const onLoad = (e) => {
+            loadCode(e.detail.code);
+            mainRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (e.detail.pulse && runBtnRef.current) {
+                runBtnRef.current.classList.add('run-pulse');
+                setTimeout(() => runBtnRef.current?.classList.remove('run-pulse'), 3200);
+            }
+        };
+        window.addEventListener(UI_EVENTS.loadCode, onLoad);
+        return () => window.removeEventListener(UI_EVENTS.loadCode, onLoad);
+    }); // re-subscribed each render so loadCode always sees current state
+
+    // Focus mode: the editor fills the screen; Esc leaves it.
+    useEffect(() => {
+        if (!focusMode) return undefined;
+        const onKey = (e) => e.key === 'Escape' && setFocusMode(false);
+        document.body.classList.add('editor-focus-open');
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.classList.remove('editor-focus-open');
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [focusMode]);
+
+    const fontPx = editorFont === 'auto' ? 18 : Number(editorFont) || 18;
+    const changeFont = (delta) => setEditorFont(String(Math.min(28, Math.max(12, fontPx + delta))));
+
+    // Drag the divider to give the code or the output more room (desktop).
+    const startResize = (e) => {
+        const area = mainRef.current;
+        if (!area) return;
+        e.preventDefault();
+        const move = (ev) => {
+            const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
+            const rect = area.getBoundingClientRect();
+            const w = Math.round(Math.min(rect.width * 0.6, Math.max(260, rect.right - x)));
+            setOutWidth(w);
+        };
+        const up = () => {
+            window.removeEventListener('pointermove', move);
+            window.removeEventListener('pointerup', up);
+            document.body.classList.remove('resizing-editor');
+            setOutWidth((w) => { try { localStorage.setItem('kl_editor_split', String(w)); } catch { /* blocked */ } return w; });
+        };
+        document.body.classList.add('resizing-editor');
+        window.addEventListener('pointermove', move);
+        window.addEventListener('pointerup', up);
+    };
+    const resizeByKey = (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        const cur = outWidth || 380;
+        const next = Math.max(260, cur + (e.key === 'ArrowLeft' ? 30 : -30));
+        setOutWidth(next);
+        try { localStorage.setItem('kl_editor_split', String(next)); } catch { /* blocked */ }
     };
 
     const copyToClipboard = async () => {
@@ -329,12 +399,15 @@ const CodeEditor = ({ autoDemo = false }) => {
     );
 
     return (
-        <div className="code-editor-section panel">
-            <div className="main-editor-area">
+        <div
+            className={`code-editor-section panel${focusMode ? ' focus-mode' : ''}${editorTheme === 'dark' ? ' ed-dark' : ''}${editorFont !== 'auto' ? ' ed-sized' : ''}`}
+            style={{ '--ed-font': `${fontPx}px`, ...(outWidth ? { '--out-w': `${outWidth}px` } : {}) }}
+        >
+            <div className="main-editor-area" ref={mainRef}>
                 <div className="editor-column">
                     <div className="editor-controls">
                         <div className="btn-group">
-                            <button className="btn btn-primary run-btn" onClick={runCode} title={t('ರನ್ ಮಾಡಿ (Ctrl + Enter)', 'Run (Ctrl + Enter)')}>
+                            <button ref={runBtnRef} className="btn btn-primary run-btn" onClick={runCode} title={t('ರನ್ ಮಾಡಿ (Ctrl + Enter)', 'Run (Ctrl + Enter)')}>
                                 <Play size={14} /> {t('ರನ್ ಮಾಡಿ', 'Run')}
                             </button>
                             <button
@@ -372,6 +445,26 @@ const CodeEditor = ({ autoDemo = false }) => {
 
                     <div className="editor-with-keyboard">
                         <div className={`editor-container${isKeyboardVisible ? ' keyboard-open' : ''}`}>
+                            <div className="ed-tools" role="toolbar" aria-label={t('ಎಡಿಟರ್ ನೋಟ', 'Editor view')}>
+                                <button onClick={() => changeFont(-2)} title={t('ಸಣ್ಣ ಅಕ್ಷರ', 'Smaller text')} aria-label={t('ಸಣ್ಣ ಅಕ್ಷರ', 'Smaller text')}><AArrowDown size={16} /></button>
+                                <button onClick={() => changeFont(2)} title={t('ದೊಡ್ಡ ಅಕ್ಷರ', 'Larger text')} aria-label={t('ದೊಡ್ಡ ಅಕ್ಷರ', 'Larger text')}><AArrowUp size={16} /></button>
+                                <button
+                                    onClick={() => setEditorTheme(editorTheme === 'dark' ? 'auto' : 'dark')}
+                                    title={editorTheme === 'dark' ? t('ಬೆಳಕಿನ ಎಡಿಟರ್', 'Light editor') : t('ಕತ್ತಲೆ ಎಡಿಟರ್', 'Dark editor')}
+                                    aria-label={editorTheme === 'dark' ? t('ಬೆಳಕಿನ ಎಡಿಟರ್', 'Light editor') : t('ಕತ್ತಲೆ ಎಡಿಟರ್', 'Dark editor')}
+                                    aria-pressed={editorTheme === 'dark'}
+                                >
+                                    {editorTheme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                                </button>
+                                <button
+                                    onClick={() => setFocusMode(!focusMode)}
+                                    title={focusMode ? t('ಸಾಮಾನ್ಯ ನೋಟ (Esc)', 'Exit focus (Esc)') : t('ಪೂರ್ಣ ಪರದೆ', 'Focus mode')}
+                                    aria-label={focusMode ? t('ಸಾಮಾನ್ಯ ನೋಟ', 'Exit focus mode') : t('ಪೂರ್ಣ ಪರದೆ', 'Focus mode')}
+                                    aria-pressed={focusMode}
+                                >
+                                    {focusMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                                </button>
+                            </div>
                             <div className="line-numbers" ref={lineNumbersRef} aria-hidden="true">
                                 {code.split('\n').map((_, i) => (
                                     <div key={i} className={errorLine === i + 1 ? 'err' : undefined}>{i + 1}</div>
@@ -382,6 +475,7 @@ const CodeEditor = ({ autoDemo = false }) => {
                                 className={`editor-textarea${demoTyping ? ' demo-typing' : ''}`}
                                 value={code}
                                 errorLine={errorLine}
+                                theme={editorTheme === 'dark' ? 'dark' : 'auto'}
                                 onChange={(e) => { cancelDemo(); changeCode(e.target.value); setCaret(e.target.selectionStart); }}
                                 onScroll={handleScroll}
                                 onMouseDown={cancelDemo}
@@ -430,6 +524,16 @@ const CodeEditor = ({ autoDemo = false }) => {
                     </div>
                 </div>
 
+                <div
+                    className="split-handle"
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label={t('ಎಡಿಟರ್ ಮತ್ತು ಔಟ್‌ಪುಟ್ ಅಗಲ ಬದಲಿಸಿ', 'Resize editor and output')}
+                    tabIndex={0}
+                    onPointerDown={startResize}
+                    onKeyDown={resizeByKey}
+                    onDoubleClick={() => { setOutWidth(0); try { localStorage.removeItem('kl_editor_split'); } catch { /* blocked */ } }}
+                />
                 <div className="output-panel">
                     <div className="output-head">
                         <h4 className="output-label">{t('ಔಟ್‌ಪುಟ್', 'Output')}</h4>

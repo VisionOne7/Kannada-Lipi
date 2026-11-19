@@ -877,3 +877,4 @@
     .lh-sidebar, .lh-search, .lh-chips, .lh-tabs, .lesson-actions, .lh-example-actions, .lh-pager { display: none !important; }
     .lh-layout { grid-template-columns: 1fr; }
 }
+.lesson-turtle { max-width: 420px; margin: 0 auto var(--gap-md); }

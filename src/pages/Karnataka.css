@@ -156,23 +156,38 @@
     box-shadow: none;
 }
 
-/* Section Title */
-.section-title {
+/* Section title: a slim flag-coloured bar before the text and a short
+   gradient underline (scoped to this page's sections) */
+.docs-section .section-title {
+    position: relative;
     font-size: 1.75rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     margin-bottom: var(--gap-lg);
-    padding-bottom: var(--gap-sm);
-    border-bottom: 2px solid var(--k-yellow);
+    padding-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: var(--gap-sm);
+    gap: 14px;
 }
 
-.section-title::before {
-    content: '§';
-    color: var(--accent-text);
-    font-weight: 400;
+.docs-section .section-title::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px;
+    height: 1.1em;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--k-yellow), var(--k-red));
+}
+
+.docs-section .section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(220px, 60%);
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--k-yellow), var(--k-red) 70%, transparent);
 }
 
 /* Wiki Paragraph */
@@ -695,7 +710,7 @@
         margin: 0 0 var(--gap-lg) 0;
     }
 
-    .section-title {
+    .docs-section .section-title {
         font-size: 1.4rem;
     }
 

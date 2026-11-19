@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { GraduationCap, Printer, Footprints, Clock, WifiOff, Award, BookOpen, Blocks, Map as MapIcon, Flame, Link2 } from 'lucide-react';
+import { GraduationCap, Printer, Footprints, Clock, WifiOff, Award, BookOpen, Blocks, Map as MapIcon, Flame, Link2, ClipboardList } from 'lucide-react';
 import AssignmentBuilder from '../components/AssignmentBuilder';
 import InstallApp from '../components/InstallApp';
 import './Legal.css';
@@ -34,9 +34,9 @@ const TRACKS = [
         age: 'ವಯಸ್ಸು ೧೪–೧೬',
         focus: 'ಪಟ್ಟಿ, ನಿಘಂಟು, ಕಾರ್ಯಗಳು, ಸಮಸ್ಯೆ ಪರಿಹಾರ',
         items: [
-            { to: '/kids', Icon: MapIcon, text: 'ಆಮೆ ಸಾಹಸ ಹಂತ ೧೯–೨೫ (ಷರತ್ತು, ಪಟ್ಟಿ, ಆವರ್ತನೆ) ಮತ್ತು ಮಕ್ಕಳ ಪ್ರಮಾಣಪತ್ರ' },
-            { to: '/learn', Icon: BookOpen, text: 'ಕಲಿಯಿರಿ ಪಾಠ ೧೧–೨೧' },
-            { to: '/certificate', Icon: Award, text: 'ಪ್ರಮಾಣಪತ್ರ: ಎಲ್ಲಾ ೨೧ ಪಾಠಗಳ ನಂತರ' },
+            { to: '/kids', Icon: MapIcon, text: 'ಆಮೆ ಸಾಹಸ ಹಂತ ೧೯–೨೮ (ಷರತ್ತು, ಪಟ್ಟಿ, ಆವರ್ತನೆ, ಕರ್ನಾಟಕದ ಸ್ಮಾರಕಗಳು) ಮತ್ತು ಮಕ್ಕಳ ಪ್ರಮಾಣಪತ್ರ' },
+            { to: '/learn', Icon: BookOpen, text: 'ಕಲಿಯಿರಿ ಪಾಠ ೧೧–೨೫ (ಆಮೆ ಚಿತ್ರ ಮತ್ತು ಕರ್ನಾಟಕ ದತ್ತಾಂಶ ಸಹಿತ)' },
+            { to: '/certificate', Icon: Award, text: 'ಪ್ರಮಾಣಪತ್ರ: ಎಲ್ಲಾ ಪಾಠಗಳ ನಂತರ' },
         ],
         outcome: 'ವಿದ್ಯಾರ್ಥಿ ಪೂರ್ಣ ಕೋರ್ಸ್ ಮುಗಿಸಿ, ತನ್ನದೇ ಯೋಜನೆ ಬರೆದು, ಪ್ರಮಾಣಪತ್ರ ಪಡೆಯುತ್ತಾನೆ/ಳೆ.',
     },
@@ -64,6 +64,10 @@ const Teachers = () => (
             <p>ತರಗತಿಗೆ ಒಂದು ಕೋಡಿಂಗ್ ಕಾರ್ಯ ಬರೆಯಿರಿ, ಲಿಂಕ್ ಅನ್ನು WhatsApp ಅಥವಾ ತರಗತಿ ಗುಂಪಿನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ. ವಿದ್ಯಾರ್ಥಿಗಳ ಉತ್ತರವನ್ನು ಸೈಟ್ ತಾನೇ ಪರಿಶೀಲಿಸುತ್ತದೆ.</p>
             <p className="legal-en">Write a coding task, share the link on WhatsApp or the class group. The site checks each student's answer for you.</p>
             <AssignmentBuilder />
+            <p className="teachers-class-link">
+                <NavLink to="/class" className="btn btn-secondary"><ClipboardList size={16} /> ತರಗತಿ ಫಲಿತಾಂಶ ನೋಡಿ</NavLink>
+                <span className="legal-en">Students' completion messages carry a KL1 code. Paste them on the Class results page to see who finished.</span>
+            </p>
         </section>
 
         <section className="no-print">

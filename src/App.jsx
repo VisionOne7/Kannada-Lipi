@@ -1,11 +1,15 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import OfflineNotice from './components/OfflineNotice';
 import ErrorBoundary from './components/ErrorBoundary';
-import { LangProvider } from './lib/i18n';
+import { LangProvider, useLang } from './lib/i18n';
+import BottomNav from './components/BottomNav';
+import { usePref, applyTextSize } from './lib/prefs';
+import { UI_EVENTS } from './lib/ui';
+import { pageFor } from './data/pages';
 import KarnatakaNav from './components/KarnatakaNav';
 import { KARNATAKA_PATHS } from './data/karnatakaSections';
 
@@ -33,16 +37,55 @@ const StudentResources = lazy(() => import('./pages/StudentResources'));
 const EServices = lazy(() => import('./pages/EServices'));
 const Embed = lazy(() => import('./pages/Embed'));
 const Assignment = lazy(() => import('./pages/Assignment'));
+const Progress = lazy(() => import('./pages/Progress'));
+const ClassResults = lazy(() => import('./pages/ClassResults'));
+// The search palette loads on first use only
+const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
 
-// Shown for a moment while a page's code downloads.
+// Shown for a moment while a page's code downloads: the page's shape, shimmering.
 function PageLoader() {
     return (
-        <div className="page-loader" role="status" aria-live="polite">
-            <span className="page-loader-spinner" aria-hidden="true" />
-            <span>ಲೋಡ್ ಆಗುತ್ತಿದೆ...</span>
+        <div className="skeleton-page" role="status" aria-live="polite" aria-label="ಲೋಡ್ ಆಗುತ್ತಿದೆ">
+            <div className="skeleton skeleton-title" />
+            <div className="skeleton-row">
+                <div className="skeleton skeleton-card" />
+                <div className="skeleton skeleton-card" />
+                <div className="skeleton skeleton-card" />
+            </div>
         </div>
     );
+}
+
+// Browser tab title follows the page and the interface language.
+function usePageTitle(pathname) {
+    const { t } = useLang();
+    useEffect(() => {
+        const page = pageFor(pathname);
+        const name = page ? t(page.kn, page.en) : t('ಪುಟ ಸಿಗಲಿಲ್ಲ', 'Page not found');
+        document.title = pathname === '/' ? t('ಕನ್ನಡ ಲಿಪಿ — ಕನ್ನಡದಲ್ಲಿ ಕೋಡ್ ಮಾಡಿ', 'K-Lipi — code in Kannada') : `${name} · ಕನ್ನಡ ಲಿಪಿ`;
+    }, [pathname, t]);
+}
+
+// Ctrl+K / ⌘K (or the header search button) opens the site-wide search.
+function useCommandPalette() {
+    const [open, setOpen] = useState(false);
+    useEffect(() => {
+        const onKey = (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                setOpen((o) => !o);
+            }
+        };
+        const onOpen = () => setOpen(true);
+        window.addEventListener('keydown', onKey);
+        window.addEventListener(UI_EVENTS.openPalette, onOpen);
+        return () => {
+            window.removeEventListener('keydown', onKey);
+            window.removeEventListener(UI_EVENTS.openPalette, onOpen);
+        };
+    }, []);
+    return [open, () => setOpen(false)];
 }
 
 function AppShell() {
@@ -50,6 +93,10 @@ function AppShell() {
     // inside a host site's <iframe>.
     const location = useLocation();
     const isEmbed = location.pathname === '/embed';
+    const [textSize] = usePref('textSize');
+    const [paletteOpen, closePalette] = useCommandPalette();
+    usePageTitle(location.pathname);
+    useEffect(() => { applyTextSize(textSize); }, [textSize]);
 
     if (isEmbed) {
         return (
@@ -67,8 +114,9 @@ function AppShell() {
             <div className="orb orb-1" aria-hidden="true"></div>
             <div className="orb orb-2" aria-hidden="true"></div>
             <div className="orb orb-3" aria-hidden="true"></div>
+            <a href="#main" className="skip-link">ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ</a>
             <Header />
-            <main className="main-content">
+            <main className="main-content" id="main" tabIndex={-1}>
                 {KARNATAKA_PATHS.includes(location.pathname) && <KarnatakaNav />}
                 <Suspense fallback={<PageLoader />}>
                     <Routes>
@@ -85,6 +133,8 @@ function AppShell() {
                         <Route path="/kids" element={<Kids />} />
                         <Route path="/teachers" element={<Teachers />} />
                         <Route path="/assignment" element={<Assignment />} />
+                        <Route path="/progress" element={<Progress />} />
+                        <Route path="/class" element={<ClassResults />} />
                         <Route path="/privacy" element={<Privacy />} />
                         <Route path="/terms" element={<Terms />} />
                         <Route path="/help" element={<Navigate to="/learn?tab=reference" replace />} />
@@ -102,6 +152,12 @@ function AppShell() {
             </main>
             <Footer />
             <OfflineNotice />
+            <BottomNav />
+            {paletteOpen && (
+                <Suspense fallback={null}>
+                    <CommandPalette onClose={closePalette} />
+                </Suspense>
+            )}
         </div>
     );
 }
