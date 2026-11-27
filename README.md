@@ -35,7 +35,7 @@ Everything runs in the browser. There are no accounts, no ads and no tracking, a
 - 🎨 **Drawing playground** with ready-made pictures to remix and save as PNG
 
 **For learners**
-- 📚 A learning hub: 25 interactive lessons (including turtle drawing and Karnataka data), 35 examples and the full function reference, grouped by topic and searchable, with a completion certificate
+- 📚 A learning hub: 25 interactive lessons (including turtle drawing and Karnataka data), 36 examples and the full function reference, grouped by topic and searchable, with a completion certificate
 - 🗺️ **Code with real Karnataka data:** district population, literacy and area (Census 2011) and a bar chart, e.g. `ಬಾರ್_ಚಾರ್ಟ್(ಹೆಸರುಗಳು, ಸಾಕ್ಷರತೆ)`
 - 🏆 **My learning:** a learning path per topic and badges for what you've mastered
 - 🔎 **Ctrl + K search** for pages, lessons and functions from anywhere
