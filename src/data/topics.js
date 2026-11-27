@@ -25,7 +25,7 @@ export const TOPICS = [
         iconKey: 'Calculator',
         summary: 'ಲೆಕ್ಕಾಚಾರ, ಸ್ಥಿರಾಂಕಗಳು, ತ್ರಿಕೋನಮಿತಿ ಮತ್ತು ಸುಧಾರಿತ ಗಣಿತ',
         lessons: [3, 8, 11, 14, 15, 18],
-        examples: [2, 8, 9, 13, 19, 22, 23, 26],
+        examples: [2, 8, 9, 13, 19, 22, 23, 26, 36],
         reference: ['math-basic', 'math-advanced', 'trigonometry'],
         extras: ['arithmetic'],
     },
